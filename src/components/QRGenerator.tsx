@@ -63,25 +63,23 @@ export default function QRGenerator() {
 
       <nav style={{ background: '#fff', borderBottom: '1px solid rgba(74,85,104,0.15)', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56, position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stopColor="#0058c3"/>
                 <stop offset="100%" stopColor="#0070f3"/>
               </linearGradient>
             </defs>
-            <rect width="38" height="38" rx="8" fill="url(#lg1)"/>
-            <rect x="6" y="6" width="26" height="26" rx="3" fill="white"/>
-            <rect x="10" y="10" width="18" height="18" rx="2" fill="url(#lg1)"/>
-            <rect x="14" y="14" width="10" height="10" rx="1" fill="white"/>
-            <path d="M19,17 C19,14 15,12 13,15 C11,18 13,22 16,21 C18,20 19,18 21,18 C23,18 25,20 23,22 C21,24 18,22 19,19" stroke="url(#lg1)" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
+            <rect width="36" height="36" rx="8" fill="url(#lg1)"/>
+            <rect x="5" y="5" width="26" height="26" rx="3" fill="white"/>
+            <rect x="9" y="9" width="18" height="18" rx="2" fill="url(#lg1)"/>
+            <rect x="13" y="13" width="10" height="10" rx="1" fill="white"/>
+            <ellipse cx="18" cy="18" rx="3.5" ry="5" fill="url(#lg1)"/>
+            <ellipse cx="18" cy="18" rx="5" ry="3.5" fill="url(#lg1)" opacity="0.7"/>
           </svg>
-          <div>
-            <div style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
-              Truly Free <span style={{ background: 'linear-gradient(135deg,#0058c3,#0070f3)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>QR</span>
-            </div>
-            <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: '0.08em', color: '#718096', textTransform: 'uppercase', lineHeight: 1 }}>Precision Instruments</div>
-          </div>
+          <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.02em', color: '#181c1e' }}>
+            Truly Free <span style={{ background: 'linear-gradient(135deg,#0058c3,#0070f3)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>QR</span>
+          </span>
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
           {['Generator','Analytics','Templates','API'].map((t,i) => (
@@ -223,7 +221,7 @@ export default function QRGenerator() {
           ))}
         </div>
         <div style={{ fontSize: 11, color: '#718096' }}>
-          © 2026 Truly Free QR · Built by <a href="https://www.klickifyagency.com" target="_blank" rel="noopener noreferrer" style={{ color: '#0058c3', fontWeight: 600, textDecoration: 'none' }}>Klickify Agency</a>
+          © 2026 Truly Free QR · Built by <a href="https://klickifyagency.com" target="_blank" rel="noopener noreferrer" style={{ color: '#0058c3', fontWeight: 600, textDecoration: 'none' }}>Klickify Agency</a>
         </div>
       </footer>
     </div>
