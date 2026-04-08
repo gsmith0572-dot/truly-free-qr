@@ -16,11 +16,7 @@ export default function QRGenerator() {
   useEffect(() => {
     if (!canvasRef.current) return
     if (url.length > 3) {
-      QRCode.toCanvas(canvasRef.current, url, {
-        width: 200,
-        margin: 2,
-        color: { dark: '#0058c3', light: '#ffffff' },
-      })
+      QRCode.toCanvas(canvasRef.current, url, { width: 200, margin: 2, color: { dark: '#0058c3', light: '#ffffff' } })
     } else {
       const ctx = canvasRef.current.getContext('2d')
       if (!ctx) return
@@ -64,14 +60,32 @@ export default function QRGenerator() {
 
   return (
     <div style={{ fontFamily: 'Inter, system-ui, sans-serif', background: '#f7fafc', minHeight: '100vh' }}>
+
       <nav style={{ background: '#fff', borderBottom: '1px solid rgba(74,85,104,0.15)', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56, position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{ width: 36, height: 36, background: 'linear-gradient(135deg,#0058c3,#0070f3)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 14 }}>∞</div>
-          <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.02em' }}>Truly Free <span style={{ background: 'linear-gradient(135deg,#0058c3,#0070f3)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>QR</span></span>
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#0058c3"/>
+                <stop offset="100%" stopColor="#0070f3"/>
+              </linearGradient>
+            </defs>
+            <rect width="38" height="38" rx="8" fill="url(#lg1)"/>
+            <rect x="6" y="6" width="26" height="26" rx="3" fill="white"/>
+            <rect x="10" y="10" width="18" height="18" rx="2" fill="url(#lg1)"/>
+            <rect x="14" y="14" width="10" height="10" rx="1" fill="white"/>
+            <path d="M19,17 C19,14 15,12 13,15 C11,18 13,22 16,21 C18,20 19,18 21,18 C23,18 25,20 23,22 C21,24 18,22 19,19" stroke="url(#lg1)" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
+          </svg>
+          <div>
+            <div style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+              Truly Free <span style={{ background: 'linear-gradient(135deg,#0058c3,#0070f3)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>QR</span>
+            </div>
+            <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: '0.08em', color: '#718096', textTransform: 'uppercase', lineHeight: 1 }}>Precision Instruments</div>
+          </div>
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
-          {['Generator','Analytics','Templates','API'].map(t => (
-            <button key={t} style={{ padding: '6px 12px', borderRadius: 4, fontSize: 13, fontWeight: 500, color: t === 'Generator' ? '#0058c3' : '#4a5568', border: 'none', background: 'none', cursor: 'pointer' }}>{t}</button>
+          {['Generator','Analytics','Templates','API'].map((t,i) => (
+            <button key={t} style={{ padding: '6px 12px', borderRadius: 4, fontSize: 13, fontWeight: 500, color: i === 0 ? '#0058c3' : '#4a5568', border: 'none', background: 'none', cursor: 'pointer', borderBottom: i === 0 ? '2px solid #0058c3' : '2px solid transparent' }}>{t}</button>
           ))}
         </div>
         <button style={{ background: 'linear-gradient(135deg,#0058c3,#0070f3)', color: '#fff', border: 'none', borderRadius: 4, padding: '8px 16px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Go Premium →</button>
@@ -83,8 +97,8 @@ export default function QRGenerator() {
         Dynamic QR Codes — No Expiration, No Account Required, No Credit Card Ever.
       </div>
 
-      <div style={{ background: '#e5e9eb', margin: '12px auto', maxWidth: 1180, padding: '0 24px' }}>
-        <div style={{ height: 72, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#718096', fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Advertisement</div>
+      <div style={{ maxWidth: 1180, margin: '12px auto', padding: '0 24px' }}>
+        <div style={{ height: 72, borderRadius: 8, background: '#e5e9eb', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#718096', fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Advertisement</div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '168px 1fr 320px', gap: 0, maxWidth: 1180, margin: '0 auto', padding: '16px 24px 40px', alignItems: 'start' }}>
@@ -100,7 +114,7 @@ export default function QRGenerator() {
         <main style={{ padding: '0 16px' }}>
           <div style={{ display: 'flex', borderBottom: '1px solid rgba(74,85,104,0.15)', marginBottom: 20 }}>
             {TABS.map(tab => (
-              <button key={tab} onClick={() => setActiveTab(tab)} style={{ padding: '10px 16px', fontSize: 13, fontWeight: 500, color: tab === activeTab ? '#0058c3' : '#718096', border: 'none', background: 'none', cursor: 'pointer', position: 'relative', borderBottom: tab === activeTab ? '2px solid #0058c3' : '2px solid transparent' }}>{tab}</button>
+              <button key={tab} onClick={() => setActiveTab(tab)} style={{ padding: '10px 16px', fontSize: 13, fontWeight: 500, color: tab === activeTab ? '#0058c3' : '#718096', border: 'none', background: 'none', cursor: 'pointer', borderBottom: tab === activeTab ? '2px solid #0058c3' : '2px solid transparent' }}>{tab}</button>
             ))}
           </div>
 
@@ -146,7 +160,7 @@ export default function QRGenerator() {
                 <div style={{ fontSize: 12, color: '#718096', marginTop: 2 }}>See how your dynamic codes perform across the globe.</div>
               </div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 2, padding: '3px 8px', fontSize: 10, fontWeight: 700, color: '#718096', letterSpacing: '0.08em' }}>
-                <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', animation: 'pulse 1.5s infinite' }} />
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e' }} />
                 LIVE DATA
               </div>
             </div>
@@ -192,7 +206,7 @@ export default function QRGenerator() {
         <aside style={{ paddingLeft: 16 }}>
           <div style={{ background: '#fff', borderRadius: 8, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0px 8px 24px rgba(24,28,30,0.06)' }}>
             <canvas ref={canvasRef} width={200} height={200} style={{ borderRadius: 8, marginBottom: 16 }} />
-            <button onClick={downloadPNG} style={{ width: '100%', background: 'linear-gradient(135deg,#0058c3,#0070f3)', color: '#fff', border: 'none', borderRadius: 4, padding: '12px 16px', fontFamily: 'inherit', fontSize: 14, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 10, letterSpacing: '-0.01em' }}>↓ Download PNG</button>
+            <button onClick={downloadPNG} style={{ width: '100%', background: 'linear-gradient(135deg,#0058c3,#0070f3)', color: '#fff', border: 'none', borderRadius: 4, padding: '12px 16px', fontFamily: 'inherit', fontSize: 14, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 10 }}>↓ Download PNG</button>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, width: '100%', marginBottom: 10 }}>
               <button onClick={downloadSVG} style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '9px 8px', fontFamily: 'inherit', fontSize: 12, fontWeight: 600, color: '#4a5568', cursor: 'pointer' }}>SVG Vector</button>
               <button style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '9px 8px', fontFamily: 'inherit', fontSize: 12, fontWeight: 600, color: '#4a5568', cursor: 'pointer' }}>Print PDF</button>
@@ -208,7 +222,9 @@ export default function QRGenerator() {
             <a key={l} href="#" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>{l}</a>
           ))}
         </div>
-        <div style={{ fontSize: 11, color: '#718096' }}>© 2026 Truly Free QR — Precision Instruments. All rights reserved.</div>
+        <div style={{ fontSize: 11, color: '#718096' }}>
+          © 2026 Truly Free QR · Built by <a href="https://www.klickifyagency.com" target="_blank" rel="noopener noreferrer" style={{ color: '#0058c3', fontWeight: 600, textDecoration: 'none' }}>Klickify Agency</a>
+        </div>
       </footer>
     </div>
   )
