@@ -11,6 +11,9 @@ export default function QRGenerator() {
   const [projectName, setProjectName] = useState('')
   const [category, setCategory] = useState('Marketing')
   const [dynamic, setDynamic] = useState(true)
+  const [shortId, setShortId] = useState('')
+  const [redirectUrl, setRedirectUrl] = useState('')
+  const [saving, setSaving] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -33,12 +36,36 @@ export default function QRGenerator() {
 
   useEffect(() => {
     const saved = localStorage.getItem('tfqr_last')
-    if (saved) { try { const d = JSON.parse(saved); setUrl(d.url || ''); setProjectName(d.projectName || '') } catch {} }
+    if (saved) { try { const d = JSON.parse(saved); setUrl(d.url || ''); setProjectName(d.projectName || ''); setShortId(d.shortId || ''); setRedirectUrl(d.redirectUrl || '') } catch {} }
   }, [])
 
   useEffect(() => {
-    if (url) localStorage.setItem('tfqr_last', JSON.stringify({ url, projectName }))
-  }, [url, projectName])
+    if (url) localStorage.setItem('tfqr_last', JSON.stringify({ url, projectName, shortId, redirectUrl }))
+  }, [url, projectName, shortId, redirectUrl])
+
+  async function saveQR() {
+    if (!url || saving) return
+    setSaving(true)
+    try {
+      const sessionToken = localStorage.getItem('tfqr_session') || crypto.randomUUID()
+      localStorage.setItem('tfqr_session', sessionToken)
+      const res = await fetch('/api/qr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ destination_url: url, type: activeTab.toLowerCase(), project_name: projectName || null, category, session_token: sessionToken }),
+      })
+      const data = await res.json()
+      if (data.short_id) {
+        setShortId(data.short_id)
+        setRedirectUrl(data.redirect_url)
+        if (canvasRef.current) {
+          QRCode.toCanvas(canvasRef.current, data.redirect_url, { width: 200, margin: 2, color: { dark: '#0058c3', light: '#ffffff' } })
+        }
+      }
+    } finally {
+      setSaving(false)
+    }
+  }
 
   async function downloadPNG() {
     if (!canvasRef.current || !url) return
@@ -49,8 +76,9 @@ export default function QRGenerator() {
   }
 
   async function downloadSVG() {
-    if (!url) return
-    const svg = await QRCode.toString(url, { type: 'svg', color: { dark: '#0058c3', light: '#ffffff' } })
+    const target = redirectUrl || url
+    if (!target) return
+    const svg = await QRCode.toString(target, { type: 'svg', color: { dark: '#0058c3', light: '#ffffff' } })
     const blob = new Blob([svg], { type: 'image/svg+xml' })
     const link = document.createElement('a')
     link.download = 'trulyfreeqr.svg'
@@ -60,16 +88,10 @@ export default function QRGenerator() {
 
   return (
     <div style={{ fontFamily: 'Inter, system-ui, sans-serif', background: '#f7fafc', minHeight: '100vh' }}>
-
       <nav style={{ background: '#fff', borderBottom: '1px solid rgba(74,85,104,0.15)', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56, position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#0058c3"/>
-                <stop offset="100%" stopColor="#0070f3"/>
-              </linearGradient>
-            </defs>
+            <defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#0058c3"/><stop offset="100%" stopColor="#0070f3"/></linearGradient></defs>
             <rect width="36" height="36" rx="8" fill="url(#lg1)"/>
             <rect x="5" y="5" width="26" height="26" rx="3" fill="white"/>
             <rect x="9" y="9" width="18" height="18" rx="2" fill="url(#lg1)"/>
@@ -77,9 +99,7 @@ export default function QRGenerator() {
             <ellipse cx="18" cy="18" rx="3.5" ry="5" fill="url(#lg1)"/>
             <ellipse cx="18" cy="18" rx="5" ry="3.5" fill="url(#lg1)" opacity="0.7"/>
           </svg>
-          <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.02em', color: '#181c1e' }}>
-            Truly Free <span style={{ background: 'linear-gradient(135deg,#0058c3,#0070f3)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>QR</span>
-          </span>
+          <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.02em', color: '#181c1e' }}>Truly Free <span style={{ background: 'linear-gradient(135deg,#0058c3,#0070f3)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>QR</span></span>
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
           {['Generator','Analytics','Templates','API'].map((t,i) => (
@@ -118,7 +138,7 @@ export default function QRGenerator() {
 
           <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 6 }}>Target Destination</div>
           <div style={{ position: 'relative', marginBottom: 16 }}>
-            <input value={url} onChange={e => setUrl(e.target.value)} type="url" placeholder="https://your-website.com" style={{ width: '100%', background: '#fff', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '10px 120px 10px 14px', fontFamily: 'inherit', fontSize: 13, color: '#181c1e', outline: 'none', boxSizing: 'border-box' }} />
+            <input value={url} onChange={e => { setUrl(e.target.value); setShortId(''); setRedirectUrl('') }} type="url" placeholder="https://your-website.com" style={{ width: '100%', background: '#fff', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '10px 120px 10px 14px', fontFamily: 'inherit', fontSize: 13, color: '#181c1e', outline: 'none', boxSizing: 'border-box' }} />
             <div style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,88,195,0.08)', color: '#0058c3', padding: '3px 8px', borderRadius: 2, fontSize: 10, fontWeight: 700, letterSpacing: '0.06em', cursor: 'pointer' }}>✦ SAFE-SCAN</div>
           </div>
 
@@ -150,6 +170,13 @@ export default function QRGenerator() {
               </select>
             </div>
           </div>
+
+          {shortId && (
+            <div style={{ background: 'rgba(0,88,195,0.06)', border: '1px solid rgba(0,88,195,0.2)', borderRadius: 8, padding: '12px 16px', marginBottom: 16 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#0058c3', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 4 }}>✓ Dynamic QR Created</div>
+              <div style={{ fontSize: 12, color: '#4a5568', fontFamily: 'monospace' }}>{redirectUrl}</div>
+            </div>
+          )}
 
           <div style={{ marginTop: 24, paddingTop: 24, borderTop: '1px solid rgba(74,85,104,0.15)' }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 16 }}>
@@ -204,6 +231,11 @@ export default function QRGenerator() {
         <aside style={{ paddingLeft: 16 }}>
           <div style={{ background: '#fff', borderRadius: 8, padding: 20, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0px 8px 24px rgba(24,28,30,0.06)' }}>
             <canvas ref={canvasRef} width={200} height={200} style={{ borderRadius: 8, marginBottom: 16 }} />
+            {url.length > 3 && !shortId && (
+              <button onClick={saveQR} disabled={saving} style={{ width: '100%', background: saving ? '#718096' : 'rgba(0,88,195,0.08)', color: saving ? '#fff' : '#0058c3', border: '1px solid rgba(0,88,195,0.2)', borderRadius: 4, padding: '10px 16px', fontFamily: 'inherit', fontSize: 13, fontWeight: 600, cursor: 'pointer', marginBottom: 10 }}>
+                {saving ? 'Saving...' : '✦ Make Dynamic (Free)'}
+              </button>
+            )}
             <button onClick={downloadPNG} style={{ width: '100%', background: 'linear-gradient(135deg,#0058c3,#0070f3)', color: '#fff', border: 'none', borderRadius: 4, padding: '12px 16px', fontFamily: 'inherit', fontSize: 14, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 10 }}>↓ Download PNG</button>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, width: '100%', marginBottom: 10 }}>
               <button onClick={downloadSVG} style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '9px 8px', fontFamily: 'inherit', fontSize: 12, fontWeight: 600, color: '#4a5568', cursor: 'pointer' }}>SVG Vector</button>
