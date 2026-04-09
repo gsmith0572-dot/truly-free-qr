@@ -14,12 +14,20 @@ export default function QRGenerator() {
   const [shortId, setShortId] = useState('')
   const [redirectUrl, setRedirectUrl] = useState('')
   const [saving, setSaving] = useState(false)
+  const [qrCount, setQrCount] = useState(0)
   const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const saved = localStorage.getItem('tfqr_last')
+    if (saved) { try { const d = JSON.parse(saved); setUrl(d.url || ''); setProjectName(d.projectName || ''); setShortId(d.shortId || ''); setRedirectUrl(d.redirectUrl || '') } catch {} }
+    const codes = localStorage.getItem('tfqr_codes')
+    if (codes) { try { setQrCount(JSON.parse(codes).length) } catch {} }
+  }, [])
 
   useEffect(() => {
     if (!canvasRef.current) return
     if (url.length > 3) {
-      QRCode.toCanvas(canvasRef.current, url, { width: 200, margin: 2, color: { dark: '#0058c3', light: '#ffffff' } })
+      QRCode.toCanvas(canvasRef.current, redirectUrl || url, { width: 200, margin: 2, color: { dark: '#0058c3', light: '#ffffff' } })
     } else {
       const ctx = canvasRef.current.getContext('2d')
       if (!ctx) return
@@ -32,12 +40,7 @@ export default function QRGenerator() {
       ctx.fillText('Enter URL to generate', 100, 95)
       ctx.fillText('your QR code', 100, 113)
     }
-  }, [url])
-
-  useEffect(() => {
-    const saved = localStorage.getItem('tfqr_last')
-    if (saved) { try { const d = JSON.parse(saved); setUrl(d.url || ''); setProjectName(d.projectName || ''); setShortId(d.shortId || ''); setRedirectUrl(d.redirectUrl || '') } catch {} }
-  }, [])
+  }, [url, redirectUrl])
 
   useEffect(() => {
     if (url) localStorage.setItem('tfqr_last', JSON.stringify({ url, projectName, shortId, redirectUrl }))
@@ -58,9 +61,11 @@ export default function QRGenerator() {
       if (data.short_id) {
         setShortId(data.short_id)
         setRedirectUrl(data.redirect_url)
-        if (canvasRef.current) {
-          QRCode.toCanvas(canvasRef.current, data.redirect_url, { width: 200, margin: 2, color: { dark: '#0058c3', light: '#ffffff' } })
-        }
+        const existing = JSON.parse(localStorage.getItem('tfqr_codes') || '[]')
+        const newEntry = { short_id: data.short_id, redirect_url: data.redirect_url, destination_url: url, project_name: projectName || url, category, created_at: new Date().toISOString() }
+        const updated = [newEntry, ...existing]
+        localStorage.setItem('tfqr_codes', JSON.stringify(updated))
+        setQrCount(updated.length)
       }
     } finally {
       setSaving(false)
@@ -90,7 +95,7 @@ export default function QRGenerator() {
     <div style={{ fontFamily: 'Inter, system-ui, sans-serif', background: '#f7fafc', minHeight: '100vh' }}>
       <nav style={{ background: '#fff', borderBottom: '1px solid rgba(74,85,104,0.15)', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56, position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
             <defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#0058c3"/><stop offset="100%" stopColor="#0070f3"/></linearGradient></defs>
             <rect width="36" height="36" rx="8" fill="url(#lg1)"/>
             <rect x="5" y="5" width="26" height="26" rx="3" fill="white"/>
@@ -106,7 +111,14 @@ export default function QRGenerator() {
             <button key={t} style={{ padding: '6px 12px', borderRadius: 4, fontSize: 13, fontWeight: 500, color: i === 0 ? '#0058c3' : '#4a5568', border: 'none', background: 'none', cursor: 'pointer', borderBottom: i === 0 ? '2px solid #0058c3' : '2px solid transparent' }}>{t}</button>
           ))}
         </div>
-        <button style={{ background: 'linear-gradient(135deg,#0058c3,#0070f3)', color: '#fff', border: 'none', borderRadius: 4, padding: '8px 16px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Go Premium →</button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {qrCount > 0 && (
+            <a href="/dashboard" style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '6px 12px', fontSize: 12, fontWeight: 600, color: '#4a5568', textDecoration: 'none' }}>
+              My QRs <span style={{ background: '#0058c3', color: '#fff', borderRadius: 10, padding: '1px 6px', fontSize: 10 }}>{qrCount}</span>
+            </a>
+          )}
+          <button style={{ background: 'linear-gradient(135deg,#0058c3,#0070f3)', color: '#fff', border: 'none', borderRadius: 4, padding: '8px 16px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Go Premium →</button>
+        </div>
       </nav>
 
       <div style={{ background: '#f1f4f6', padding: '9px 24px', textAlign: 'center', fontSize: 12, fontWeight: 500, color: '#4a5568', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
@@ -172,9 +184,12 @@ export default function QRGenerator() {
           </div>
 
           {shortId && (
-            <div style={{ background: 'rgba(0,88,195,0.06)', border: '1px solid rgba(0,88,195,0.2)', borderRadius: 8, padding: '12px 16px', marginBottom: 16 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#0058c3', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 4 }}>✓ Dynamic QR Created</div>
-              <div style={{ fontSize: 12, color: '#4a5568', fontFamily: 'monospace' }}>{redirectUrl}</div>
+            <div style={{ background: 'rgba(0,88,195,0.06)', border: '1px solid rgba(0,88,195,0.2)', borderRadius: 8, padding: '12px 16px', marginBottom: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: '#0058c3', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 3 }}>✓ Dynamic QR Active — Never Expires</div>
+                <div style={{ fontSize: 12, color: '#4a5568', fontFamily: 'monospace' }}>{redirectUrl}</div>
+              </div>
+              <a href="/dashboard" style={{ background: '#0058c3', color: '#fff', borderRadius: 4, padding: '6px 12px', fontSize: 11, fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap', marginLeft: 12 }}>View All →</a>
             </div>
           )}
 
