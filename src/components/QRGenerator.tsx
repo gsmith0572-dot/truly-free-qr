@@ -138,10 +138,11 @@ export default function QRGenerator() {
       {activeTool === 'Logo' && (
         <div>
           <div style={{ fontSize: 11, fontWeight: 700, color: '#181c1e', marginBottom: 8 }}>Upload Logo</div>
-          <div style={{ background: '#fff', borderRadius: 6, padding: 16, border: '1px dashed rgba(0,88,195,0.3)', textAlign: 'center', cursor: 'pointer' }}>
+          <label style={{ display: 'block', background: '#fff', borderRadius: 6, padding: 16, border: '1px dashed rgba(0,88,195,0.3)', textAlign: 'center', cursor: 'pointer' }}>
+            <input type="file" accept="image/png,image/svg+xml" style={{ display: 'none' }} onChange={e => { const f = e.target.files?.[0]; if (f) { const reader = new FileReader(); reader.onload = ev => { if (!canvasRef.current || !url) return; const img = new Image(); img.onload = () => { const ctx = canvasRef.current!.getContext('2d'); if (!ctx) return; const s = 40; const x = (200 - s) / 2; const y = (200 - s) / 2; ctx.clearRect(x-2, y-2, s+4, s+4); ctx.fillStyle = '#fff'; ctx.fillRect(x-2, y-2, s+4, s+4); ctx.drawImage(img, x, y, s, s); }; img.src = ev.target?.result as string; }; reader.readAsDataURL(f); } }} />
             <div style={{ fontSize: 11, color: '#718096' }}>Click to upload PNG or SVG</div>
             <div style={{ fontSize: 10, color: '#a0aec0', marginTop: 4 }}>Max 200×200px recommended</div>
-          </div>
+          </label>
         </div>
       )}
       {activeTool === 'Shapes' && (
@@ -149,9 +150,10 @@ export default function QRGenerator() {
           <div style={{ fontSize: 11, fontWeight: 700, color: '#181c1e', marginBottom: 10 }}>Module Shape</div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
             {['Square','Rounded','Dots','Extra Round','Diamond','Star'].map(s => (
-              <div key={s} style={{ background: '#fff', borderRadius: 6, padding: '8px 6px', fontSize: 10, fontWeight: 500, color: '#4a5568', cursor: 'pointer', border: '1px solid rgba(74,85,104,0.15)', textAlign: 'center' }}>{s}</div>
+              <div key={s} style={{ background: '#fff', borderRadius: 6, padding: '8px 6px', fontSize: 10, fontWeight: 500, color: s === 'Square' ? '#0058c3' : '#4a5568', cursor: 'pointer', border: s === 'Square' ? '1px solid #0058c3' : '1px solid rgba(74,85,104,0.15)', textAlign: 'center' }}>{s}{s !== 'Square' ? ' 🔜' : ' ✓'}</div>
             ))}
           </div>
+          <div style={{ fontSize: 10, color: '#718096', marginTop: 8 }}>Custom shapes coming soon. Square is active.</div>
         </div>
       )}
       {activeTool === 'Customization' && (
