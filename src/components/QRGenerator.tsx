@@ -237,7 +237,7 @@ export default function QRGenerator() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
               <div>
                 <div style={{ fontSize: 15, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em' }}>Real-time Analytics</div>
-                <div style={{ fontSize: 11, color: '#718096' }}>How your codes perform globally.</div>
+                <div style={{ fontSize: 11, color: '#718096' }}>Sample data — create a dynamic QR to see your real analytics.</div>
               </div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 2, padding: '3px 8px', fontSize: 10, fontWeight: 700, color: '#718096' }}>
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e' }} />LIVE
@@ -344,7 +344,7 @@ export default function QRGenerator() {
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 14 }}>
                 <div>
                   <div style={{ fontSize: 15, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em' }}>Real-time Analytics</div>
-                  <div style={{ fontSize: 11, color: '#718096', marginTop: 2 }}>How your dynamic codes perform globally.</div>
+                  <div style={{ fontSize: 11, color: '#718096', marginTop: 2 }}>Sample data — create a dynamic QR to see your real analytics.</div>
                 </div>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 2, padding: '3px 8px', fontSize: 10, fontWeight: 700, color: '#718096' }}>
                   <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e' }} />LIVE DATA
