@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { rootMetadata } from '@/lib/seo/metadata-config'
+import { Analytics } from "@vercel/analytics/next"
 import { buildPageSchema } from '@/lib/seo/schema'
 
 const inter = Inter({
@@ -35,6 +36,7 @@ export default function RootLayout({
       </head>
       <body className="bg-surface font-inter antialiased">
         {children}
+      <Analytics />
       </body>
     </html>
   )
