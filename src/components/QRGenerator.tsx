@@ -4,16 +4,28 @@ import QRCode from 'qrcode'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
 
-const TABS = ['URL', 'WiFi', 'vCard', 'PDF', 'Text', 'Email']
+const TABS = ['URL', 'WiFi', 'vCard', 'Email', 'Text', 'PDF']
 const CATEGORIES = ['Marketing', 'Restaurant', 'Real Estate', 'Events', 'Product', 'Personal']
-const SIDEBAR_TOOLS = ['Customization', 'Frames', 'Colors', 'Logo', 'Shapes']
+const SIDEBAR_TOOLS = ['Colors', 'Frames', 'Logo', 'Shapes']
 const QR_COLORS = ['#0058c3','#181c1e','#16a34a','#dc2626','#7c3aed','#ea580c']
 const BG_COLORS = ['#ffffff','#f1f4f6','#fff7ed','#f0fdf4','#fef2f2','#181c1e']
 
+function buildQRContent(tab: string, fields: Record<string, string>): string {
+  switch (tab) {
+    case 'URL': return fields.url || ''
+    case 'WiFi': return fields.ssid ? `WIFI:T:${fields.security || 'WPA'};S:${fields.ssid};P:${fields.password || ''};;` : ''
+    case 'vCard': return fields.firstName ? `BEGIN:VCARD\nVERSION:3.0\nN:${fields.lastName || ''};${fields.firstName}\nFN:${fields.firstName} ${fields.lastName || ''}\nORG:${fields.company || ''}\nTEL:${fields.phone || ''}\nEMAIL:${fields.email || ''}\nURL:${fields.website || ''}\nADR:;;${fields.address || ''};;;;\nEND:VCARD` : ''
+    case 'Email': return fields.emailTo ? `mailto:${fields.emailTo}?subject=${encodeURIComponent(fields.subject || '')}&body=${encodeURIComponent(fields.body || '')}` : ''
+    case 'Text': return fields.text || ''
+    case 'PDF': return fields.pdfUrl || ''
+    default: return ''
+  }
+}
+
 export default function QRGenerator() {
   const [activeTab, setActiveTab] = useState('URL')
-  const [activeTool, setActiveTool] = useState('Customization')
-  const [url, setUrl] = useState('')
+  const [activeTool, setActiveTool] = useState('')
+  const [fields, setFields] = useState<Record<string, string>>({ url: '', ssid: '', password: '', security: 'WPA', firstName: '', lastName: '', company: '', phone: '', email: '', website: '', address: '', emailTo: '', subject: '', body: '', text: '', pdfUrl: '' })
   const [projectName, setProjectName] = useState('')
   const [category, setCategory] = useState('Marketing')
   const [dynamic, setDynamic] = useState(true)
@@ -25,7 +37,10 @@ export default function QRGenerator() {
   const [isMobile, setIsMobile] = useState(false)
   const [qrColor, setQrColor] = useState('#0058c3')
   const [bgColor, setBgColor] = useState('#ffffff')
+  const [pdfUploading, setPdfUploading] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  const qrContent = buildQRContent(activeTab, fields)
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -35,53 +50,56 @@ export default function QRGenerator() {
   }, [])
 
   useEffect(() => {
-    const saved = localStorage.getItem('tfqr_last')
-    if (saved) { try { const d = JSON.parse(saved); setUrl(d.url || ''); setProjectName(d.projectName || ''); setShortId(d.shortId || ''); setRedirectUrl(d.redirectUrl || '') } catch {} }
     const codes = localStorage.getItem('tfqr_codes')
     if (codes) { try { setQrCount(JSON.parse(codes).length) } catch {} }
   }, [])
 
   const drawQR = useCallback(() => {
     if (!canvasRef.current) return
-    if (url.length > 3) {
-      QRCode.toCanvas(canvasRef.current, redirectUrl || url, { width: 200, margin: 2, color: { dark: qrColor, light: bgColor } })
+    if (qrContent.length > 3) {
+      QRCode.toCanvas(canvasRef.current, qrContent, { width: 200, margin: 2, color: { dark: qrColor, light: bgColor } }).catch(() => {})
     } else {
       const ctx = canvasRef.current.getContext('2d')
       if (!ctx) return
       ctx.clearRect(0, 0, 200, 200)
       ctx.fillStyle = '#f1f4f6'
       ctx.fillRect(0, 0, 200, 200)
-      ctx.fillStyle = '#718096'
-      ctx.font = '13px system-ui'
+      ctx.fillStyle = '#a0aec0'
+      ctx.font = '12px system-ui'
       ctx.textAlign = 'center'
-      ctx.fillText('Enter URL to generate', 100, 95)
-      ctx.fillText('your QR code', 100, 113)
+      ctx.fillText('Fill in the fields to', 100, 90)
+      ctx.fillText('generate your QR code', 100, 108)
     }
-  }, [url, redirectUrl, qrColor, bgColor])
+  }, [qrContent, qrColor, bgColor])
 
   useEffect(() => { drawQR() }, [drawQR])
 
-  useEffect(() => {
-    if (url) localStorage.setItem('tfqr_last', JSON.stringify({ url, projectName, shortId, redirectUrl }))
-  }, [url, projectName, shortId, redirectUrl])
+  function setField(key: string, value: string) {
+    setFields(prev => ({ ...prev, [key]: value }))
+    setShortId('')
+    setRedirectUrl('')
+  }
 
   async function saveQR() {
-    if (!url || saving) return
+    if (!qrContent || saving) return
+    const targetUrl = activeTab === 'URL' ? fields.url : (activeTab === 'PDF' ? fields.pdfUrl : null)
+    if (!targetUrl && activeTab !== 'WiFi' && activeTab !== 'vCard' && activeTab !== 'Email' && activeTab !== 'Text') return
     setSaving(true)
     try {
       const sessionToken = localStorage.getItem('tfqr_session') || crypto.randomUUID()
       localStorage.setItem('tfqr_session', sessionToken)
+      const destination = activeTab === 'URL' ? fields.url : activeTab === 'PDF' ? fields.pdfUrl : `data:text/plain,${encodeURIComponent(qrContent)}`
       const res = await fetch('/api/qr', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ destination_url: url, type: activeTab.toLowerCase(), project_name: projectName || null, category, session_token: sessionToken }),
+        body: JSON.stringify({ destination_url: destination, type: activeTab.toLowerCase(), project_name: projectName || null, category, session_token: sessionToken }),
       })
       const data = await res.json()
       if (data.short_id) {
         setShortId(data.short_id)
         setRedirectUrl(data.redirect_url)
         const existing = JSON.parse(localStorage.getItem('tfqr_codes') || '[]')
-        const newEntry = { short_id: data.short_id, redirect_url: data.redirect_url, destination_url: url, project_name: projectName || url, category, created_at: new Date().toISOString() }
+        const newEntry = { short_id: data.short_id, redirect_url: data.redirect_url, destination_url: destination, project_name: projectName || qrContent.slice(0, 40), category, created_at: new Date().toISOString() }
         const updated = [newEntry, ...existing]
         localStorage.setItem('tfqr_codes', JSON.stringify(updated))
         setQrCount(updated.length)
@@ -90,7 +108,7 @@ export default function QRGenerator() {
   }
 
   async function downloadPNG() {
-    if (!canvasRef.current || !url) return
+    if (!canvasRef.current || !qrContent) return
     const link = document.createElement('a')
     link.download = 'trulyfreeqr.png'
     link.href = canvasRef.current.toDataURL('image/png')
@@ -98,9 +116,8 @@ export default function QRGenerator() {
   }
 
   async function downloadSVG() {
-    const target = redirectUrl || url
-    if (!target) return
-    const svg = await QRCode.toString(target, { type: 'svg', color: { dark: qrColor, light: bgColor } })
+    if (!qrContent) return
+    const svg = await QRCode.toString(qrContent, { type: 'svg', color: { dark: qrColor, light: bgColor } })
     const blob = new Blob([svg], { type: 'image/svg+xml' })
     const link = document.createElement('a')
     link.download = 'trulyfreeqr.svg'
@@ -110,7 +127,7 @@ export default function QRGenerator() {
 
   function handleLogoUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0]
-    if (!f || !canvasRef.current || url.length < 3) return
+    if (!f || !canvasRef.current || qrContent.length < 3) return
     const reader = new FileReader()
     reader.onload = ev => {
       const img = new Image()
@@ -129,8 +146,98 @@ export default function QRGenerator() {
     reader.readAsDataURL(f)
   }
 
-  const sBtn = { background: '#fff', borderRadius: 6, padding: '8px 6px', fontSize: 10, fontWeight: 500 as const, cursor: 'pointer' as const, border: '1px solid rgba(74,85,104,0.15)', textAlign: 'center' as const }
-  const sBtnActive = { ...sBtn, color: '#0058c3', border: '1px solid #0058c3' }
+  async function handlePDFUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0]
+    if (!f) return
+    if (f.size > 20 * 1024 * 1024) { alert('PDF must be under 20MB'); return }
+    setPdfUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', f)
+      const res = await fetch('/api/upload-pdf', { method: 'POST', body: formData })
+      const data = await res.json()
+      if (data.url) setField('pdfUrl', data.url)
+    } catch { alert('Upload failed. Try again.') }
+    finally { setPdfUploading(false) }
+  }
+
+  const inp = { width: '100%', background: '#fff', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '10px 12px', fontFamily: 'inherit', fontSize: 13, color: '#181c1e', outline: 'none', boxSizing: 'border-box' as const }
+  const lbl = { fontSize: 10, fontWeight: 600 as const, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: '#718096', marginBottom: 5, display: 'block' as const }
+
+  const TabForm = () => {
+    switch (activeTab) {
+      case 'URL': return (
+        <div>
+          <label style={lbl}>Website URL</label>
+          <input value={fields.url} onChange={e => setField('url', e.target.value)} type="url" placeholder="https://your-website.com" style={{ ...inp, marginBottom: 0 }} />
+        </div>
+      )
+      case 'WiFi': return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div><label style={lbl}>Network Name (SSID)</label><input value={fields.ssid} onChange={e => setField('ssid', e.target.value)} placeholder="My WiFi Network" style={inp} /></div>
+          <div><label style={lbl}>Password</label><input value={fields.password} onChange={e => setField('password', e.target.value)} type="password" placeholder="Network password" style={inp} /></div>
+          <div>
+            <label style={lbl}>Security Type</label>
+            <select value={fields.security} onChange={e => setField('security', e.target.value)} style={inp}>
+              <option value="WPA">WPA/WPA2 (Most common)</option>
+              <option value="WEP">WEP</option>
+              <option value="nopass">None (Open network)</option>
+            </select>
+          </div>
+        </div>
+      )
+      case 'vCard': return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+            <div><label style={lbl}>First Name</label><input value={fields.firstName} onChange={e => setField('firstName', e.target.value)} placeholder="John" style={inp} /></div>
+            <div><label style={lbl}>Last Name</label><input value={fields.lastName} onChange={e => setField('lastName', e.target.value)} placeholder="Smith" style={inp} /></div>
+          </div>
+          <div><label style={lbl}>Company</label><input value={fields.company} onChange={e => setField('company', e.target.value)} placeholder="Acme Corp" style={inp} /></div>
+          <div><label style={lbl}>Phone</label><input value={fields.phone} onChange={e => setField('phone', e.target.value)} type="tel" placeholder="+1 555 000 0000" style={inp} /></div>
+          <div><label style={lbl}>Email</label><input value={fields.email} onChange={e => setField('email', e.target.value)} type="email" placeholder="john@company.com" style={inp} /></div>
+          <div><label style={lbl}>Website</label><input value={fields.website} onChange={e => setField('website', e.target.value)} type="url" placeholder="https://company.com" style={inp} /></div>
+          <div><label style={lbl}>Address</label><input value={fields.address} onChange={e => setField('address', e.target.value)} placeholder="123 Main St, City, Country" style={inp} /></div>
+        </div>
+      )
+      case 'Email': return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div><label style={lbl}>Email Address</label><input value={fields.emailTo} onChange={e => setField('emailTo', e.target.value)} type="email" placeholder="recipient@email.com" style={inp} /></div>
+          <div><label style={lbl}>Subject</label><input value={fields.subject} onChange={e => setField('subject', e.target.value)} placeholder="Email subject" style={inp} /></div>
+          <div><label style={lbl}>Message</label><textarea value={fields.body} onChange={e => setField('body', e.target.value)} placeholder="Your message here..." rows={3} style={{ ...inp, resize: 'vertical' as const }} /></div>
+        </div>
+      )
+      case 'Text': return (
+        <div>
+          <label style={lbl}>Plain Text (max 300 characters)</label>
+          <textarea value={fields.text} onChange={e => setField('text', e.target.value.slice(0, 300))} placeholder="Enter any text to encode in your QR code..." rows={4} style={{ ...inp, resize: 'vertical' as const }} />
+          <div style={{ fontSize: 10, color: '#718096', marginTop: 4, textAlign: 'right' }}>{fields.text.length}/300</div>
+        </div>
+      )
+      case 'PDF': return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div>
+            <label style={lbl}>Upload PDF File (max 20MB)</label>
+            <label style={{ display: 'block', background: '#fff', borderRadius: 6, padding: 20, border: '2px dashed rgba(0,88,195,0.3)', textAlign: 'center', cursor: 'pointer' }}>
+              <input type="file" accept="application/pdf" style={{ display: 'none' }} onChange={handlePDFUpload} />
+              {pdfUploading ? (
+                <div style={{ fontSize: 13, color: '#0058c3' }}>Uploading...</div>
+              ) : fields.pdfUrl ? (
+                <div style={{ fontSize: 13, color: '#16a34a', fontWeight: 600 }}>✓ PDF uploaded — QR ready</div>
+              ) : (
+                <>
+                  <div style={{ fontSize: 24, marginBottom: 6 }}>📄</div>
+                  <div style={{ fontSize: 13, color: '#4a5568', fontWeight: 500 }}>Click to upload your PDF</div>
+                  <div style={{ fontSize: 11, color: '#718096', marginTop: 4 }}>Supports PDF up to 20MB</div>
+                </>
+              )}
+            </label>
+          </div>
+          <div><label style={lbl}>Or paste a PDF URL</label><input value={fields.pdfUrl} onChange={e => setField('pdfUrl', e.target.value)} type="url" placeholder="https://example.com/document.pdf" style={inp} /></div>
+        </div>
+      )
+      default: return null
+    }
+  }
 
   return (
     <div style={{ fontFamily: 'Inter, system-ui, sans-serif', background: '#f7fafc', minHeight: '100vh' }}>
@@ -178,33 +285,31 @@ export default function QRGenerator() {
         </div>
       )}
 
-      <div style={{ background: '#f1f4f6', padding: '8px 16px', textAlign: 'center', fontSize: 11, fontWeight: 500, color: '#4a5568', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
-        <div style={{ width: 14, height: 14, background: 'linear-gradient(135deg,#0058c3,#0070f3)', borderRadius: '2px 2px 5px 5px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, color: '#fff', flexShrink: 0 }}>✓</div>
+      <div style={{ background: '#f1f4f6', padding: '8px 16px', textAlign: 'center', fontSize: 11, color: '#4a5568', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
         <span style={{ background: 'rgba(0,88,195,0.08)', color: '#0058c3', padding: '1px 6px', borderRadius: 2, fontSize: 10, fontWeight: 700, whiteSpace: 'nowrap' }}>✦ TRULY FREE</span>
-        <span>Dynamic QR — No Expiration, No Account.</span>
+        <span>Dynamic QR — No Expiration, No Account, No Subscription.</span>
       </div>
 
       <div style={{ maxWidth: 1180, margin: '0 auto', padding: '0 16px' }}>
         <div style={{ background: '#e5e9eb', borderRadius: 8, height: 72, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#718096', fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', margin: '12px 0' }}>Advertisement</div>
       </div>
 
-      <div style={{ maxWidth: 1180, margin: '0 auto', padding: '0 16px 40px', display: isMobile ? 'block' : 'grid', gridTemplateColumns: '160px 1fr 280px', gap: 0, alignItems: 'start' }}>
+      <div style={{ maxWidth: 1180, margin: '0 auto', padding: '0 16px 40px', display: isMobile ? 'block' : 'grid', gridTemplateColumns: '150px 1fr 270px', gap: 0, alignItems: 'start' }}>
 
         {!isMobile && (
           <aside style={{ paddingRight: 12, paddingTop: 4 }}>
-            <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 12, paddingLeft: 4 }}>Designer</div>
-            <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#181c1e', marginBottom: 6, paddingLeft: 4 }}>Premium Tools</div>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 12, paddingLeft: 4 }}>Customize</div>
             {SIDEBAR_TOOLS.map(tool => (
-              <div key={tool} onClick={() => setActiveTool(tool)} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 4, cursor: 'pointer', color: activeTool === tool ? '#0058c3' : '#4a5568', background: activeTool === tool ? 'rgba(0,88,195,0.06)' : 'none', fontSize: 13, fontWeight: 500, marginBottom: 2 }}>{tool}</div>
+              <div key={tool} onClick={() => setActiveTool(activeTool === tool ? '' : tool)} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 10px', borderRadius: 4, cursor: 'pointer', color: activeTool === tool ? '#0058c3' : '#4a5568', background: activeTool === tool ? 'rgba(0,88,195,0.06)' : 'none', fontSize: 13, fontWeight: 500, marginBottom: 2 }}>{tool}</div>
             ))}
             <div style={{ marginTop: 20, background: '#e5e9eb', borderRadius: 8, height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#718096', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Sidebar Ad</div>
           </aside>
         )}
 
         <main style={{ padding: isMobile ? '0' : '0 12px', minWidth: 0 }}>
+
           {isMobile && (
             <div style={{ marginBottom: 12, marginTop: 4 }}>
-              <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 8 }}>Designer Tools</div>
               <div style={{ display: 'flex', gap: 6, overflowX: 'auto', paddingBottom: 4 }}>
                 {SIDEBAR_TOOLS.map(tool => (
                   <button key={tool} onClick={() => setActiveTool(activeTool === tool ? '' : tool)} style={{ background: activeTool === tool ? '#0058c3' : '#fff', color: activeTool === tool ? '#fff' : '#4a5568', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '6px 12px', fontSize: 12, fontWeight: 500, cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>{tool}</button>
@@ -215,22 +320,15 @@ export default function QRGenerator() {
 
           {activeTool && (
             <div style={{ background: '#f1f4f6', borderRadius: 8, padding: 14, marginBottom: 12 }}>
-              {activeTool === 'Customization' && (
-                <div style={{ fontSize: 11, color: '#718096', lineHeight: 1.5 }}>Select Colors, Frames, Logo, or Shapes to customize your QR code.</div>
-              )}
               {activeTool === 'Colors' && (
                 <div>
                   <div style={{ fontSize: 11, fontWeight: 700, color: '#181c1e', marginBottom: 8 }}>QR Color</div>
                   <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
-                    {QR_COLORS.map(c => (
-                      <div key={c} onClick={() => setQrColor(c)} style={{ width: 28, height: 28, borderRadius: 4, background: c, cursor: 'pointer', border: qrColor === c ? '3px solid #0058c3' : '2px solid transparent', boxShadow: qrColor === c ? '0 0 0 1px #fff inset' : 'none' }} />
-                    ))}
+                    {QR_COLORS.map(c => <div key={c} onClick={() => setQrColor(c)} style={{ width: 28, height: 28, borderRadius: 4, background: c, cursor: 'pointer', border: qrColor === c ? '3px solid #0058c3' : '2px solid transparent', boxShadow: qrColor === c ? '0 0 0 1px #fff inset' : 'none' }} />)}
                   </div>
                   <div style={{ fontSize: 11, fontWeight: 700, color: '#181c1e', marginBottom: 8 }}>Background</div>
                   <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                    {BG_COLORS.map(c => (
-                      <div key={c} onClick={() => setBgColor(c)} style={{ width: 28, height: 28, borderRadius: 4, background: c, cursor: 'pointer', border: bgColor === c ? '3px solid #0058c3' : '1px solid rgba(74,85,104,0.2)', boxShadow: bgColor === c ? '0 0 0 1px #fff inset' : 'none' }} />
-                    ))}
+                    {BG_COLORS.map(c => <div key={c} onClick={() => setBgColor(c)} style={{ width: 28, height: 28, borderRadius: 4, background: c, cursor: 'pointer', border: bgColor === c ? '3px solid #0058c3' : '1px solid rgba(74,85,104,0.2)', boxShadow: bgColor === c ? '0 0 0 1px #fff inset' : 'none' }} />)}
                   </div>
                 </div>
               )}
@@ -239,17 +337,18 @@ export default function QRGenerator() {
                   <div style={{ fontSize: 11, fontWeight: 700, color: '#181c1e', marginBottom: 10 }}>Frame Style</div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
                     {['No Frame ✓','Simple Border 🔜','Rounded 🔜','Scan Me 🔜'].map(f => (
-                      <div key={f} style={{ ...sBtn, color: f.includes('✓') ? '#0058c3' : '#a0aec0', border: f.includes('✓') ? '1px solid #0058c3' : '1px solid rgba(74,85,104,0.1)', cursor: f.includes('🔜') ? 'not-allowed' : 'pointer' }}>{f}</div>
+                      <div key={f} style={{ background: '#fff', borderRadius: 6, padding: '8px 6px', fontSize: 11, fontWeight: 500, color: f.includes('✓') ? '#0058c3' : '#a0aec0', cursor: f.includes('🔜') ? 'not-allowed' : 'pointer', border: f.includes('✓') ? '1px solid #0058c3' : '1px solid rgba(74,85,104,0.1)', textAlign: 'center' }}>{f}</div>
                     ))}
                   </div>
+                  <div style={{ fontSize: 10, color: '#718096', marginTop: 8 }}>Custom frames coming in v2.</div>
                 </div>
               )}
               {activeTool === 'Logo' && (
                 <div>
                   <div style={{ fontSize: 11, fontWeight: 700, color: '#181c1e', marginBottom: 8 }}>Upload Logo</div>
-                  {url.length < 3 && <div style={{ fontSize: 11, color: '#dc2626', marginBottom: 8 }}>Enter a URL first to enable logo upload.</div>}
-                  <label style={{ display: 'block', background: '#fff', borderRadius: 6, padding: 16, border: '1px dashed rgba(0,88,195,0.3)', textAlign: 'center', cursor: url.length > 3 ? 'pointer' : 'not-allowed', opacity: url.length > 3 ? 1 : 0.5 }}>
-                    <input type="file" accept="image/png,image/svg+xml,image/jpeg" style={{ display: 'none' }} disabled={url.length < 3} onChange={handleLogoUpload} />
+                  {qrContent.length < 3 && <div style={{ fontSize: 11, color: '#dc2626', marginBottom: 8 }}>Fill in the form first to enable logo upload.</div>}
+                  <label style={{ display: 'block', background: '#fff', borderRadius: 6, padding: 16, border: '1px dashed rgba(0,88,195,0.3)', textAlign: 'center', cursor: qrContent.length > 3 ? 'pointer' : 'not-allowed', opacity: qrContent.length > 3 ? 1 : 0.5 }}>
+                    <input type="file" accept="image/png,image/svg+xml,image/jpeg" style={{ display: 'none' }} disabled={qrContent.length < 3} onChange={handleLogoUpload} />
                     <div style={{ fontSize: 11, color: '#718096' }}>Click to upload PNG, SVG or JPG</div>
                     <div style={{ fontSize: 10, color: '#a0aec0', marginTop: 4 }}>Logo appears centered on QR code</div>
                   </label>
@@ -259,8 +358,8 @@ export default function QRGenerator() {
                 <div>
                   <div style={{ fontSize: 11, fontWeight: 700, color: '#181c1e', marginBottom: 10 }}>Module Shape</div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
-                    {[['Square','✓'],['Rounded','🔜'],['Dots','🔜'],['Extra Round','🔜'],['Diamond','🔜'],['Star','🔜']].map(([s, badge]) => (
-                      <div key={s} style={badge === '✓' ? sBtnActive : { ...sBtn, color: '#a0aec0', border: '1px solid rgba(74,85,104,0.1)', cursor: 'not-allowed' }}>{s} {badge}</div>
+                    {[['Square','✓'],['Rounded','🔜'],['Dots','🔜'],['Extra Round','🔜'],['Diamond','🔜'],['Star','🔜']].map(([s, b]) => (
+                      <div key={s} style={{ background: '#fff', borderRadius: 6, padding: '8px 6px', fontSize: 10, fontWeight: 500, color: b === '✓' ? '#0058c3' : '#a0aec0', cursor: b === '🔜' ? 'not-allowed' : 'pointer', border: b === '✓' ? '1px solid #0058c3' : '1px solid rgba(74,85,104,0.1)', textAlign: 'center' }}>{s} {b}</div>
                     ))}
                   </div>
                   <div style={{ fontSize: 10, color: '#718096', marginTop: 8 }}>Square active · Custom shapes coming in v2.</div>
@@ -269,17 +368,16 @@ export default function QRGenerator() {
             </div>
           )}
 
-          <div className="tab-scroll" style={{ display: 'flex', borderBottom: '1px solid rgba(74,85,104,0.15)', marginBottom: 14 }}>
+          <div className="tab-scroll" style={{ display: 'flex', borderBottom: '1px solid rgba(74,85,104,0.15)', marginBottom: 16 }}>
             {TABS.map(tab => (
-              <button key={tab} onClick={() => setActiveTab(tab)} style={{ padding: '10px 14px', fontSize: 13, fontWeight: 500, color: tab === activeTab ? '#0058c3' : '#718096', border: 'none', background: 'none', cursor: 'pointer', borderBottom: tab === activeTab ? '2px solid #0058c3' : '2px solid transparent', whiteSpace: 'nowrap', flexShrink: 0 }}>{tab}</button>
+              <button key={tab} onClick={() => { setActiveTab(tab); setShortId(''); setRedirectUrl('') }} style={{ padding: '10px 16px', fontSize: 13, fontWeight: 500, color: tab === activeTab ? '#0058c3' : '#718096', border: 'none', background: 'none', cursor: 'pointer', borderBottom: tab === activeTab ? '2px solid #0058c3' : '2px solid transparent', whiteSpace: 'nowrap', flexShrink: 0 }}>{tab}</button>
             ))}
           </div>
 
-          <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 6 }}>Target Destination</div>
-          <input value={url} onChange={e => { setUrl(e.target.value); setShortId(''); setRedirectUrl('') }} type="url" placeholder="https://your-website.com" style={{ width: '100%', background: '#fff', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '11px 14px', fontFamily: 'inherit', fontSize: 14, color: '#181c1e', outline: 'none', boxSizing: 'border-box', marginBottom: 10 }} />
+          <TabForm />
 
-          <div style={{ marginBottom: 12 }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 4, background: 'rgba(0,88,195,0.08)', color: '#0058c3', padding: '4px 10px', borderRadius: 2, fontSize: 10, fontWeight: 700 }}>✦ SAFE-SCAN PROTECTION ACTIVE</div>
+          <div style={{ marginTop: 12, marginBottom: 12 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 4, background: 'rgba(0,88,195,0.08)', color: '#0058c3', padding: '4px 10px', borderRadius: 2, fontSize: 10, fontWeight: 700 }}>🛡️ SAFE-SCAN PROTECTION ACTIVE</div>
           </div>
 
           <div style={{ background: '#f1f4f6', borderRadius: 8, padding: '12px 14px', display: 'flex', alignItems: 'flex-start', gap: 12, marginBottom: 12 }}>
@@ -299,31 +397,30 @@ export default function QRGenerator() {
 
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 10, marginBottom: 12 }}>
             <div>
-              <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 5 }}>Project Name</div>
-              <input value={projectName} onChange={e => setProjectName(e.target.value)} placeholder="Optional" style={{ width: '100%', background: '#fff', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '10px 12px', fontFamily: 'inherit', fontSize: 13, color: '#181c1e', outline: 'none', boxSizing: 'border-box' }} />
+              <label style={lbl}>Project Name</label>
+              <input value={projectName} onChange={e => setProjectName(e.target.value)} placeholder="Optional" style={inp} />
             </div>
             <div>
-              <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 5 }}>Category</div>
-              <select value={category} onChange={e => setCategory(e.target.value)} style={{ width: '100%', background: '#fff', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '10px 12px', fontFamily: 'inherit', fontSize: 13, color: '#181c1e', outline: 'none', boxSizing: 'border-box' }}>
+              <label style={lbl}>Category</label>
+              <select value={category} onChange={e => setCategory(e.target.value)} style={inp}>
                 {CATEGORIES.map(c => <option key={c}>{c}</option>)}
               </select>
             </div>
           </div>
 
           {isMobile && (
-            <div style={{ background: '#fff', borderRadius: 8, padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)', marginBottom: 12 }}>
+            <div style={{ background: '#fff', borderRadius: 8, padding: 16, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)', marginBottom: 12 }}>
               <canvas ref={canvasRef} width={200} height={200} style={{ borderRadius: 8, maxWidth: '100%' }} />
-              {url.length > 3 && !shortId && (
+              {qrContent.length > 3 && !shortId && (
                 <button onClick={saveQR} disabled={saving} style={{ width: '100%', background: saving ? '#718096' : 'rgba(0,88,195,0.08)', color: saving ? '#fff' : '#0058c3', border: '1px solid rgba(0,88,195,0.2)', borderRadius: 4, padding: '12px', fontFamily: 'inherit', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
                   {saving ? 'Saving...' : '✦ Make Dynamic (Free)'}
                 </button>
               )}
-              <button onClick={downloadPNG} style={{ width: '100%', background: 'linear-gradient(135deg,#0058c3,#0070f3)', color: '#fff', border: 'none', borderRadius: 4, padding: '13px', fontFamily: 'inherit', fontSize: 15, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>↓ Download PNG</button>
+              <button onClick={downloadPNG} disabled={qrContent.length < 3} style={{ width: '100%', background: qrContent.length > 3 ? 'linear-gradient(135deg,#0058c3,#0070f3)' : '#e5e9eb', color: qrContent.length > 3 ? '#fff' : '#a0aec0', border: 'none', borderRadius: 4, padding: '13px', fontFamily: 'inherit', fontSize: 15, fontWeight: 700, cursor: qrContent.length > 3 ? 'pointer' : 'not-allowed', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>↓ Download PNG</button>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, width: '100%' }}>
-                <button onClick={downloadSVG} style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '10px', fontFamily: 'inherit', fontSize: 12, fontWeight: 600, color: '#4a5568', cursor: 'pointer' }}>SVG Vector</button>
+                <button onClick={downloadSVG} disabled={qrContent.length < 3} style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '10px', fontFamily: 'inherit', fontSize: 12, fontWeight: 600, color: '#4a5568', cursor: 'pointer' }}>SVG Vector</button>
                 <button style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '10px', fontFamily: 'inherit', fontSize: 12, fontWeight: 600, color: '#4a5568', cursor: 'pointer' }}>Print PDF</button>
               </div>
-              <div style={{ fontSize: 10, color: '#718096', textAlign: 'center' }}>3000×3000px · Transparent · Free</div>
             </div>
           )}
 
@@ -337,9 +434,7 @@ export default function QRGenerator() {
             </div>
           )}
 
-          {isMobile && (
-            <div style={{ background: '#e5e9eb', borderRadius: 8, height: 72, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#718096', fontSize: 11, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', margin: '12px 0' }}>Advertisement</div>
-          )}
+          {isMobile && <div style={{ background: '#e5e9eb', borderRadius: 8, height: 72, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#718096', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '12px 0' }}>Advertisement</div>}
 
           <div style={{ marginTop: 20, paddingTop: 20, borderTop: '1px solid rgba(74,85,104,0.15)' }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 14, flexWrap: 'wrap', gap: 8 }}>
@@ -395,16 +490,16 @@ export default function QRGenerator() {
 
         {!isMobile && (
           <aside style={{ paddingLeft: 12 }}>
-            <div style={{ background: '#fff', borderRadius: 8, padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)' }}>
+            <div style={{ background: '#fff', borderRadius: 8, padding: 16, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)' }}>
               <canvas ref={canvasRef} width={200} height={200} style={{ borderRadius: 8, maxWidth: '100%' }} />
-              {url.length > 3 && !shortId && (
-                <button onClick={saveQR} disabled={saving} style={{ width: '100%', background: saving ? '#718096' : 'rgba(0,88,195,0.08)', color: saving ? '#fff' : '#0058c3', border: '1px solid rgba(0,88,195,0.2)', borderRadius: 4, padding: '12px', fontFamily: 'inherit', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+              {qrContent.length > 3 && !shortId && (
+                <button onClick={saveQR} disabled={saving} style={{ width: '100%', background: saving ? '#718096' : 'rgba(0,88,195,0.08)', color: saving ? '#fff' : '#0058c3', border: '1px solid rgba(0,88,195,0.2)', borderRadius: 4, padding: '11px', fontFamily: 'inherit', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
                   {saving ? 'Saving...' : '✦ Make Dynamic (Free)'}
                 </button>
               )}
-              <button onClick={downloadPNG} style={{ width: '100%', background: 'linear-gradient(135deg,#0058c3,#0070f3)', color: '#fff', border: 'none', borderRadius: 4, padding: '12px', fontFamily: 'inherit', fontSize: 14, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>↓ Download PNG</button>
+              <button onClick={downloadPNG} disabled={qrContent.length < 3} style={{ width: '100%', background: qrContent.length > 3 ? 'linear-gradient(135deg,#0058c3,#0070f3)' : '#e5e9eb', color: qrContent.length > 3 ? '#fff' : '#a0aec0', border: 'none', borderRadius: 4, padding: '12px', fontFamily: 'inherit', fontSize: 14, fontWeight: 700, cursor: qrContent.length > 3 ? 'pointer' : 'not-allowed', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>↓ Download PNG</button>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, width: '100%' }}>
-                <button onClick={downloadSVG} style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '9px', fontFamily: 'inherit', fontSize: 11, fontWeight: 600, color: '#4a5568', cursor: 'pointer' }}>SVG Vector</button>
+                <button onClick={downloadSVG} disabled={qrContent.length < 3} style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '9px', fontFamily: 'inherit', fontSize: 11, fontWeight: 600, color: '#4a5568', cursor: 'pointer' }}>SVG Vector</button>
                 <button style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '9px', fontFamily: 'inherit', fontSize: 11, fontWeight: 600, color: '#4a5568', cursor: 'pointer' }}>Print PDF</button>
               </div>
               <div style={{ fontSize: 10, color: '#718096', textAlign: 'center' }}>3000×3000px · Transparent · Free</div>
@@ -412,7 +507,6 @@ export default function QRGenerator() {
           </aside>
         )}
       </div>
-
       <Footer />
     </div>
   )
