@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import QRCode from 'qrcode'
+import Footer from '@/components/Footer'
 
 const TABS = ['URL', 'WiFi', 'vCard', 'PDF', 'Text', 'Email']
 const CATEGORIES = ['Marketing', 'Restaurant', 'Real Estate', 'Events', 'Product', 'Personal']
@@ -261,16 +262,7 @@ export default function QRGenerator() {
         </aside>
       </div>
 
-      <footer style={{ background: '#fff', borderTop: '1px solid rgba(74,85,104,0.15)', padding: '20px 24px', textAlign: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 20, marginBottom: 8, flexWrap: 'wrap' }}>
-          {['Privacy Policy','Terms of Service','Help Center','Feedback','API Docs'].map(l => (
-            <a key={l} href="#" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>{l}</a>
-          ))}
-        </div>
-        <div style={{ fontSize: 11, color: '#718096' }}>
-          © 2026 Truly Free QR · Built by <a href="https://klickifyagency.com" target="_blank" rel="noopener noreferrer" style={{ color: '#0058c3', fontWeight: 600, textDecoration: 'none' }}>Klickify Agency</a>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
