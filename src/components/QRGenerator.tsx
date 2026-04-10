@@ -239,7 +239,7 @@ export default function QRGenerator() {
                   <div style={{ fontSize: 11, fontWeight: 700, color: '#181c1e', marginBottom: 10 }}>Frame Style</div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
                     {['No Frame ✓','Simple Border 🔜','Rounded 🔜','Scan Me 🔜'].map(f => (
-                      <div key={f} style={{ ...sBtn, color: f.includes('✓') ? '#0058c3' : '#4a5568', border: f.includes('✓') ? '1px solid #0058c3' : '1px solid rgba(74,85,104,0.15)' }}>{f}</div>
+                      <div key={f} style={{ ...sBtn, color: f.includes('✓') ? '#0058c3' : '#a0aec0', border: f.includes('✓') ? '1px solid #0058c3' : '1px solid rgba(74,85,104,0.1)', cursor: f.includes('🔜') ? 'not-allowed' : 'pointer' }}>{f}</div>
                     ))}
                   </div>
                 </div>
@@ -260,10 +260,10 @@ export default function QRGenerator() {
                   <div style={{ fontSize: 11, fontWeight: 700, color: '#181c1e', marginBottom: 10 }}>Module Shape</div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
                     {[['Square','✓'],['Rounded','🔜'],['Dots','🔜'],['Extra Round','🔜'],['Diamond','🔜'],['Star','🔜']].map(([s, badge]) => (
-                      <div key={s} style={badge === '✓' ? sBtnActive : { ...sBtn, color: '#4a5568' }}>{s} {badge}</div>
+                      <div key={s} style={badge === '✓' ? sBtnActive : { ...sBtn, color: '#a0aec0', border: '1px solid rgba(74,85,104,0.1)', cursor: 'not-allowed' }}>{s} {badge}</div>
                     ))}
                   </div>
-                  <div style={{ fontSize: 10, color: '#718096', marginTop: 8 }}>Custom shapes coming soon.</div>
+                  <div style={{ fontSize: 10, color: '#718096', marginTop: 8 }}>Square active · Custom shapes coming in v2.</div>
                 </div>
               )}
             </div>
