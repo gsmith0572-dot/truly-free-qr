@@ -6,9 +6,9 @@ export default function Footer() {
       <div style={{ display: 'flex', justifyContent: 'center', gap: 20, marginBottom: 8, flexWrap: 'wrap' }}>
         <Link href="/privacy-policy" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>Privacy Policy</Link>
         <Link href="/terms-of-service" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>Terms of Service</Link>
-        <a href="mailto:support@trulyfreeqr.com" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>Help Center</a>
-        <a href="mailto:feedback@trulyfreeqr.com" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>Feedback</a>
-        <a href="mailto:legal@trulyfreeqr.com" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>API Docs</a>
+        <a href="mailto:support@klickifyagency.com" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>Help Center</a>
+        <a href="mailto:support@klickifyagency.com" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>Feedback</a>
+        <a href="mailto:support@klickifyagency.com" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>API Docs</a>
       </div>
       <div style={{ fontSize: 11, color: '#718096' }}>
         © 2026 Truly Free QR · Built by <a href="https://klickifyagency.com" target="_blank" rel="noopener noreferrer" style={{ color: '#0058c3', fontWeight: 600, textDecoration: 'none' }}>Klickify Agency</a>
