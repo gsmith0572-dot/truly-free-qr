@@ -133,6 +133,7 @@ export default function QRGenerator() {
   const [dynamic, setDynamic] = useState(true)
   const [shortId, setShortId] = useState('')
   const [redirectUrl, setRedirectUrl] = useState('')
+  const [safeScanUrl, setSafeScanUrl] = useState('')
   const [saving, setSaving] = useState(false)
   const [qrCount, setQrCount] = useState(0)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -193,6 +194,7 @@ export default function QRGenerator() {
       if (data.short_id) {
         setShortId(data.short_id)
         setRedirectUrl(data.redirect_url)
+        setSafeScanUrl(data.safe_scan_url || '')
         const existing = JSON.parse(localStorage.getItem('tfqr_codes')||'[]')
         const updated = [{ short_id:data.short_id, redirect_url:data.redirect_url, destination_url:destination, project_name:projectName||qrContent.slice(0,40), category, created_at:new Date().toISOString() }, ...existing]
         localStorage.setItem('tfqr_codes', JSON.stringify(updated))
@@ -419,12 +421,26 @@ export default function QRGenerator() {
           </div>
           {isMobile && <div style={{marginBottom:12}}><PreviewPanel /></div>}
           {shortId && (
-            <div style={{background:'rgba(0,88,195,0.06)',border:'1px solid rgba(0,88,195,0.2)',borderRadius:8,padding:'10px 14px',marginBottom:12,display:'flex',alignItems:'center',justifyContent:'space-between',gap:8,flexWrap:'wrap'}}>
-              <div>
-                <div style={{fontSize:10,fontWeight:700,color:'#0058c3',letterSpacing:'0.06em',textTransform:'uppercase',marginBottom:2}}>Dynamic QR Active Never Expires</div>
-                <div style={{fontSize:11,color:'#4a5568',fontFamily:'monospace',wordBreak:'break-all'}}>{redirectUrl}</div>
+            <div style={{background:'rgba(0,88,195,0.06)',border:'1px solid rgba(0,88,195,0.2)',borderRadius:8,padding:'12px 14px',marginBottom:12}}>
+              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:8,flexWrap:'wrap',marginBottom:10}}>
+                <div>
+                  <div style={{fontSize:10,fontWeight:700,color:'#0058c3',letterSpacing:'0.06em',textTransform:'uppercase',marginBottom:2}}>Dynamic QR Active — Never Expires</div>
+                  <div style={{fontSize:11,color:'#4a5568',fontFamily:'monospace',wordBreak:'break-all'}}>{redirectUrl}</div>
+                </div>
+                <a href="/dashboard" style={{background:'#0058c3',color:'#fff',borderRadius:4,padding:'6px 12px',fontSize:11,fontWeight:600,textDecoration:'none',whiteSpace:'nowrap',flexShrink:0}}>View All</a>
               </div>
-              <a href="/dashboard" style={{background:'#0058c3',color:'#fff',borderRadius:4,padding:'6px 12px',fontSize:11,fontWeight:600,textDecoration:'none',whiteSpace:'nowrap'}}>View All</a>
+              {safeScanUrl && (
+                <div style={{background:'rgba(22,163,74,0.06)',border:'1px solid rgba(22,163,74,0.2)',borderRadius:6,padding:'8px 12px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:8,flexWrap:'wrap'}}>
+                  <div style={{display:'flex',alignItems:'center',gap:6}}>
+                    <span style={{fontSize:14}}>🛡️</span>
+                    <div>
+                      <div style={{fontSize:10,fontWeight:700,color:'#16a34a',letterSpacing:'0.06em',textTransform:'uppercase'}}>Safe-Scan Active</div>
+                      <div style={{fontSize:10,color:'#718096',fontFamily:'monospace',wordBreak:'break-all'}}>{safeScanUrl}</div>
+                    </div>
+                  </div>
+                  <a href={safeScanUrl} target="_blank" rel="noopener noreferrer" style={{background:'#16a34a',color:'#fff',borderRadius:4,padding:'5px 10px',fontSize:10,fontWeight:700,textDecoration:'none',whiteSpace:'nowrap',flexShrink:0}}>Test →</a>
+                </div>
+              )}
             </div>
           )}
           {isMobile && <div style={{margin:'12px 0'}}><AdSlot slot="1122334455" format="mobile-banner" /></div>}
