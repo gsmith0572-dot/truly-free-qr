@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import QRCode from 'qrcode'
 import Footer from '@/components/Footer'
+import AdSlot from '@/components/ads/AdSlot'
 import Link from 'next/link'
 
 const TABS = ['URL', 'WiFi', 'vCard', 'Email', 'Text', 'PDF']
@@ -317,7 +318,7 @@ export default function QRGenerator() {
         <span>Dynamic QR No Expiration No Account No Subscription.</span>
       </div>
       <div style={{maxWidth:1180,margin:'0 auto',padding:'0 16px'}}>
-        <div style={{background:'#e5e9eb',borderRadius:8,height:72,display:'flex',alignItems:'center',justifyContent:'center',color:'#718096',fontSize:11,fontWeight:500,letterSpacing:'0.08em',textTransform:'uppercase',margin:'12px 0'}}>Advertisement</div>
+        <div style={{margin:'12px 0'}}><AdSlot slot="1234567890" format="leaderboard" /></div>
       </div>
       <div style={{maxWidth:1180,margin:'0 auto',padding:'0 16px 40px',display:isMobile?'block':'grid',gridTemplateColumns:'150px 1fr 270px',gap:0,alignItems:'start'}}>
         {!isMobile && (
@@ -326,7 +327,7 @@ export default function QRGenerator() {
             {SIDEBAR_TOOLS.map(tool => (
               <div key={tool} onClick={()=>setActiveTool(activeTool===tool?'':tool)} style={{display:'flex',alignItems:'center',gap:8,padding:'8px 10px',borderRadius:4,cursor:'pointer',color:activeTool===tool?'#0058c3':'#4a5568',background:activeTool===tool?'rgba(0,88,195,0.06)':'none',fontSize:13,fontWeight:500,marginBottom:2}}>{tool}</div>
             ))}
-            <div style={{marginTop:20,background:'#e5e9eb',borderRadius:8,height:200,display:'flex',alignItems:'center',justifyContent:'center',color:'#718096',fontSize:11,textTransform:'uppercase',letterSpacing:'0.08em'}}>Sidebar Ad</div>
+            <AdSlot slot="0987654321" format="rectangle" />
           </aside>
         )}
         <main style={{padding:isMobile?'0':'0 12px',minWidth:0}}>
@@ -426,7 +427,7 @@ export default function QRGenerator() {
               <a href="/dashboard" style={{background:'#0058c3',color:'#fff',borderRadius:4,padding:'6px 12px',fontSize:11,fontWeight:600,textDecoration:'none',whiteSpace:'nowrap'}}>View All</a>
             </div>
           )}
-          {isMobile && <div style={{background:'#e5e9eb',borderRadius:8,height:72,display:'flex',alignItems:'center',justifyContent:'center',color:'#718096',fontSize:11,textTransform:'uppercase',letterSpacing:'0.08em',margin:'12px 0'}}>Advertisement</div>}
+          {isMobile && <div style={{margin:'12px 0'}}><AdSlot slot="1122334455" format="mobile-banner" /></div>}
           <div style={{marginTop:20,paddingTop:20,borderTop:'1px solid rgba(74,85,104,0.15)'}}>
             <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',marginBottom:14,flexWrap:'wrap',gap:8}}>
               <div>
