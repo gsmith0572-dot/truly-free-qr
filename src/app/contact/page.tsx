@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { useState } from "react";
 
@@ -44,6 +45,11 @@ export default function ContactPage() {
 
   return (
     <main style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "-0.02em", color: "#0a0f1e" }}>
+      <nav style={{ background: '#fff', borderBottom: '1px solid rgba(74,85,104,0.15)', padding: '0 24px', display: 'flex', alignItems: 'center', height: 64, position: 'sticky', top: 0, zIndex: 100 }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <img src="/logo.png" alt="TrulyFreeQR" style={{ height: 44, width: 'auto' }} />
+        </Link>
+      </nav>
       <section style={{ background: "#ffffff", padding: "96px 24px 80px", textAlign: "center" }}>
         <div style={{ maxWidth: "640px", margin: "0 auto" }}>
           <p style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#0058c3", marginBottom: "20px" }}>
