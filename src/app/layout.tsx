@@ -1,43 +1,30 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { rootMetadata } from '@/lib/seo/metadata-config'
-import { Analytics } from "@vercel/analytics/next"
-import { buildPageSchema } from '@/lib/seo/schema'
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
 
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-inter',
-  display: 'swap',
-})
+const inter = Inter({ subsets: ["latin"] })
 
-export const metadata: Metadata = rootMetadata
+export const metadata: Metadata = {
+  title: "TrulyFreeQR - Free Dynamic QR Code Generator",
+  description: "Dynamic QR codes that never expire. No account, no subscription, no credit card. Free forever.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/favicon-512.png",
+  },
+}
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const schema = buildPageSchema()
-
   return (
-    <html lang="en" className={inter.variable}>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8680464039127093"
-          crossOrigin="anonymous"
-        />
-      </head>
-      <body className="bg-surface font-inter antialiased">
-        {children}
-      <Analytics />
-      </body>
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }
