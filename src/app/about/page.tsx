@@ -3,7 +3,15 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About Us | Truly Free QR — Precision QR Infrastructure",
   description:
-    "Truly Free QR was built to end the 14-day bait-and-switch. Dynamic QR codes that never expire, no subscription, no blackmail. Built by Klickify Agency.",
+    "Truly Free QR was built to end the 14-day bait-and-switch. Dynamic QR codes that never expire, no subscription, no blackmail. Built by Klickify Agency.",,
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=3" },
+      { url: "/favicon-32.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-512.png?v=3", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/favicon-512.png?v=3",
+  },
 };
 
 export default function AboutPage() {
