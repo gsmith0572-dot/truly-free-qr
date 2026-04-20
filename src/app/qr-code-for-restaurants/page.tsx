@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   description: 'Create a dynamic QR code for your restaurant menu — free forever. Update your menu anytime without reprinting. No subscription, no 14-day trial, no account required.',
   keywords: ['qr code for restaurants', 'restaurant menu qr code', 'contactless menu qr', 'dynamic qr code restaurant free', 'qr code menu no expiration'],
   alternates: { canonical: 'https://trulyfreeqr.com/qr-code-for-restaurants' },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=3" },
+      { url: "/favicon-32.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-512.png?v=3", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/favicon-512.png?v=3",
+  },
   openGraph: {
     title: 'Free QR Code for Restaurants — Dynamic Menu QR, Never Expires',
     description: 'The only QR generator built for restaurants that guarantees your codes never expire. Update menus, track scans, download SVG — all free.',

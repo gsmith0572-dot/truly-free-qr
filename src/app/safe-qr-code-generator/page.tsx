@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   description: 'The only QR generator with Safe-Scan: verify destinations before redirecting. Protect your users from QR phishing (quishing) attacks. Free, no account required.',
   keywords: ['safe qr code generator', 'secure qr code maker', 'anti phishing qr code', 'safe scan qr', 'qr code phishing protection'],
   alternates: { canonical: 'https://trulyfreeqr.com/safe-qr-code-generator' },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=3" },
+      { url: "/favicon-32.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-512.png?v=3", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/favicon-512.png?v=3",
+  },
   openGraph: {
     title: 'Safe QR Code Generator — Built-in Phishing Protection',
     description: 'Generate QR codes with Safe-Scan protection. Verify destinations before redirecting. Free forever, no account required.',

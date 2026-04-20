@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   description: 'The only permanent free QR code generator. No 14-day trial. No bait-and-switch. Static and dynamic codes that stay active forever — no subscription, no account required.',
   keywords: ['permanent qr code free', 'qr code that never expires', 'free qr code no expiration', 'dynamic qr code permanent free', 'qr code no subscription'],
   alternates: { canonical: 'https://trulyfreeqr.com/permanent-qr-code-free' },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=3" },
+      { url: "/favicon-32.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-512.png?v=3", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/favicon-512.png?v=3",
+  },
   openGraph: {
     title: 'Permanent Free QR Code — Never Expires, No Credit Card',
     description: 'Stop losing money to QR codes that expire. Truly Free QR guarantees permanent codes at zero cost — forever.',

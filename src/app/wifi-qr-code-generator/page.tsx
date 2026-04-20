@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   description: 'Create a WiFi QR code for free. Guests scan to connect instantly — no typing passwords. Works on iPhone and Android. Download PNG or SVG. No account required.',
   keywords: ['wifi qr code generator', 'qr code for wifi', 'wifi password qr code', 'scan to connect wifi qr', 'free wifi qr code maker'],
   alternates: { canonical: 'https://trulyfreeqr.com/wifi-qr-code-generator' },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=3" },
+      { url: "/favicon-32.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-512.png?v=3", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/favicon-512.png?v=3",
+  },
   openGraph: {
     title: 'Free WiFi QR Code Generator — Let Guests Connect Instantly',
     description: 'Create a WiFi QR code in seconds. No account, no subscription, no expiration. Works on all devices.',

@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   description: 'Generate and download QR codes instantly — no account, no email, no registration. Static and dynamic codes free forever. Just paste your URL and download in PNG or SVG.',
   keywords: ['qr code generator without login', 'qr code no account required', 'qr code generator no email', 'free qr code no registration', 'qr code generator no sign up'],
   alternates: { canonical: 'https://trulyfreeqr.com/qr-code-generator-without-login' },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=3" },
+      { url: "/favicon-32.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-512.png?v=3", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/favicon-512.png?v=3",
+  },
   openGraph: {
     title: 'QR Code Generator Without Login or Email — Instant Free Download',
     description: 'No account, no email, no registration. Generate QR codes instantly and download in PNG or SVG. Free forever.',

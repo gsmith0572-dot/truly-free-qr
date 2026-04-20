@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   description: 'Generate dynamic QR codes without any subscription. No 14-day trial, no credit card, no hidden fees. Permanent dynamic codes free forever — no account required.',
   keywords: ['qr code no subscription', 'qr code generator without subscription', 'free dynamic qr code no subscription', 'qr code no monthly fee', 'dynamic qr code without paying'],
   alternates: { canonical: 'https://trulyfreeqr.com/qr-code-no-subscription' },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=3" },
+      { url: "/favicon-32.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-512.png?v=3", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/favicon-512.png?v=3",
+  },
   openGraph: {
     title: 'QR Code Generator No Subscription — Truly Free, Always',
     description: 'The only QR generator with zero subscription model. Dynamic codes, real-time analytics, SVG export — permanently free.',

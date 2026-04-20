@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   description: 'Turn your contact info into a scannable QR business card. Free, permanent, no account required. Download in high resolution for print. Works on iPhone and Android.',
   keywords: ['vcard qr code generator', 'digital business card qr', 'contact qr code free', 'qr code business card maker', 'vcard qr free no subscription'],
   alternates: { canonical: 'https://trulyfreeqr.com/vcard-qr-code-generator' },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=3" },
+      { url: "/favicon-32.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-512.png?v=3", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/favicon-512.png?v=3",
+  },
   openGraph: {
     title: 'Free vCard QR Code Generator — Digital Business Card',
     description: 'Create a digital business card QR code in seconds. Scan to save contact info instantly. Free forever, no account required.',

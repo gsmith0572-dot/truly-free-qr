@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   description: 'Create dynamic QR codes for real estate listings, virtual tours, and open house signs. Update listings without reprinting. Free forever, no subscription, no account required.',
   keywords: ['qr code for real estate', 'property listing qr code', 'real estate qr code generator', 'virtual tour qr code', 'open house qr code free'],
   alternates: { canonical: 'https://trulyfreeqr.com/qr-code-for-real-estate' },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=3" },
+      { url: "/favicon-32.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-512.png?v=3", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/favicon-512.png?v=3",
+  },
   openGraph: {
     title: 'Free QR Code for Real Estate — Property Listings, Never Expires',
     description: 'Stop reprinting signs when listings change. Truly Free QR dynamic codes let you update property URLs anytime — free forever.',

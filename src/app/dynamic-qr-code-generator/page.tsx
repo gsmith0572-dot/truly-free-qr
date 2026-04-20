@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   description: 'Create dynamic QR codes that never expire — free forever. Edit the destination URL anytime without reprinting. Real-time analytics included. No account required.',
   keywords: ['dynamic qr code generator', 'free dynamic qr code', 'dynamic qr code no expiration', 'editable qr code free', 'trackable qr code free'],
   alternates: { canonical: 'https://trulyfreeqr.com/dynamic-qr-code-generator' },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=3" },
+      { url: "/favicon-32.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-512.png?v=3", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/favicon-512.png?v=3",
+  },
   openGraph: {
     title: 'Free Dynamic QR Code Generator — No Expiration, No Subscription',
     description: 'The only dynamic QR generator where free means free forever. Edit destinations, track scans, download SVG — zero cost, zero subscription.',
