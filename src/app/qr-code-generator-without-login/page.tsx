@@ -62,16 +62,7 @@ export default function NoLoginQRPage() {
 
       <nav style={{ background: '#fff', borderBottom: '1px solid rgba(74,85,104,0.15)', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56, position: 'sticky', top: 0, zIndex: 100 }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-            <defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#0058c3"/><stop offset="100%" stopColor="#0070f3"/></linearGradient></defs>
-            <rect width="36" height="36" rx="8" fill="url(#lg1)"/>
-            <rect x="5" y="5" width="26" height="26" rx="3" fill="white"/>
-            <rect x="9" y="9" width="18" height="18" rx="2" fill="url(#lg1)"/>
-            <rect x="13" y="13" width="10" height="10" rx="1" fill="white"/>
-            <ellipse cx="18" cy="18" rx="3.5" ry="5" fill="url(#lg1)"/>
-            <ellipse cx="18" cy="18" rx="5" ry="3.5" fill="url(#lg1)" opacity="0.7"/>
-          </svg>
-          <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.02em', color: '#181c1e' }}>Truly Free <span style={{ background: 'linear-gradient(135deg,#0058c3,#0070f3)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>QR</span></span>
+          <img src="/logo.png" alt="TrulyFreeQR" style={{height:44,width:'auto'}} />
         </Link>
         <Link href="/" style={{ background: 'linear-gradient(135deg,#0058c3,#0070f3)', color: '#fff', borderRadius: 4, padding: '8px 16px', fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>Generate Free QR →</Link>
       </nav>
