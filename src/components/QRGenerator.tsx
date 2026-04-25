@@ -316,7 +316,7 @@ export default function QRGenerator() {
         <span>Dynamic QR No Expiration No Account No Subscription.</span>
       </div>
       <div style={{maxWidth:1180,margin:'0 auto',padding:'0 16px'}}>
-        <div style={{margin:'12px 0'}}><AdSlot slot="1234567890" format="leaderboard" /></div>
+        <div style={{margin:'12px 0'}}><AdSlot slot="6975799046" format="leaderboard" /></div>
       </div>
       <div style={{maxWidth:1180,margin:'0 auto',padding:'0 16px 40px',display:isMobile?'block':'grid',gridTemplateColumns:'150px 1fr 270px',gap:0,alignItems:'start'}}>
         {!isMobile && (
@@ -325,7 +325,7 @@ export default function QRGenerator() {
             {SIDEBAR_TOOLS.map(tool => (
               <div key={tool} onClick={()=>setActiveTool(activeTool===tool?'':tool)} style={{display:'flex',alignItems:'center',gap:8,padding:'8px 10px',borderRadius:4,cursor:'pointer',color:activeTool===tool?'#0058c3':'#4a5568',background:activeTool===tool?'rgba(0,88,195,0.06)':'none',fontSize:13,fontWeight:500,marginBottom:2}}>{tool}</div>
             ))}
-            <AdSlot slot="0987654321" format="rectangle" />
+            <AdSlot slot="1647450745" format="rectangle" />
           </aside>
         )}
         <main style={{padding:isMobile?'0':'0 12px',minWidth:0}}>
@@ -439,7 +439,7 @@ export default function QRGenerator() {
               )}
             </div>
           )}
-          {isMobile && <div style={{margin:'12px 0'}}><AdSlot slot="1122334455" format="mobile-banner" /></div>}
+          {isMobile && <div style={{margin:'12px 0'}}><AdSlot slot="5662717375" format="mobile-banner" /></div>}
           <div style={{marginTop:20,paddingTop:20,borderTop:'1px solid rgba(74,85,104,0.15)'}}>
             <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',marginBottom:14,flexWrap:'wrap',gap:8}}>
               <div>

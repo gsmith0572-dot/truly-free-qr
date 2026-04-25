@@ -95,7 +95,7 @@ export default function NichePageTemplate({
       <div style={{ maxWidth: 920, margin: '0 auto', padding: '0 20px' }}>
 
         <div style={{ margin: '36px 0 48px' }}>
-          <AdSlot slot="1234567890" format="leaderboard" />
+          <AdSlot slot="6975799046" format="leaderboard" />
         </div>
 
         <section style={{ marginBottom: 56 }}>
@@ -208,7 +208,7 @@ export default function NichePageTemplate({
         </section>
 
         <div style={{ marginBottom: 48 }}>
-          <AdSlot slot="1122334455" format="mobile-banner" />
+          <AdSlot slot="5662717375" format="mobile-banner" />
         </div>
 
         <section style={{ marginBottom: 56, background: 'linear-gradient(160deg,#08122a,#0c1e45)', borderRadius: 12, padding: '48px 32px', textAlign: 'center', color: '#fff' }}>

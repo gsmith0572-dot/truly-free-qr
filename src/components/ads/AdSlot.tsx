@@ -52,7 +52,7 @@ export default function AdSlot({ slot, format }: AdSlotProps) {
     <div style={{ width: '100%', maxWidth: width, margin: '0 auto', overflow: 'hidden' }}>
       <ins
         className="adsbygoogle"
-        style={{ display: 'block', width, height }}
+        style={{ display: 'block' }}
         data-ad-client="ca-pub-8680464039127093"
         data-ad-slot={slot}
         data-ad-format="auto"
