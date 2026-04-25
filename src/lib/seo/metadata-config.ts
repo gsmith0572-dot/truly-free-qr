@@ -11,7 +11,7 @@ export const rootMetadata: Metadata = {
   authors: [{ name: 'Truly Free QR Precision Instruments', url: BASE_URL }],
   creator: 'Truly Free QR',
   publisher: 'Truly Free QR',
-  alternates: { canonical: BASE_URL, languages: { 'en-US': BASE_URL } },
+  alternates: { canonical: `${BASE_URL}/`, languages: { 'en-US': `${BASE_URL}/` } },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
   openGraph: { type: 'website', locale: 'en_US', url: BASE_URL, siteName: SITE_NAME, title: 'Free QR Code Generator — Dynamic Codes That Never Expire', description: 'The only QR generator where free means free forever. Dynamic codes, real-time analytics, SVG export — zero subscriptions, zero account required.', images: [DEFAULT_OG_IMAGE] },
   twitter: { card: 'summary_large_image', site: '@trulyfreeqr', creator: '@trulyfreeqr', title: 'Free QR Code Generator — No Expiration, No Account', description: 'Dynamic QR codes that never expire. Real-time analytics. SVG export. 100% free forever.', images: [`${BASE_URL}/og/default.png`] },
