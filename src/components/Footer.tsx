@@ -12,6 +12,9 @@ export default function Footer() {
         <a href="mailto:support@klickifyagency.com" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>Feedback</a>
         <a href="mailto:support@klickifyagency.com" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>API Docs</a>
       </div>
+      <div style={{ marginBottom: 8 }}>
+        <a href="https://notifier.so/status/g6x8Ua55bi/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "#718096", textDecoration: "none" }}>System Status</a>
+      </div>
       <div style={{ marginBottom: 12 }}>
         <a href="https://fazier.com/launches/trulyfreeqr.com" target="_blank" rel="noopener noreferrer"><img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=featured&theme=dark" width={150} alt="Featured on Fazier" /></a>
       </div>
