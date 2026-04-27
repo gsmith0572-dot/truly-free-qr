@@ -29,7 +29,7 @@ export default function BlogIndex() {
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "48px 20px 64px" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           {POSTS.map((post) => (
-            <Link key={post.slug} href={} style={{ textDecoration: "none" }}>
+            <Link key={post.slug} href={`/blog/${post.slug}`} style={{ textDecoration: "none" }}>
               <article style={{ background: "#fff", borderRadius: 8, padding: "32px 28px", border: "1px solid rgba(74,85,104,0.09)", cursor: "pointer" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
                   <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: post.labelColor, padding: "3px 10px", borderRadius: 2, background: "rgba(0,0,0,0.05)" }}>{post.label}</span>
