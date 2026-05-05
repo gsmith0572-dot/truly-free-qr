@@ -41,35 +41,48 @@ function drawModuleShape(ctx: CanvasRenderingContext2D, x: number, y: number, si
   const r = size / 2
   const cx = x + r
   const cy = y + r
+  const pad = 0.8
+
+  function roundedRect(rx: number, ry: number, rw: number, rh: number, radius: number) {
+    ctx.beginPath()
+    ctx.moveTo(rx + radius, ry)
+    ctx.lineTo(rx + rw - radius, ry)
+    ctx.arcTo(rx + rw, ry, rx + rw, ry + radius, radius)
+    ctx.lineTo(rx + rw, ry + rh - radius)
+    ctx.arcTo(rx + rw, ry + rh, rx + rw - radius, ry + rh, radius)
+    ctx.lineTo(rx + radius, ry + rh)
+    ctx.arcTo(rx, ry + rh, rx, ry + rh - radius, radius)
+    ctx.lineTo(rx, ry + radius)
+    ctx.arcTo(rx, ry, rx + radius, ry, radius)
+    ctx.closePath()
+    ctx.fill()
+  }
+
   switch (shape) {
     case 'Rounded':
-      ctx.beginPath()
-      ctx.roundRect(x + 0.5, y + 0.5, size - 1, size - 1, size * 0.3)
-      ctx.fill()
+      roundedRect(x + pad, y + pad, size - pad * 2, size - pad * 2, size * 0.28)
       break
     case 'Dots':
       ctx.beginPath()
-      ctx.arc(cx, cy, r * 0.85, 0, Math.PI * 2)
+      ctx.arc(cx, cy, r * 0.82, 0, Math.PI * 2)
       ctx.fill()
       break
     case 'Extra Round':
-      ctx.beginPath()
-      ctx.roundRect(x + 0.5, y + 0.5, size - 1, size - 1, size * 0.48)
-      ctx.fill()
+      roundedRect(x + pad, y + pad, size - pad * 2, size - pad * 2, size * 0.46)
       break
     case 'Diamond':
       ctx.beginPath()
-      ctx.moveTo(cx, y + 1)
-      ctx.lineTo(x + size - 1, cy)
-      ctx.lineTo(cx, y + size - 1)
-      ctx.lineTo(x + 1, cy)
+      ctx.moveTo(cx, y + pad)
+      ctx.lineTo(x + size - pad, cy)
+      ctx.lineTo(cx, y + size - pad)
+      ctx.lineTo(x + pad, cy)
       ctx.closePath()
       ctx.fill()
       break
     case 'Star': {
       const spikes = 4
-      const outerR = r * 0.9
-      const innerR = r * 0.45
+      const outerR = r * 0.88
+      const innerR = r * 0.42
       ctx.beginPath()
       for (let i = 0; i < spikes * 2; i++) {
         const angle = (i * Math.PI) / spikes - Math.PI / 2
@@ -83,7 +96,7 @@ function drawModuleShape(ctx: CanvasRenderingContext2D, x: number, y: number, si
       break
     }
     default:
-      ctx.fillRect(x + 0.5, y + 0.5, size - 1, size - 1)
+      ctx.fillRect(x + pad, y + pad, size - pad * 2, size - pad * 2)
   }
 }
 
