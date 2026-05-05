@@ -124,6 +124,35 @@ function TabForm({ activeTab, fields, setField, pdfUploading, onPDFUpload }: Tab
   return null
 }
 
+interface PreviewPanelProps {
+  canvasRef: React.RefObject<HTMLCanvasElement>
+  qrContent: string
+  shortId: string
+  saving: boolean
+  onSave: () => void
+  onDownloadPNG: () => void
+  onDownloadSVG: () => void
+}
+
+function PreviewPanel({ canvasRef, qrContent, shortId, saving, onSave, onDownloadPNG, onDownloadSVG }: PreviewPanelProps) {
+  return (
+    <div style={{background:'#fff',borderRadius:8,padding:16,display:'flex',flexDirection:'column',alignItems:'center',gap:12,boxShadow:'0px 8px 24px rgba(24,28,30,0.06)'}}>
+      <canvas ref={canvasRef} width={200} height={200} style={{borderRadius:8,maxWidth:'100%'}} />
+      {qrContent.length > 2 && !shortId && (
+        <button onClick={onSave} disabled={saving} style={{width:'100%',background:saving?'#718096':'rgba(0,88,195,0.08)',color:saving?'#fff':'#0058c3',border:'1px solid rgba(0,88,195,0.2)',borderRadius:4,padding:'11px',fontFamily:'inherit',fontSize:13,fontWeight:600,cursor:'pointer'}}>
+          {saving ? 'Saving...' : 'Make Dynamic (Free)'}
+        </button>
+      )}
+      <button onClick={onDownloadPNG} disabled={qrContent.length < 3} style={{width:'100%',background:qrContent.length>2?'linear-gradient(135deg,#0058c3,#0070f3)':'#e5e9eb',color:qrContent.length>2?'#fff':'#a0aec0',border:'none',borderRadius:4,padding:'12px',fontFamily:'inherit',fontSize:14,fontWeight:700,cursor:qrContent.length>2?'pointer':'not-allowed',display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>Download PNG</button>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,width:'100%'}}>
+        <button onClick={onDownloadSVG} style={{background:'#f1f4f6',border:'1px solid rgba(74,85,104,0.15)',borderRadius:4,padding:'9px',fontFamily:'inherit',fontSize:11,fontWeight:600,color:'#4a5568',cursor:'pointer'}}>SVG Vector</button>
+        <button style={{background:'#f1f4f6',border:'1px solid rgba(74,85,104,0.15)',borderRadius:4,padding:'9px',fontFamily:'inherit',fontSize:11,fontWeight:600,color:'#4a5568',cursor:'pointer'}}>Print PDF</button>
+      </div>
+      <div style={{fontSize:10,color:'#718096',textAlign:'center'}}>3000x3000px Transparent Free</div>
+    </div>
+  )
+}
+
 export default function QRGenerator() {
   const [activeTab, setActiveTab] = useState('URL')
   const [activeTool, setActiveTool] = useState('')
@@ -254,23 +283,6 @@ export default function QRGenerator() {
     } catch { alert('Upload failed. Try again.') }
     finally { setPdfUploading(false) }
   }
-
-  const PreviewPanel = () => (
-    <div style={{background:'#fff',borderRadius:8,padding:16,display:'flex',flexDirection:'column',alignItems:'center',gap:12,boxShadow:'0px 8px 24px rgba(24,28,30,0.06)'}}>
-      <canvas ref={canvasRef} width={200} height={200} style={{borderRadius:8,maxWidth:'100%'}} />
-      {qrContent.length > 2 && !shortId && (
-        <button onClick={saveQR} disabled={saving} style={{width:'100%',background:saving?'#718096':'rgba(0,88,195,0.08)',color:saving?'#fff':'#0058c3',border:'1px solid rgba(0,88,195,0.2)',borderRadius:4,padding:'11px',fontFamily:'inherit',fontSize:13,fontWeight:600,cursor:'pointer'}}>
-          {saving ? 'Saving...' : 'Make Dynamic (Free)'}
-        </button>
-      )}
-      <button onClick={downloadPNG} disabled={qrContent.length < 3} style={{width:'100%',background:qrContent.length>2?'linear-gradient(135deg,#0058c3,#0070f3)':'#e5e9eb',color:qrContent.length>2?'#fff':'#a0aec0',border:'none',borderRadius:4,padding:'12px',fontFamily:'inherit',fontSize:14,fontWeight:700,cursor:qrContent.length>2?'pointer':'not-allowed',display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>Download PNG</button>
-      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,width:'100%'}}>
-        <button onClick={downloadSVG} style={{background:'#f1f4f6',border:'1px solid rgba(74,85,104,0.15)',borderRadius:4,padding:'9px',fontFamily:'inherit',fontSize:11,fontWeight:600,color:'#4a5568',cursor:'pointer'}}>SVG Vector</button>
-        <button style={{background:'#f1f4f6',border:'1px solid rgba(74,85,104,0.15)',borderRadius:4,padding:'9px',fontFamily:'inherit',fontSize:11,fontWeight:600,color:'#4a5568',cursor:'pointer'}}>Print PDF</button>
-      </div>
-      <div style={{fontSize:10,color:'#718096',textAlign:'center'}}>3000x3000px Transparent Free</div>
-    </div>
-  )
 
   return (
     <div style={{fontFamily:'Inter, system-ui, sans-serif',background:'#f7fafc',minHeight:'100vh'}}>
@@ -415,7 +427,7 @@ export default function QRGenerator() {
               </select>
             </div>
           </div>
-          {isMobile && <div style={{marginBottom:12}}><PreviewPanel /></div>}
+          {isMobile && <div style={{marginBottom:12}}><PreviewPanel canvasRef={canvasRef} qrContent={qrContent} shortId={shortId} saving={saving} onSave={saveQR} onDownloadPNG={downloadPNG} onDownloadSVG={downloadSVG} /></div>}
           {shortId && (
             <div style={{background:'rgba(0,88,195,0.06)',border:'1px solid rgba(0,88,195,0.2)',borderRadius:8,padding:'12px 14px',marginBottom:12}}>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:8,flexWrap:'wrap',marginBottom:10}}>
@@ -491,7 +503,7 @@ export default function QRGenerator() {
             </div>
           </div>
         </main>
-        {!isMobile && <aside style={{paddingLeft:12}}><PreviewPanel /></aside>}
+        {!isMobile && <aside style={{paddingLeft:12}}><PreviewPanel canvasRef={canvasRef} qrContent={qrContent} shortId={shortId} saving={saving} onSave={saveQR} onDownloadPNG={downloadPNG} onDownloadSVG={downloadSVG} /></aside>}
       </div>
       <Footer />
     </div>
