@@ -125,7 +125,7 @@ function TabForm({ activeTab, fields, setField, pdfUploading, onPDFUpload }: Tab
 }
 
 interface PreviewPanelProps {
-  canvasRef: React.RefObject<HTMLCanvasElement>
+  canvasRef: React.RefObject<HTMLCanvasElement | null>
   qrContent: string
   shortId: string
   saving: boolean
