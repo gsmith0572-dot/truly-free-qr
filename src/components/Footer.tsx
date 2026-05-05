@@ -4,6 +4,7 @@ export default function Footer() {
   return (
     <footer style={{ background: '#fff', borderTop: '1px solid rgba(74,85,104,0.15)', padding: '20px 24px', textAlign: 'center' }}>
       <div style={{ display: 'flex', justifyContent: 'center', gap: 20, marginBottom: 8, flexWrap: 'wrap' }}>
+        <Link href="/blog" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>Blog</Link>
         <Link href="/about" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>About Us</Link>
         <Link href="/contact" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>Contact Us</Link>
         <Link href="/privacy-policy" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>Privacy Policy</Link>
