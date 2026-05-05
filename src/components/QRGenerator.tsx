@@ -12,7 +12,8 @@ const QR_COLORS = ['#0058c3','#181c1e','#16a34a','#dc2626','#7c3aed','#ea580c']
 const BG_COLORS = ['#ffffff','#f1f4f6','#fff7ed','#f0fdf4','#fef2f2','#181c1e']
 
 const FRAMES = ['No Frame','Simple Border','Rounded','Scan Me']
-const SHAPES = ['Square','Rounded','Dots','Extra Round','Diamond','Star']
+const BODY_TYPES = ['Square','Dots','Rounded','Extra Round']
+const EDGE_STYLES = ['Square','Round Out','Round In','Round Both','Circle','Diamond']
 
 const inp = { width: '100%', background: '#fff', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '10px 12px', fontFamily: 'Inter, system-ui, sans-serif', fontSize: 13, color: '#181c1e', outline: 'none', boxSizing: 'border-box' as const }
 const lbl = { fontSize: 10, fontWeight: 600 as const, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: '#718096', marginBottom: 5, display: 'block' as const }
@@ -36,67 +37,142 @@ function buildQRContent(tab: string, fields: Record<string, string>): string {
   return ''
 }
 
+function arcRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
+  ctx.beginPath()
+  ctx.moveTo(x + r, y)
+  ctx.lineTo(x + w - r, y)
+  ctx.arcTo(x + w, y, x + w, y + r, r)
+  ctx.lineTo(x + w, y + h - r)
+  ctx.arcTo(x + w, y + h, x + w - r, y + h, r)
+  ctx.lineTo(x + r, y + h)
+  ctx.arcTo(x, y + h, x, y + h - r, r)
+  ctx.lineTo(x, y + r)
+  ctx.arcTo(x, y, x + r, y, r)
+  ctx.closePath()
+  ctx.fill()
+}
+
 function drawModuleShape(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, shape: string, color: string) {
   ctx.fillStyle = color
   const r = size / 2
   const cx = x + r
   const cy = y + r
-  const pad = 0.8
+  const pad = 0.6
+  switch (shape) {
+    case 'Dots':
+      ctx.beginPath()
+      ctx.arc(cx, cy, r * 0.8, 0, Math.PI * 2)
+      ctx.fill()
+      break
+    case 'Rounded':
+      arcRect(ctx, x + pad, y + pad, size - pad * 2, size - pad * 2, size * 0.3)
+      break
+    case 'Extra Round':
+      arcRect(ctx, x + pad, y + pad, size - pad * 2, size - pad * 2, size * 0.48)
+      break
+    default:
+      ctx.fillRect(x + pad, y + pad, size - pad * 2, size - pad * 2)
+  }
+}
 
-  function roundedRect(rx: number, ry: number, rw: number, rh: number, radius: number) {
+function drawFinderPattern(ctx: CanvasRenderingContext2D, x: number, y: number, cellSize: number, edgeStyle: string, color: string, bg: string) {
+  const outer = cellSize * 7
+  const inner = cellSize * 3
+  const mid = (outer - inner) / 2
+
+  function squareRing() {
+    ctx.fillStyle = color
+    ctx.fillRect(x, y, outer, outer)
+    ctx.fillStyle = bg
+    ctx.fillRect(x + cellSize, y + cellSize, outer - cellSize * 2, outer - cellSize * 2)
+    ctx.fillStyle = color
+    ctx.fillRect(x + mid, y + mid, inner, inner)
+  }
+
+  function roundOutRing() {
+    const ro = outer / 2
+    ctx.fillStyle = color
+    arcRect(ctx, x, y, outer, outer, ro * 0.45)
+    ctx.fillStyle = bg
+    arcRect(ctx, x + cellSize, y + cellSize, outer - cellSize * 2, outer - cellSize * 2, ro * 0.28)
+    ctx.fillStyle = color
+    ctx.fillRect(x + mid, y + mid, inner, inner)
+  }
+
+  function roundInRing() {
+    ctx.fillStyle = color
+    ctx.fillRect(x, y, outer, outer)
+    ctx.fillStyle = bg
+    ctx.fillRect(x + cellSize, y + cellSize, outer - cellSize * 2, outer - cellSize * 2)
+    ctx.fillStyle = color
+    const ri = inner / 2
+    arcRect(ctx, x + mid, y + mid, inner, inner, ri * 0.5)
+  }
+
+  function roundBothRing() {
+    const ro = outer / 2
+    const ri = inner / 2
+    ctx.fillStyle = color
+    arcRect(ctx, x, y, outer, outer, ro * 0.45)
+    ctx.fillStyle = bg
+    arcRect(ctx, x + cellSize, y + cellSize, outer - cellSize * 2, outer - cellSize * 2, ro * 0.28)
+    ctx.fillStyle = color
+    arcRect(ctx, x + mid, y + mid, inner, inner, ri * 0.5)
+  }
+
+  function circleRing() {
+    const cx = x + outer / 2
+    const cy = y + outer / 2
+    ctx.fillStyle = color
     ctx.beginPath()
-    ctx.moveTo(rx + radius, ry)
-    ctx.lineTo(rx + rw - radius, ry)
-    ctx.arcTo(rx + rw, ry, rx + rw, ry + radius, radius)
-    ctx.lineTo(rx + rw, ry + rh - radius)
-    ctx.arcTo(rx + rw, ry + rh, rx + rw - radius, ry + rh, radius)
-    ctx.lineTo(rx + radius, ry + rh)
-    ctx.arcTo(rx, ry + rh, rx, ry + rh - radius, radius)
-    ctx.lineTo(rx, ry + radius)
-    ctx.arcTo(rx, ry, rx + radius, ry, radius)
+    ctx.arc(cx, cy, outer / 2, 0, Math.PI * 2)
+    ctx.fill()
+    ctx.fillStyle = bg
+    ctx.beginPath()
+    ctx.arc(cx, cy, outer / 2 - cellSize, 0, Math.PI * 2)
+    ctx.fill()
+    ctx.fillStyle = color
+    ctx.beginPath()
+    ctx.arc(cx, cy, inner / 2, 0, Math.PI * 2)
+    ctx.fill()
+  }
+
+  function diamondRing() {
+    const cx = x + outer / 2
+    const cy = y + outer / 2
+    ctx.fillStyle = color
+    ctx.beginPath()
+    ctx.moveTo(cx, y)
+    ctx.lineTo(x + outer, cy)
+    ctx.lineTo(cx, y + outer)
+    ctx.lineTo(x, cy)
+    ctx.closePath()
+    ctx.fill()
+    ctx.fillStyle = bg
+    ctx.beginPath()
+    ctx.moveTo(cx, y + cellSize * 1.4)
+    ctx.lineTo(x + outer - cellSize * 1.4, cy)
+    ctx.lineTo(cx, y + outer - cellSize * 1.4)
+    ctx.lineTo(x + cellSize * 1.4, cy)
+    ctx.closePath()
+    ctx.fill()
+    ctx.fillStyle = color
+    ctx.beginPath()
+    ctx.moveTo(cx, y + mid)
+    ctx.lineTo(x + mid + inner, cy)
+    ctx.lineTo(cx, y + mid + inner)
+    ctx.lineTo(x + mid, cy)
     ctx.closePath()
     ctx.fill()
   }
 
-  switch (shape) {
-    case 'Rounded':
-      roundedRect(x + pad, y + pad, size - pad * 2, size - pad * 2, size * 0.28)
-      break
-    case 'Dots':
-      ctx.beginPath()
-      ctx.arc(cx, cy, r * 0.82, 0, Math.PI * 2)
-      ctx.fill()
-      break
-    case 'Extra Round':
-      roundedRect(x + pad, y + pad, size - pad * 2, size - pad * 2, size * 0.46)
-      break
-    case 'Diamond':
-      ctx.beginPath()
-      ctx.moveTo(cx, y + pad)
-      ctx.lineTo(x + size - pad, cy)
-      ctx.lineTo(cx, y + size - pad)
-      ctx.lineTo(x + pad, cy)
-      ctx.closePath()
-      ctx.fill()
-      break
-    case 'Star': {
-      const spikes = 4
-      const outerR = r * 0.88
-      const innerR = r * 0.42
-      ctx.beginPath()
-      for (let i = 0; i < spikes * 2; i++) {
-        const angle = (i * Math.PI) / spikes - Math.PI / 2
-        const rad = i % 2 === 0 ? outerR : innerR
-        const px = cx + Math.cos(angle) * rad
-        const py = cy + Math.sin(angle) * rad
-        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py)
-      }
-      ctx.closePath()
-      ctx.fill()
-      break
-    }
-    default:
-      ctx.fillRect(x + pad, y + pad, size - pad * 2, size - pad * 2)
+  switch (edgeStyle) {
+    case 'Round Out': roundOutRing(); break
+    case 'Round In': roundInRing(); break
+    case 'Round Both': roundBothRing(); break
+    case 'Circle': circleRing(); break
+    case 'Diamond': diamondRing(); break
+    default: squareRing()
   }
 }
 
@@ -270,7 +346,8 @@ export default function QRGenerator() {
   const [qrColor, setQrColor] = useState('#0058c3')
   const [bgColor, setBgColor] = useState('#ffffff')
   const [activeFrame, setActiveFrame] = useState('No Frame')
-  const [activeShape, setActiveShape] = useState('Square')
+  const [activeBody, setActiveBody] = useState('Square')
+  const [activeEdge, setActiveEdge] = useState('Square')
   const [pdfUploading, setPdfUploading] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const qrContent = buildQRContent(activeTab, fields)
@@ -317,21 +394,40 @@ export default function QRGenerator() {
       ctx.fillStyle = bgColor
       ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE)
 
+      const finderPositions = [
+        { row: 0, col: 0 },
+        { row: 0, col: count - 7 },
+        { row: count - 7, col: 0 },
+      ]
+
+      function isFinder(row: number, col: number) {
+        return finderPositions.some(fp =>
+          row >= fp.row && row < fp.row + 7 && col >= fp.col && col < fp.col + 7
+        )
+      }
+
       for (let row = 0; row < count; row++) {
         for (let col = 0; col < count; col++) {
+          if (isFinder(row, col)) continue
           if (modules.get(row, col)) {
             const x = margin + col * cellSize
             const y = margin + row * cellSize
-            drawModuleShape(ctx, x, y, cellSize, activeShape, qrColor)
+            drawModuleShape(ctx, x, y, cellSize, activeBody, qrColor)
           }
         }
       }
+
+      finderPositions.forEach(fp => {
+        const fx = margin + fp.col * cellSize
+        const fy = margin + fp.row * cellSize
+        drawFinderPattern(ctx, fx, fy, cellSize, activeEdge, qrColor, bgColor)
+      })
 
       drawFrame(ctx, activeFrame, CANVAS_SIZE, qrColor)
     } catch {
       QRCode.toCanvas(canvas, qrContent, { width: CANVAS_SIZE, margin: 2, color: { dark: qrColor, light: bgColor } }).catch(() => {})
     }
-  }, [qrContent, qrColor, bgColor, activeFrame, activeShape])
+  }, [qrContent, qrColor, bgColor, activeFrame, activeBody, activeEdge])
 
   useEffect(() => { drawQR() }, [drawQR])
 
@@ -515,10 +611,16 @@ export default function QRGenerator() {
               )}
               {activeTool==='Shapes' && (
                 <div>
-                  <div style={{fontSize:11,fontWeight:700,color:'#181c1e',marginBottom:10}}>Module Shape</div>
-                  <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8}}>
-                    {SHAPES.map(s=>(
-                      <div key={s} onClick={()=>setActiveShape(s)} style={{background:'#fff',borderRadius:6,padding:'8px 6px',fontSize:10,fontWeight:500,color:activeShape===s?'#0058c3':'#4a5568',cursor:'pointer',border:activeShape===s?'1px solid #0058c3':'1px solid rgba(74,85,104,0.1)',textAlign:'center'}}>{s}</div>
+                  <div style={{fontSize:11,fontWeight:700,color:'#181c1e',marginBottom:8}}>Body Type</div>
+                  <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:6,marginBottom:14}}>
+                    {BODY_TYPES.map(s=>(
+                      <div key={s} onClick={()=>setActiveBody(s)} style={{background:'#fff',borderRadius:6,padding:'8px 6px',fontSize:11,fontWeight:500,color:activeBody===s?'#0058c3':'#4a5568',cursor:'pointer',border:activeBody===s?'2px solid #0058c3':'1px solid rgba(74,85,104,0.1)',textAlign:'center'}}>{s}</div>
+                    ))}
+                  </div>
+                  <div style={{fontSize:11,fontWeight:700,color:'#181c1e',marginBottom:8}}>Edge Style</div>
+                  <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:6}}>
+                    {EDGE_STYLES.map(e=>(
+                      <div key={e} onClick={()=>setActiveEdge(e)} style={{background:'#fff',borderRadius:6,padding:'8px 6px',fontSize:11,fontWeight:500,color:activeEdge===e?'#0058c3':'#4a5568',cursor:'pointer',border:activeEdge===e?'2px solid #0058c3':'1px solid rgba(74,85,104,0.1)',textAlign:'center'}}>{e}</div>
                     ))}
                   </div>
                 </div>
