@@ -11,6 +11,9 @@ const SIDEBAR_TOOLS = ['Colors', 'Frames', 'Logo', 'Shapes']
 const QR_COLORS = ['#0058c3','#181c1e','#16a34a','#dc2626','#7c3aed','#ea580c']
 const BG_COLORS = ['#ffffff','#f1f4f6','#fff7ed','#f0fdf4','#fef2f2','#181c1e']
 
+const FRAMES = ['No Frame','Simple Border','Rounded','Scan Me']
+const SHAPES = ['Square','Rounded','Dots','Extra Round','Diamond','Star']
+
 const inp = { width: '100%', background: '#fff', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '10px 12px', fontFamily: 'Inter, system-ui, sans-serif', fontSize: 13, color: '#181c1e', outline: 'none', boxSizing: 'border-box' as const }
 const lbl = { fontSize: 10, fontWeight: 600 as const, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: '#718096', marginBottom: 5, display: 'block' as const }
 
@@ -31,6 +34,90 @@ function buildQRContent(tab: string, fields: Record<string, string>): string {
   if (tab === 'Text') return fields.text || ''
   if (tab === 'PDF') return fields.pdfUrl || ''
   return ''
+}
+
+function drawModuleShape(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, shape: string, color: string) {
+  ctx.fillStyle = color
+  const r = size / 2
+  const cx = x + r
+  const cy = y + r
+  switch (shape) {
+    case 'Rounded':
+      ctx.beginPath()
+      ctx.roundRect(x + 0.5, y + 0.5, size - 1, size - 1, size * 0.3)
+      ctx.fill()
+      break
+    case 'Dots':
+      ctx.beginPath()
+      ctx.arc(cx, cy, r * 0.85, 0, Math.PI * 2)
+      ctx.fill()
+      break
+    case 'Extra Round':
+      ctx.beginPath()
+      ctx.roundRect(x + 0.5, y + 0.5, size - 1, size - 1, size * 0.48)
+      ctx.fill()
+      break
+    case 'Diamond':
+      ctx.beginPath()
+      ctx.moveTo(cx, y + 1)
+      ctx.lineTo(x + size - 1, cy)
+      ctx.lineTo(cx, y + size - 1)
+      ctx.lineTo(x + 1, cy)
+      ctx.closePath()
+      ctx.fill()
+      break
+    case 'Star': {
+      const spikes = 4
+      const outerR = r * 0.9
+      const innerR = r * 0.45
+      ctx.beginPath()
+      for (let i = 0; i < spikes * 2; i++) {
+        const angle = (i * Math.PI) / spikes - Math.PI / 2
+        const rad = i % 2 === 0 ? outerR : innerR
+        const px = cx + Math.cos(angle) * rad
+        const py = cy + Math.sin(angle) * rad
+        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py)
+      }
+      ctx.closePath()
+      ctx.fill()
+      break
+    }
+    default:
+      ctx.fillRect(x + 0.5, y + 0.5, size - 1, size - 1)
+  }
+}
+
+function drawFrame(ctx: CanvasRenderingContext2D, frame: string, size: number, qrColor: string) {
+  if (frame === 'No Frame') return
+  if (frame === 'Simple Border') {
+    ctx.strokeStyle = qrColor
+    ctx.lineWidth = 3
+    ctx.strokeRect(3, 3, size - 6, size - 6)
+  }
+  if (frame === 'Rounded') {
+    ctx.strokeStyle = qrColor
+    ctx.lineWidth = 3
+    ctx.beginPath()
+    ctx.roundRect(3, 3, size - 6, size - 6, 16)
+    ctx.stroke()
+  }
+  if (frame === 'Scan Me') {
+    ctx.strokeStyle = qrColor
+    ctx.lineWidth = 3
+    ctx.beginPath()
+    ctx.roundRect(3, 3, size - 6, size - 6, 12)
+    ctx.stroke()
+    const labelH = 28
+    ctx.fillStyle = qrColor
+    ctx.beginPath()
+    ctx.roundRect(3, size - labelH - 3, size - 6, labelH, [0, 0, 12, 12])
+    ctx.fill()
+    ctx.fillStyle = '#ffffff'
+    ctx.font = 'bold 13px Inter, system-ui, sans-serif'
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.fillText('SCAN ME', size / 2, size - labelH / 2 - 3)
+  }
 }
 
 interface TabFormProps {
@@ -137,7 +224,7 @@ interface PreviewPanelProps {
 function PreviewPanel({ canvasRef, qrContent, shortId, saving, onSave, onDownloadPNG, onDownloadSVG }: PreviewPanelProps) {
   return (
     <div style={{background:'#fff',borderRadius:8,padding:16,display:'flex',flexDirection:'column',alignItems:'center',gap:12,boxShadow:'0px 8px 24px rgba(24,28,30,0.06)'}}>
-      <canvas ref={canvasRef} width={200} height={200} style={{borderRadius:8,maxWidth:'100%'}} />
+      <canvas ref={canvasRef} width={220} height={220} style={{borderRadius:8,maxWidth:'100%'}} />
       {qrContent.length > 2 && !shortId && (
         <button onClick={onSave} disabled={saving} style={{width:'100%',background:saving?'#718096':'rgba(0,88,195,0.08)',color:saving?'#fff':'#0058c3',border:'1px solid rgba(0,88,195,0.2)',borderRadius:4,padding:'11px',fontFamily:'inherit',fontSize:13,fontWeight:600,cursor:'pointer'}}>
           {saving ? 'Saving...' : 'Make Dynamic (Free)'}
@@ -169,9 +256,12 @@ export default function QRGenerator() {
   const [isMobile, setIsMobile] = useState(false)
   const [qrColor, setQrColor] = useState('#0058c3')
   const [bgColor, setBgColor] = useState('#ffffff')
+  const [activeFrame, setActiveFrame] = useState('No Frame')
+  const [activeShape, setActiveShape] = useState('Square')
   const [pdfUploading, setPdfUploading] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const qrContent = buildQRContent(activeTab, fields)
+  const CANVAS_SIZE = 220
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -186,22 +276,49 @@ export default function QRGenerator() {
   }, [])
 
   const drawQR = useCallback(() => {
-    if (!canvasRef.current) return
-    if (qrContent.length > 2) {
-      QRCode.toCanvas(canvasRef.current, qrContent, { width:200, margin:2, color:{ dark:qrColor, light:bgColor } }).catch(()=>{})
-    } else {
-      const ctx = canvasRef.current.getContext('2d')
-      if (!ctx) return
-      ctx.clearRect(0,0,200,200)
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE)
+
+    if (qrContent.length <= 2) {
       ctx.fillStyle = '#f1f4f6'
-      ctx.fillRect(0,0,200,200)
+      ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE)
       ctx.fillStyle = '#a0aec0'
       ctx.font = '12px system-ui'
       ctx.textAlign = 'center'
-      ctx.fillText('Fill in the fields to', 100, 90)
-      ctx.fillText('generate your QR code', 100, 108)
+      ctx.textBaseline = 'alphabetic'
+      ctx.fillText('Fill in the fields to', CANVAS_SIZE / 2, CANVAS_SIZE / 2 - 6)
+      ctx.fillText('generate your QR code', CANVAS_SIZE / 2, CANVAS_SIZE / 2 + 12)
+      return
     }
-  }, [qrContent, qrColor, bgColor])
+
+    try {
+      const qrMatrix = QRCode.create(qrContent, { errorCorrectionLevel: 'M' })
+      const modules = qrMatrix.modules
+      const count = modules.size
+      const margin = activeFrame === 'No Frame' ? 10 : 14
+      const cellSize = (CANVAS_SIZE - margin * 2) / count
+
+      ctx.fillStyle = bgColor
+      ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE)
+
+      for (let row = 0; row < count; row++) {
+        for (let col = 0; col < count; col++) {
+          if (modules.get(row, col)) {
+            const x = margin + col * cellSize
+            const y = margin + row * cellSize
+            drawModuleShape(ctx, x, y, cellSize, activeShape, qrColor)
+          }
+        }
+      }
+
+      drawFrame(ctx, activeFrame, CANVAS_SIZE, qrColor)
+    } catch {
+      QRCode.toCanvas(canvas, qrContent, { width: CANVAS_SIZE, margin: 2, color: { dark: qrColor, light: bgColor } }).catch(() => {})
+    }
+  }, [qrContent, qrColor, bgColor, activeFrame, activeShape])
 
   useEffect(() => { drawQR() }, [drawQR])
 
@@ -259,10 +376,10 @@ export default function QRGenerator() {
       img.onload = () => {
         const ctx = canvasRef.current!.getContext('2d')
         if (!ctx) return
-        const s=44, x=(200-s)/2, y=(200-s)/2
+        const s = 44, x = (CANVAS_SIZE - s) / 2, y = (CANVAS_SIZE - s) / 2
         ctx.fillStyle = bgColor
-        ctx.fillRect(x-3,y-3,s+6,s+6)
-        ctx.drawImage(img,x,y,s,s)
+        ctx.fillRect(x - 3, y - 3, s + 6, s + 6)
+        ctx.drawImage(img, x, y, s, s)
       }
       img.src = ev.target?.result as string
     }
@@ -366,11 +483,10 @@ export default function QRGenerator() {
                 <div>
                   <div style={{fontSize:11,fontWeight:700,color:'#181c1e',marginBottom:10}}>Frame Style</div>
                   <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
-                    {['No Frame','Simple Border soon','Rounded soon','Scan Me soon'].map(f=>(
-                      <div key={f} style={{background:'#fff',borderRadius:6,padding:'8px 6px',fontSize:11,fontWeight:500,color:f==='No Frame'?'#0058c3':'#a0aec0',cursor:f==='No Frame'?'pointer':'not-allowed',border:f==='No Frame'?'1px solid #0058c3':'1px solid rgba(74,85,104,0.1)',textAlign:'center'}}>{f}</div>
+                    {FRAMES.map(f=>(
+                      <div key={f} onClick={()=>setActiveFrame(f)} style={{background:'#fff',borderRadius:6,padding:'8px 6px',fontSize:11,fontWeight:500,color:activeFrame===f?'#0058c3':'#4a5568',cursor:'pointer',border:activeFrame===f?'1px solid #0058c3':'1px solid rgba(74,85,104,0.1)',textAlign:'center'}}>{f}</div>
                     ))}
                   </div>
-                  <div style={{fontSize:10,color:'#718096',marginTop:8}}>Custom frames coming in v2.</div>
                 </div>
               )}
               {activeTool==='Logo' && (
@@ -388,11 +504,10 @@ export default function QRGenerator() {
                 <div>
                   <div style={{fontSize:11,fontWeight:700,color:'#181c1e',marginBottom:10}}>Module Shape</div>
                   <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8}}>
-                    {[['Square','active'],['Rounded','soon'],['Dots','soon'],['Extra Round','soon'],['Diamond','soon'],['Star','soon']].map(([s,b])=>(
-                      <div key={s} style={{background:'#fff',borderRadius:6,padding:'8px 6px',fontSize:10,fontWeight:500,color:b==='active'?'#0058c3':'#a0aec0',cursor:b==='soon'?'not-allowed':'pointer',border:b==='active'?'1px solid #0058c3':'1px solid rgba(74,85,104,0.1)',textAlign:'center'}}>{s}</div>
+                    {SHAPES.map(s=>(
+                      <div key={s} onClick={()=>setActiveShape(s)} style={{background:'#fff',borderRadius:6,padding:'8px 6px',fontSize:10,fontWeight:500,color:activeShape===s?'#0058c3':'#4a5568',cursor:'pointer',border:activeShape===s?'1px solid #0058c3':'1px solid rgba(74,85,104,0.1)',textAlign:'center'}}>{s}</div>
                     ))}
                   </div>
-                  <div style={{fontSize:10,color:'#718096',marginTop:8}}>Square active. Custom shapes coming in v2.</div>
                 </div>
               )}
             </div>
