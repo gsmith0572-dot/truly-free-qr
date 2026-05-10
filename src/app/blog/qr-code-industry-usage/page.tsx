@@ -1,3 +1,4 @@
+import AuthorBox from "@/components/blog/AuthorBox";
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -13,7 +14,7 @@ const articleSchema = {
   headline: "QR Code Usage by Industry 2026: Restaurants, Retail, Healthcare & More",
   datePublished: "2026-05-04",
   dateModified: "2026-05-04",
-  author: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
+  author: { "@type": "Person", name: "George Smith", url: "https://www.linkedin.com/in/george-smith-832113217/" },
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
 }
 
@@ -77,6 +78,7 @@ export default function ArticleQRCodeIndustryUsage() {
         </div>
 
         <section style={{ marginBottom: 40 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <h2 style={{ fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" }}>Restaurants & Food Service: 52% Adoption</h2>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>The restaurant industry underwent the most rapid QR code adoption of any sector, driven by the contactless requirement of 2020 and sustained by the operational and cost benefits that followed. Before 2020, QR menu adoption in US restaurants was estimated at 8%. By 2026 it has reached 52%, representing a 6.5x increase in six years.</p>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>The economics of QR menus are compelling for operators. A mid-size restaurant printing 150 physical menus at $4 each and updating them quarterly spends approximately $2,400 per year on menu printing. A dynamic QR menu eliminates this cost entirely, with the only ongoing requirement being the redirect infrastructure — which platforms like Truly Free QR provide at no cost.</p>
@@ -188,6 +190,8 @@ export default function ArticleQRCodeIndustryUsage() {
             <Link href="/privacy-policy" style={{ color: "#718096", textDecoration: "none" }}>Privacy</Link>
           </div>
         </div>
+      
+      <AuthorBox />
       </footer>
     </div>
   )

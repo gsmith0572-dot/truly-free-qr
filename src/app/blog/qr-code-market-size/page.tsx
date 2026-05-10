@@ -1,3 +1,4 @@
+import AuthorBox from "@/components/blog/AuthorBox";
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -13,7 +14,7 @@ const articleSchema = {
   headline: "QR Code Market Size 2026: Revenue, Growth & Industry Breakdown",
   datePublished: "2026-05-04",
   dateModified: "2026-05-04",
-  author: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
+  author: { "@type": "Person", name: "George Smith", url: "https://www.linkedin.com/in/george-smith-832113217/" },
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
 }
 
@@ -95,6 +96,7 @@ export default function ArticleQRCodeMarketSize() {
         </div>
 
         <section style={{ marginBottom: 40 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <h2 style={{ fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" }}>Global QR Code Market Overview: $16.4 Billion in 2026</h2>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>The global QR code market reached a valuation of $16.4 billion in 2026, representing a compound annual growth rate of 16.82% from the $11.9 billion recorded in 2024. This growth rate places the QR code sector among the fastest-expanding segments within the broader digital identity and mobile commerce infrastructure market.</p>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>The market encompasses five primary segments: QR generator software platforms, payment and fintech infrastructure built on QR technology, retail and marketing solutions, healthcare identity systems, and government digital services. Each segment has distinct growth dynamics, with healthcare and fintech showing the highest CAGRs due to regulatory mandates driving adoption.</p>
@@ -199,6 +201,8 @@ export default function ArticleQRCodeMarketSize() {
             <Link href="/privacy-policy" style={{ color: "#718096", textDecoration: "none" }}>Privacy</Link>
           </div>
         </div>
+      
+      <AuthorBox />
       </footer>
     </div>
   )

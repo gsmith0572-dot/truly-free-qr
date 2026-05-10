@@ -1,3 +1,4 @@
+import AuthorBox from "@/components/blog/AuthorBox";
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -13,7 +14,7 @@ const articleSchema = {
   headline: "QR Code Phishing (Quishing): What It Is, How It Works, and How to Protect Users",
   datePublished: "2026-04-01",
   dateModified: "2026-04-27",
-  author: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
+  author: { "@type": "Person", name: "George Smith", url: "https://www.linkedin.com/in/george-smith-832113217/" },
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
 }
 
@@ -49,6 +50,7 @@ export default function ArticlePhishing() {
           </div>
         </div>
         <section style={{ marginBottom: 40 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <h2 style={{ fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" }}>What Is QR Phishing (Quishing)?</h2>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>Quishing is a cyberattack that uses malicious QR codes to redirect victims to fraudulent websites designed to steal credentials, install malware, or capture payment information. It exploits a fundamental property of QR code scanning: users cannot read the destination URL before scanning. In a traditional phishing email, a trained user can hover over a link to preview the destination. With a QR code, no preview is possible in the default scanning flow.</p>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: 0 }}>The Anti-Phishing Working Group documented a 400% increase in quishing incidents between 2023 and 2025, with 89.3% of attacks targeting credential theft — login pages for banking, email, and corporate systems that are visually indistinguishable from the legitimate services they impersonate.</p>
@@ -135,6 +137,8 @@ export default function ArticlePhishing() {
             <Link href="/privacy-policy" style={{ color: "#718096", textDecoration: "none" }}>Privacy</Link>
           </div>
         </div>
+      
+      <AuthorBox />
       </footer>
     </div>
   )

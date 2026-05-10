@@ -1,3 +1,4 @@
+import AuthorBox from "@/components/blog/AuthorBox";
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -13,7 +14,7 @@ const articleSchema = {
   headline: "How Starbucks Uses QR Codes: Loyalty, Payments & AR Campaigns 2026",
   datePublished: "2026-05-04",
   dateModified: "2026-05-04",
-  author: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
+  author: { "@type": "Person", name: "George Smith", url: "https://www.linkedin.com/in/george-smith-832113217/" },
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
 }
 
@@ -75,6 +76,7 @@ export default function ArticleHowStarbucksUsesQRCodes() {
         </div>
 
         <section style={{ marginBottom: 40 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <h2 style={{ fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" }}>Starbucks' QR Strategy: The Loyalty-Payment Flywheel</h2>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>Starbucks' QR code deployment is built around a single flywheel: every scan simultaneously completes a payment and deepens a loyalty relationship. This design decision — combining payment and loyalty into one QR gesture — is the core innovation that makes the Starbucks mobile system one of the most used QR payment platforms in the United States, surpassing Apple Pay and Google Pay in Starbucks locations by transaction volume.</p>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>The mechanism is straightforward but strategically profound. A customer who pays with the Starbucks app scans once. That single scan processes payment, awards Stars to their Rewards account, and records the transaction in Starbucks' analytics database. The data from that scan informs personalized offers delivered through the app before the next visit — completing a closed-loop customer intelligence system that begins and ends with a QR code.</p>
@@ -163,6 +165,8 @@ export default function ArticleHowStarbucksUsesQRCodes() {
             <Link href="/privacy-policy" style={{ color: "#718096", textDecoration: "none" }}>Privacy</Link>
           </div>
         </div>
+      
+      <AuthorBox />
       </footer>
     </div>
   )

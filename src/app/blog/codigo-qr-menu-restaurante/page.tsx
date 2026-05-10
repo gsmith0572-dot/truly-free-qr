@@ -1,3 +1,4 @@
+import AuthorBox from "@/components/blog/AuthorBox";
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -14,7 +15,7 @@ const articleSchema = {
   datePublished: "2026-05-05",
   dateModified: "2026-05-05",
   inLanguage: "es",
-  author: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
+  author: { "@type": "Person", name: "George Smith", url: "https://www.linkedin.com/in/george-smith-832113217/" },
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
 }
 
@@ -63,6 +64,7 @@ export default function ArticleCodigoQRMenuRestaurante() {
           ))}
         </div>
         <section style={{ marginBottom: 40 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <h2 style={{ fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" }}>Por qué tu restaurante necesita un menú con código QR</h2>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>Un restaurante que actualiza su carta cuatro veces al año y tiene 60 mesas con dos cartas cada una gasta entre 500 y 2.000 euros anuales solo en impresión de menús. Con un código QR dinámico gratuito, el menú se actualiza en tiempo real desde cualquier dispositivo sin reimprimir nada y sin coste adicional.</p>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>Más allá del ahorro económico, los menús digitales permiten incluir fotos de platos, información de alérgenos, opciones de filtrado por dieta, y precios actualizados al momento. La Asociación Nacional de Restaurantes de Estados Unidos confirma que el 58% de los comensales adultos prefieren los menús digitales accesibles por QR sobre los menús impresos tradicionales.</p>
@@ -142,6 +144,8 @@ export default function ArticleCodigoQRMenuRestaurante() {
             <Link href="/privacy-policy" style={{ color: "#718096", textDecoration: "none" }}>Privacidad</Link>
           </div>
         </div>
+      
+      <AuthorBox />
       </footer>
     </div>
   )

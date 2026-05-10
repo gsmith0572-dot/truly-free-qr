@@ -1,3 +1,4 @@
+import AuthorBox from "@/components/blog/AuthorBox";
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -13,7 +14,7 @@ const articleSchema = {
   headline: "Best Free QR Code Generator 2026: No Subscription, No Expiration (Honest Comparison)",
   datePublished: "2026-05-04",
   dateModified: "2026-05-04",
-  author: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
+  author: { "@type": "Person", name: "George Smith", url: "https://www.linkedin.com/in/george-smith-832113217/" },
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
 }
 
@@ -149,6 +150,7 @@ export default function ArticleBestFreeQRGenerator() {
         </div>
 
         <section style={{ marginBottom: 40 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <h2 style={{ fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 20px", color: "#181c1e" }}>The 6 Best Free QR Code Generators Compared</h2>
           {TOOLS.map((tool, i) => (
             <div key={tool.name} style={{ background: "#fff", borderRadius: 8, border: tool.name === "Truly Free QR" ? "2px solid #0058c3" : "1px solid rgba(74,85,104,0.09)", padding: "24px", marginBottom: 16, position: "relative" }}>
@@ -245,6 +247,8 @@ export default function ArticleBestFreeQRGenerator() {
             <Link href="/privacy-policy" style={{ color: "#718096", textDecoration: "none" }}>Privacy</Link>
           </div>
         </div>
+      
+      <AuthorBox />
       </footer>
     </div>
   )

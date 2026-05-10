@@ -1,120 +1,60 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "About Us | Truly Free QR — Precision QR Infrastructure",
-  description:
-    "Truly Free QR was built to end the 14-day bait-and-switch. Dynamic QR codes that never expire, no subscription, no blackmail. Built by Klickify Agency.",
-  icons: {
-    icon: [
-      { url: "/favicon.ico?v=3" },
-      { url: "/favicon-32.png?v=3", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-512.png?v=3", sizes: "512x512", type: "image/png" },
-    ],
-    apple: "/favicon-512.png?v=3",
-  },
+  title: "About | Truly Free QR — Built by George Smith, Klickify Agency",
+  description: "Truly Free QR was built by George Smith, founder of Klickify Agency, to end the 14-day QR bait-and-switch. Dynamic QR codes that never expire. No subscription. No blackmail.",
+  alternates: { canonical: "https://trulyfreeqr.com/about" },
 };
 
 export default function AboutPage() {
   return (
-    <main
-      style={{
-        fontFamily: "'Inter', sans-serif",
-        letterSpacing: "-0.02em",
-        color: "#0a0f1e",
-        overflowX: "hidden",
-      }}
-    >
+    <main style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "-0.02em", color: "#0a0f1e", overflowX: "hidden" }}>
       <section style={{ background: "#ffffff", padding: "96px 24px 80px", textAlign: "center" }}>
         <div style={{ maxWidth: "720px", margin: "0 auto" }}>
-          <p style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#0058c3", marginBottom: "20px" }}>
-            About Truly Free QR
-          </p>
-          <h1 style={{ fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.04em", margin: "0 0 24px", color: "#0a0f1e" }}>
-            We built the tool we<br />wished existed.
-          </h1>
-          <p style={{ fontSize: "18px", lineHeight: 1.65, color: "#4a5568", maxWidth: "580px", margin: "0 auto" }}>
-            After watching thousands of businesses discover their printed QR codes stopped working — held hostage by 14-day trials — we decided to build something different.
-          </p>
+          <p style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#0058c3", marginBottom: "20px" }}>About Truly Free QR</p>
+          <h1 style={{ fontSize: "clamp(32px,5vw,52px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.1, margin: "0 0 24px", color: "#181c1e" }}>Built to end the QR bait-and-switch</h1>
+          <p style={{ fontSize: "18px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: "0 auto", maxWidth: "600px" }}>Dynamic QR codes that never expire. No subscription. No 14-day trial. No blackmail.</p>
         </div>
       </section>
 
       <section style={{ background: "#f7fafc", padding: "80px 24px" }}>
-        <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-          <span style={{ display: "inline-block", width: "32px", height: "3px", background: "linear-gradient(135deg, #0058c3, #0070f3)", borderRadius: "2px", marginBottom: "20px" }} />
-          <h2 style={{ fontSize: "28px", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: "16px", color: "#0a0f1e" }}>The Mission</h2>
-          <p style={{ fontSize: "16px", lineHeight: 1.75, color: "#4a5568", maxWidth: "640px" }}>
-            The QR code industry runs on a predatory model: offer a &ldquo;free&rdquo; dynamic code, wait until it&rsquo;s printed on restaurant menus, product packaging, and event signage, then deactivate it. Pay $111–$180 per year or your materials become worthless.
-          </p>
-          <p style={{ fontSize: "16px", lineHeight: 1.75, color: "#4a5568", marginTop: "16px", maxWidth: "640px" }}>
-            Truly Free QR exists to end that model. Every dynamic QR code we generate stays active permanently. We monetize through advertising, not through your data or your desperation.
-          </p>
-        </div>
-      </section>
-
-      <section style={{ background: "#ffffff", padding: "80px 24px" }}>
-        <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-          <span style={{ display: "inline-block", width: "32px", height: "3px", background: "linear-gradient(135deg, #0058c3, #0070f3)", borderRadius: "2px", marginBottom: "20px" }} />
-          <h2 style={{ fontSize: "28px", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: "16px", color: "#0a0f1e" }}>The Entity</h2>
-          <p style={{ fontSize: "16px", lineHeight: 1.75, color: "#4a5568", maxWidth: "640px" }}>
-            Truly Free QR is an initiative of <strong style={{ color: "#0a0f1e", fontWeight: 600 }}>Klickify Agency</strong>, engineered as a precision instrument for professionals — restaurateurs, real estate agents, event coordinators, product marketers — who need infrastructure they can trust without a recurring invoice.
-          </p>
-        </div>
-      </section>
-
-      <section style={{ background: "#f7fafc", padding: "80px 24px" }}>
-        <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-          <span style={{ display: "inline-block", width: "32px", height: "3px", background: "linear-gradient(135deg, #0058c3, #0070f3)", borderRadius: "2px", marginBottom: "20px" }} />
-          <h2 style={{ fontSize: "28px", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: "24px", color: "#0a0f1e" }}>Technical Superiority</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px", marginBottom: "32px" }}>
-            {[
-              { metric: "<5ms", label: "Redirect Latency", desc: "VPS + Redis cache layer" },
-              { metric: "99.9%", label: "Uptime SLA", desc: "PostgreSQL + redundant routing" },
-              { metric: "∞", label: "Code Lifespan", desc: "No expiration. Ever." },
-            ].map((item) => (
-              <div key={item.metric} style={{ background: "#ffffff", borderRadius: "8px", padding: "24px", border: "1px solid #e2e8f0" }}>
-                <div style={{ fontSize: "32px", fontWeight: 700, letterSpacing: "-0.04em", background: "linear-gradient(135deg, #0058c3, #0070f3)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", marginBottom: "4px" }}>
-                  {item.metric}
-                </div>
-                <div style={{ fontSize: "14px", fontWeight: 600, color: "#0a0f1e", marginBottom: "4px" }}>{item.label}</div>
-                <div style={{ fontSize: "13px", color: "#718096" }}>{item.desc}</div>
+        <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+          <div style={{ display: "flex", alignItems: "flex-start", gap: "32px", flexWrap: "wrap" }}>
+            <div style={{ flexShrink: 0 }}>
+              <Image src="/george-smith.png" alt="George Smith — Founder of Klickify Agency" width={120} height={120} style={{ borderRadius: "50%", objectFit: "cover", display: "block" }} />
+            </div>
+            <div style={{ flex: 1, minWidth: "260px" }}>
+              <div style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", color: "#718096", textTransform: "uppercase", marginBottom: "8px" }}>THE FOUNDER</div>
+              <h2 style={{ fontSize: "28px", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 4px" }}>George Smith</h2>
+              <p style={{ fontSize: "14px", color: "#0058c3", fontWeight: 600, letterSpacing: "-0.01em", margin: "0 0 16px" }}>Founder, Klickify Agency</p>
+              <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: "0 0 12px" }}>I built Truly Free QR after watching small business owners get burned by QR generators that deactivate codes after 14 days unless you pay over $100 a year. I had already printed menus, flyers, and packaging. The code stopped working. The provider wanted an annual subscription to turn it back on.</p>
+              <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: "0 0 20px" }}>That felt like blackmail. So I built the alternative: dynamic QR codes that never expire, funded by Google AdSense instead of subscriptions. Free forever. No tricks.</p>
+              <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+                <a href="mailto:george@klickifyagency.com" style={{ fontSize: "13px", color: "#718096", textDecoration: "none", letterSpacing: "-0.01em" }}>george@klickifyagency.com</a>
+                <a href="https://www.linkedin.com/in/george-smith-832113217/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "13px", color: "#0058c3", fontWeight: 600, textDecoration: "none", letterSpacing: "-0.01em" }}>LinkedIn</a>
               </div>
-            ))}
+            </div>
           </div>
-          <p style={{ fontSize: "16px", lineHeight: 1.75, color: "#4a5568", maxWidth: "640px" }}>
-            Our infrastructure runs on a dedicated VPS with Redis for sub-5ms redirect resolution and PostgreSQL for durable storage of dynamic link targets and scan analytics.
-          </p>
         </div>
       </section>
 
       <section style={{ background: "#ffffff", padding: "80px 24px" }}>
-        <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-          <span style={{ display: "inline-block", width: "32px", height: "3px", background: "linear-gradient(135deg, #0058c3, #0070f3)", borderRadius: "2px", marginBottom: "20px" }} />
-          <h2 style={{ fontSize: "28px", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: "16px", color: "#0a0f1e" }}>The Ethical Commitment</h2>
-          <p style={{ fontSize: "16px", lineHeight: 1.75, color: "#4a5568", maxWidth: "640px" }}>
-            We make one guarantee in writing: <strong style={{ color: "#0a0f1e" }}>your dynamic QR codes will never be deactivated</strong> due to non-payment, because there is no payment.
-          </p>
-          <div style={{ marginTop: "40px", padding: "24px 28px", background: "#f0f7ff", borderRadius: "8px", borderLeft: "4px solid #0058c3" }}>
-            <p style={{ fontSize: "15px", lineHeight: 1.7, color: "#0a0f1e", fontWeight: 500, margin: 0 }}>
-              &ldquo;We will never deactivate a QR code due to billing. Static codes are free forever. Dynamic codes redirect forever. This is our written commitment to every user of this platform.&rdquo;
-            </p>
-            <p style={{ fontSize: "13px", color: "#4a5568", marginTop: "12px", marginBottom: 0 }}>
-              — Klickify Agency, founders of Truly Free QR
-            </p>
+        <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+          <div style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", color: "#718096", textTransform: "uppercase", marginBottom: "32px" }}>OUR PRINCIPLES</div>
+          <div style={{ display: "grid", gap: "32px" }}>
+            <div><h3 style={{ fontSize: "18px", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 8px" }}>No expiration. Ever.</h3><p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: 0 }}>Every dynamic QR code created on Truly Free QR stays active permanently. We make money through advertising, not by holding your codes hostage.</p></div>
+            <div><h3 style={{ fontSize: "18px", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 8px" }}>No account required.</h3><p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: 0 }}>Generate, customize, and download QR codes instantly. We do not ask for your email address, your credit card, or your personal information.</p></div>
+            <div><h3 style={{ fontSize: "18px", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 8px" }}>Safe-Scan protection.</h3><p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: 0 }}>Every redirect is screened against Google Safe Browsing. Users can preview the destination before the redirect completes — protection against QR phishing that most generators ignore.</p></div>
           </div>
         </div>
       </section>
 
-      <section style={{ background: "linear-gradient(135deg, #0058c3 0%, #0070f3 100%)", padding: "72px 24px", textAlign: "center" }}>
-        <div style={{ maxWidth: "560px", margin: "0 auto" }}>
-          <h2 style={{ fontSize: "32px", fontWeight: 700, letterSpacing: "-0.03em", color: "#ffffff", marginBottom: "16px" }}>
-            Questions or feedback?
-          </h2>
-          <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.8)", marginBottom: "32px" }}>
-            We&rsquo;re a small team that reads every message.
-          </p>
-          <a href="/contact" style={{ display: "inline-block", padding: "14px 32px", background: "#ffffff", color: "#0058c3", borderRadius: "6px", fontWeight: 600, fontSize: "15px", textDecoration: "none" }}>
-            Contact Us →
-          </a>
+      <section style={{ background: "#f7fafc", padding: "80px 24px" }}>
+        <div style={{ maxWidth: "720px", margin: "0 auto", textAlign: "center" }}>
+          <div style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", color: "#718096", textTransform: "uppercase", marginBottom: "16px" }}>CONTACT</div>
+          <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", marginBottom: "16px" }}>Questions, feedback, or partnership inquiries:</p>
+          <a href="mailto:george@klickifyagency.com" style={{ color: "#0058c3", fontWeight: 600, textDecoration: "none", fontSize: "16px" }}>george@klickifyagency.com</a>
         </div>
       </section>
     </main>
