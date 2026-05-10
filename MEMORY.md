@@ -91,3 +91,43 @@ PENDIENTE:
 - Aprobación de Google AdSense
 - Indexación completa en Google (2-4 semanas)
 - Primer tráfico orgánico
+
+
+---
+
+## ADSENSE AUTHOR FIX — May 9, 2026
+
+### Por qué se hizo
+TrulyFreeTools (proyecto hermano) recibió rechazo de AdSense "Low value content". Causa raíz: Google 2026 rechaza sitios sin autoría humana visible. TrulyFreeQR estaba en "Getting ready" — aplicamos el fix preventivamente antes de que Google lo rechace.
+
+### Los 7 pasos aplicados
+
+1. `public/george-smith.png` — foto de George copiada desde Downloads
+2. `src/components/blog/AuthorBox.tsx` — creado con foto 72x72, nombre, título, email, LinkedIn
+3. AuthorBox agregado al final de los 13 artículos (antes de `</footer>`)
+4. Byline con foto 36x36 + "George Smith — Founder, Klickify Agency" al inicio de los 13 artículos (antes del primer `<h2 style=`)
+5. Schema author cambiado de Organization a Person con LinkedIn en 12 artículos. `qr-code-stopped-working` no tenía Article schema — se creó desde cero
+6. `/about` page reconstruida con foto 120x120, bio humana, historia personal, LinkedIn, email
+7. Deploy limpio — 16 archivos cambiados, 0 errores
+
+### Pendiente (quota GSC agotado May 9)
+Request Indexing en GSC para estas URLs — hacer al día siguiente:
+- https://trulyfreeqr.com/blog/qr-code-statistics
+- https://trulyfreeqr.com/blog/dynamic-vs-static-qr-codes
+- https://trulyfreeqr.com/blog/qr-code-stopped-working
+- https://trulyfreeqr.com/blog/qr-code-phishing-protection
+- https://trulyfreeqr.com/blog/qr-code-market-size
+- https://trulyfreeqr.com/blog/qr-code-industry-usage
+- https://trulyfreeqr.com/blog/best-free-qr-code-generator
+- https://trulyfreeqr.com/blog/how-coca-cola-uses-qr-codes
+- https://trulyfreeqr.com/blog/how-mcdonalds-uses-qr-codes
+- https://trulyfreeqr.com/blog/how-nike-uses-qr-codes
+- https://trulyfreeqr.com/blog/how-starbucks-uses-qr-codes
+- https://trulyfreeqr.com/blog/codigo-qr-menu-restaurante
+- https://trulyfreeqr.com/blog/generador-codigos-qr-gratis
+- https://trulyfreeqr.com/about
+
+Request Review en AdSense — SOLO después de completar Request Indexing.
+
+### Regla crítica
+NUNCA hacer Request Review en AdSense sin autoría humana visible (foto + nombre + LinkedIn + schema Person). Rechazo = 14 días de espera. Aplicar estos 7 pasos en todos los proyectos futuros antes de cualquier AdSense review.
