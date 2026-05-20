@@ -26,10 +26,6 @@ const POSTS = [
 export default function BlogIndex() {
   return (
     <div style={{ fontFamily: "Inter, system-ui, sans-serif", background: "#f7fafc", minHeight: "100vh", color: "#181c1e" }}>
-      <nav style={{ background: "#fff", borderBottom: "1px solid rgba(74,85,104,0.12)", padding: "0 20px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 56, position: "sticky", top: 0, zIndex: 100 }}>
-        <Link href="/" style={{ fontWeight: 700, fontSize: 14, letterSpacing: "-0.02em", color: "#181c1e", textDecoration: "none" }}>Truly Free <span style={{ color: "#0058c3" }}>QR</span></Link>
-        <Link href="/" style={{ padding: "7px 18px", background: "linear-gradient(135deg,#0058c3,#0070f3)", color: "#fff", borderRadius: 4, fontSize: 13, fontWeight: 600, textDecoration: "none" }}>Free QR Generator</Link>
-      </nav>
       <div style={{ background: "linear-gradient(160deg,#08122a 0%,#0c1e45 55%,#08122a 100%)", color: "#fff", padding: "56px 20px 44px" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <h1 style={{ fontSize: "clamp(26px,4vw,40px)", fontWeight: 800, letterSpacing: "-0.03em", margin: "0 0 16px" }}>QR Code Guides &amp; Industry Analysis</h1>
