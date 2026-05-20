@@ -513,7 +513,7 @@ export default function QRGenerator() {
       <style>{`.tab-scroll{overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}.tab-scroll::-webkit-scrollbar{display:none}`}</style>
       <div style={{background:'#f1f4f6',padding:'8px 16px',textAlign:'center',fontSize:11,color:'#4a5568',display:'flex',alignItems:'center',justifyContent:'center',gap:6}}>
         <span style={{background:'rgba(0,88,195,0.08)',color:'#0058c3',padding:'1px 6px',borderRadius:2,fontSize:10,fontWeight:700,whiteSpace:'nowrap'}}>TRULY FREE</span>
-        <span>Dynamic QR No Expiration No Account No Subscription.</span>
+        <h1 style={{fontSize:11,fontWeight:400,color:'#4a5568',margin:0,fontFamily:'inherit',letterSpacing:'inherit'}}>Free QR Code Generator — No Subscription, No Expiration, No Account</h1>
       </div>
       <div style={{maxWidth:1180,margin:'0 auto',padding:'0 16px'}}>
         <div style={{margin:'12px 0'}}><AdSlot slot="6975799046" format="leaderboard" /></div>

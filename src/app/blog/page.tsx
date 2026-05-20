@@ -7,6 +7,19 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://trulyfreeqr.com/blog" },
 }
 
+const blogListSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "Truly Free QR Blog",
+  url: "https://trulyfreeqr.com/blog",
+  description: "Expert guides on QR code technology, phishing protection, dynamic vs static codes, and subscription trap awareness.",
+  publisher: {
+    "@type": "Organization",
+    name: "Truly Free QR",
+    url: "https://trulyfreeqr.com",
+  },
+}
+
 const POSTS = [
   { slug: "codigo-qr-menu-restaurante", label: "GUÍA EN ESPAÑOL", labelColor: "#ea580c", title: "Código QR para Menú de Restaurante Gratis 2026: Guía Completa", excerpt: "El 52% de los restaurantes ya usan menús digitales con código QR. Cómo crear el tuyo gratis en menos de 5 minutos, qué tipo de código QR necesitas, y cómo evitar pagar suscripciones innecesarias.", readTime: "10 min", date: "Mayo 2026" },
   { slug: "generador-codigos-qr-gratis", label: "GUÍA EN ESPAÑOL", labelColor: "#16a34a", title: "Generador de Códigos QR Gratis: Sin Suscripción, Sin Registro, Sin Caducidad", excerpt: "La mayoría de generadores de códigos QR gratuitos no lo son realmente. Esta guía explica las trampas de suscripción, qué herramientas son genuinamente gratuitas y cómo crear códigos QR dinámicos que nunca caducan sin pagar nada.", readTime: "12 min", date: "Mayo 2026" },
@@ -26,6 +39,7 @@ const POSTS = [
 export default function BlogIndex() {
   return (
     <div style={{ fontFamily: "Inter, system-ui, sans-serif", background: "#f7fafc", minHeight: "100vh", color: "#181c1e" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogListSchema) }} />
       <div style={{ background: "linear-gradient(160deg,#08122a 0%,#0c1e45 55%,#08122a 100%)", color: "#fff", padding: "56px 20px 44px" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <h1 style={{ fontSize: "clamp(26px,4vw,40px)", fontWeight: 800, letterSpacing: "-0.03em", margin: "0 0 16px" }}>QR Code Guides &amp; Industry Analysis</h1>
