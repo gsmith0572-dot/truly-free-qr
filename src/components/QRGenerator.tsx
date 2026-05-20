@@ -1,7 +1,6 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import QRCode from 'qrcode'
-import Footer from '@/components/Footer'
 import AdSlot from '@/components/ads/AdSlot'
 import Link from 'next/link'
 
@@ -513,42 +512,6 @@ export default function QRGenerator() {
   return (
     <div style={{fontFamily:'Inter, system-ui, sans-serif',background:'#f7fafc',minHeight:'100vh'}}>
       <style>{`.tab-scroll{overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}.tab-scroll::-webkit-scrollbar{display:none}`}</style>
-      <nav style={{background:'#fff',borderBottom:'1px solid rgba(74,85,104,0.15)',padding:'0 24px',display:'flex',alignItems:'center',justifyContent:'space-between',height:64,position:'sticky',top:0,zIndex:100}}>
-        <a href="/" style={{display:'flex',alignItems:'center',textDecoration:'none',flexShrink:0}}>
-          <img src="/logo.png" alt="TrulyFreeQR" style={{height:44,width:'auto'}} />
-        </a>
-        {!isMobile && (
-          <div style={{display:'flex',gap:4,position:'absolute',left:'50%',transform:'translateX(-50%)'}}>
-            <Link href="/" style={{padding:'6px 14px',fontSize:13,fontWeight:500,color:'#0058c3',textDecoration:'none',borderBottom:'2px solid #0058c3'}}>Generator</Link>
-            <Link href="/dashboard" style={{padding:'6px 14px',fontSize:13,fontWeight:500,color:'#4a5568',textDecoration:'none',borderBottom:'2px solid transparent'}}>Analytics</Link>
-            <Link href="/qr-code-for-restaurants" style={{padding:'6px 14px',fontSize:13,fontWeight:500,color:'#4a5568',textDecoration:'none',borderBottom:'2px solid transparent'}}>Use Cases</Link>
-            <a href="/contact" style={{padding:'6px 14px',fontSize:13,fontWeight:500,color:'#4a5568',textDecoration:'none',borderBottom:'2px solid transparent'}}>Contact</a>
-          </div>
-        )}
-        <div style={{display:'flex',alignItems:'center',gap:8}}>
-          {qrCount > 0 && (
-            <a href="/dashboard" style={{display:'flex',alignItems:'center',gap:5,background:'#f1f4f6',border:'1px solid rgba(74,85,104,0.15)',borderRadius:4,padding:'5px 10px',fontSize:12,fontWeight:600,color:'#4a5568',textDecoration:'none'}}>
-              {!isMobile && 'My QRs '}
-              <span style={{background:'#0058c3',color:'#fff',borderRadius:10,padding:'1px 5px',fontSize:10}}>{qrCount}</span>
-            </a>
-          )}
-          {isMobile && (
-            <button onClick={()=>setMenuOpen(!menuOpen)} style={{background:'none',border:'none',cursor:'pointer',padding:8,display:'flex',flexDirection:'column',gap:4}}>
-              <span style={{display:'block',width:20,height:2,background:'#181c1e',borderRadius:1}}></span>
-              <span style={{display:'block',width:20,height:2,background:'#181c1e',borderRadius:1}}></span>
-              <span style={{display:'block',width:20,height:2,background:'#181c1e',borderRadius:1}}></span>
-            </button>
-          )}
-        </div>
-      </nav>
-      {menuOpen && isMobile && (
-        <div style={{background:'#fff',borderBottom:'1px solid rgba(74,85,104,0.15)',padding:'8px 16px'}}>
-          <Link href="/" style={{display:'block',padding:'12px 0',fontSize:14,fontWeight:500,color:'#0058c3',borderBottom:'1px solid rgba(74,85,104,0.06)',textDecoration:'none'}}>Generator</Link>
-          <Link href="/dashboard" style={{display:'block',padding:'12px 0',fontSize:14,fontWeight:500,color:'#4a5568',borderBottom:'1px solid rgba(74,85,104,0.06)',textDecoration:'none'}}>Analytics</Link>
-          <Link href="/qr-code-for-restaurants" style={{display:'block',padding:'12px 0',fontSize:14,fontWeight:500,color:'#4a5568',borderBottom:'1px solid rgba(74,85,104,0.06)',textDecoration:'none'}}>Use Cases</Link>
-          <a href="/contact" style={{display:'block',padding:'12px 0',fontSize:14,fontWeight:500,color:'#4a5568',textDecoration:'none'}}>Contact</a>
-        </div>
-      )}
       <div style={{background:'#f1f4f6',padding:'8px 16px',textAlign:'center',fontSize:11,color:'#4a5568',display:'flex',alignItems:'center',justifyContent:'center',gap:6}}>
         <span style={{background:'rgba(0,88,195,0.08)',color:'#0058c3',padding:'1px 6px',borderRadius:2,fontSize:10,fontWeight:700,whiteSpace:'nowrap'}}>TRULY FREE</span>
         <span>Dynamic QR No Expiration No Account No Subscription.</span>
@@ -735,7 +698,6 @@ export default function QRGenerator() {
         </main>
         {!isMobile && <aside style={{paddingLeft:12}}><PreviewPanel canvasRef={canvasRef} qrContent={qrContent} shortId={shortId} saving={saving} onSave={saveQR} onDownloadPNG={downloadPNG} onDownloadSVG={downloadSVG} /></aside>}
       </div>
-      <Footer />
     </div>
   )
 }
