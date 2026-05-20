@@ -4,8 +4,8 @@ export default function Header() {
   return (
     <header style={{ background: '#ffffff', borderBottom: '1px solid rgba(74,85,104,0.15)', padding: '0 24px', position: 'sticky', top: 0, zIndex: 200 }}>
       <nav style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64, gap: 16, flexWrap: 'wrap' }}>
-        <Link href="/" style={{ fontSize: 16, fontWeight: 800, color: '#181c1e', textDecoration: 'none', letterSpacing: '-0.02em', fontFamily: 'Inter, sans-serif' }}>
-          Truly Free <span style={{ color: '#0058c3' }}>QR</span>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}>
+          <img src="/logo.png" alt="Truly Free QR" style={{ height: 44, width: 'auto' }} />
         </Link>
         <div style={{ display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap' }}>
           <Link href="/" style={{ fontSize: 13, color: '#4a5568', textDecoration: 'none', fontFamily: 'Inter, sans-serif', letterSpacing: '-0.01em', fontWeight: 500 }}>Home</Link>

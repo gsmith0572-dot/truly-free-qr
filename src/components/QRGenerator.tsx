@@ -340,7 +340,6 @@ export default function QRGenerator() {
   const [safeScanUrl, setSafeScanUrl] = useState('')
   const [saving, setSaving] = useState(false)
   const [qrCount, setQrCount] = useState(0)
-  const [menuOpen, setMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [qrColor, setQrColor] = useState('#0058c3')
   const [bgColor, setBgColor] = useState('#ffffff')
