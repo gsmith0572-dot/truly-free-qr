@@ -74,13 +74,13 @@ export default function HomepageContent() {
               A QR code that works for your business, not against it
             </h2>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
-              A dynamic QR code does not store the destination URL inside the pattern itself. Instead, it stores a short redirect URL hosted on a server. When someone scans the code, the server resolves the redirect and sends them to the correct destination. This architecture means you can change where the code points at any time — without reprinting anything.
+              A dynamic QR code doesn't store your actual URL in the pattern. It stores a short redirect link. When someone scans it, that redirect fires and sends them to wherever you've set as the destination. The key thing: you can change that destination any time, without touching the printed code.
             </p>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
-              For a restaurant, this means updating a seasonal menu without replacing printed table cards. For a real estate agent, it means updating a property listing URL after a sale. For a product manufacturer, it means linking packaging to a campaign page that changes quarterly — all with the same printed code.
+              Restaurant? Update your menu without reprinting 200 table cards. Real estate? Point the code on a For Sale sign to the new listing when a property changes. Product packaging? Swap the campaign link quarterly without a new print run. One code, endless flexibility.
             </p>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "0" }}>
-              Dynamic codes also collect scan analytics: how many times the code was scanned, which devices were used, what country the scans originated from, and when during the day scans peaked. This data is accessible in real time through the dashboard above — with no account required to create a code.
+              Dynamic codes also track scans — device type, country, time of day, total count. You can see it all in the dashboard above. And you don't need an account to create a code to get any of this.
             </p>
           </div>
         </section>
@@ -94,16 +94,16 @@ export default function HomepageContent() {
               Why QR codes "stop working" — and how we guarantee they never will
             </h2>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
-              The leading QR code platforms use a business model known as bait-and-switch. They offer a 14-day free trial for dynamic codes. During that window, users generate codes, print them on menus, product packaging, event signs, and marketing materials. When the trial ends, the platform deactivates the codes unless the user pays an annual subscription — typically between $111 and $180 per year.
+              Here's how the big QR platforms work: they give you a 14-day free trial. You generate codes, print them on menus, signs, and packaging. The trial ends. They deactivate your codes. Pay up or your materials are dead. Subscriptions run $111 to $180 per year.
             </p>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
-              The cost is not the problem. The timing is. By the time the trial expires, the printed materials are already distributed. Reprinting is expensive. Businesses feel coerced into paying because the alternative is dead codes on materials they cannot easily replace. Users on Trustpilot and G2 describe the experience as "extortion" and "blackmail." The provider has leverage because your investment in printed materials creates switching costs.
+              The price isn't even the main issue. The timing is. By the time your trial runs out, those materials are already in the field. Reprinting costs money. You either pay or you leave dead codes on everything you printed. Trustpilot and G2 reviews use words like "extortion" and "blackmail." Those reviews are right.
             </p>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
               Truly Free QR was built specifically to end this practice. Every dynamic QR code created here uses the same redirect infrastructure — but the codes are funded by Google AdSense advertising revenue, not by subscriptions. The redirect server runs on dedicated VPS infrastructure with Redis caching for sub-5ms resolution times. There is no trial period, no expiration date, and no mechanism by which a code can be deactivated due to non-payment, because payment is never requested.
             </p>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75 }}>
-              This is not a promotional claim — it is an architectural guarantee. The redirect layer is separated from the application layer precisely so that even in a worst-case scenario, existing codes continue to resolve.
+              That's not a marketing promise. It's how the system is built. The redirect infrastructure is separate from the application layer — specifically so that codes keep working even if something goes wrong on the app side.
             </p>
           </div>
         </section>
@@ -117,10 +117,10 @@ export default function HomepageContent() {
               Anti-phishing built into every redirect
             </h2>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
-              QR code phishing — known as quishing — increased 400% between 2023 and 2025. Attackers place malicious QR codes over legitimate ones in restaurants, parking lots, and transit stations. Because most users cannot visually inspect a QR code before scanning, phishing via QR is significantly more effective than traditional link-based phishing.
+              QR phishing — quishing — jumped 400% between 2023 and 2025. The attack is simple: stick a malicious code over a legitimate one in a restaurant, parking lot, or transit station. People scan without thinking. You can't visually inspect a QR code the way you can hover over a link.
             </p>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "0" }}>
-              Every redirect processed through Truly Free QR runs through Safe-Scan: a three-layer verification system that checks SSL validity, domain reputation, and the Google Safe Browsing API before completing the redirect. Users also see a destination preview screen so they can confirm where the code leads before their browser navigates there. Safe-Scan adds approximately 200ms to the first scan of a new destination, with subsequent scans cached for near-instant resolution.
+              Every redirect through Truly Free QR goes through Safe-Scan first: SSL check, domain reputation check, Google Safe Browsing check — all three before the redirect completes. Scanners also see a preview of where they're going before their browser navigates there. First scan of a new destination adds about 200ms. After that, it's cached and near-instant.
             </p>
           </div>
         </section>
