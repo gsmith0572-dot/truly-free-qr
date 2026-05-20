@@ -18,6 +18,33 @@ const articleSchema = {
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
 }
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is the main difference between a dynamic and a static QR code?",
+      acceptedAnswer: { "@type": "Answer", text: "A static QR code encodes the destination URL directly in the pixel pattern. It cannot be changed after generation. A dynamic QR code encodes a short redirect URL instead. The redirect destination can be updated at any time without changing the printed code." },
+    },
+    {
+      "@type": "Question",
+      name: "Do dynamic QR codes require an internet connection to scan?",
+      acceptedAnswer: { "@type": "Answer", text: "Yes. Dynamic QR codes require an internet connection to resolve the redirect to the destination URL. Static QR codes do not require an internet connection for scanning because the destination is encoded in the pattern itself." },
+    },
+    {
+      "@type": "Question",
+      name: "Can I track how many times a dynamic QR code is scanned?",
+      acceptedAnswer: { "@type": "Answer", text: "Yes. Dynamic QR codes support full scan analytics including total scan count, geographic location of scans, device type breakdown, and time-of-day distribution. Static codes have no tracking capability." },
+    },
+    {
+      "@type": "Question",
+      name: "Why do dynamic QR codes have lower pixel density than static codes?",
+      acceptedAnswer: { "@type": "Answer", text: "Dynamic codes encode only a short redirect URL, which is a fixed-length string regardless of how long the final destination URL is. Static codes encode the full destination URL directly, so a longer URL produces a denser, more complex pattern that can be harder to scan on small prints." },
+    },
+  ],
+}
+
 const COMPARISON = [
   ["Destination encoding", "In QR pattern directly", "On redirect server"],
   ["Editability after generation", "None — permanent", "Unlimited — real-time"],
@@ -33,6 +60,7 @@ export default function ArticleDynamicVsStatic() {
   return (
     <div style={{ fontFamily: "Inter, system-ui, sans-serif", background: "#f7fafc", minHeight: "100vh", color: "#181c1e" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <nav style={{ background: "#fff", borderBottom: "1px solid rgba(74,85,104,0.12)", padding: "0 20px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 56, position: "sticky", top: 0, zIndex: 100 }}>
         <Link href="/" style={{ fontWeight: 700, fontSize: 14, color: "#181c1e", textDecoration: "none" }}>Truly Free <span style={{ color: "#0058c3" }}>QR</span></Link>
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>

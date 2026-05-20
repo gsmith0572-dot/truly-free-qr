@@ -18,10 +18,38 @@ const articleSchema = {
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
 }
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is QR code phishing (quishing)?",
+      acceptedAnswer: { "@type": "Answer", text: "Quishing is a cyberattack that uses malicious QR codes to redirect victims to fraudulent websites designed to steal credentials, install malware, or capture payment information. It exploits the fact that users cannot preview a QR code destination before scanning." },
+    },
+    {
+      "@type": "Question",
+      name: "How much have QR phishing attacks increased?",
+      acceptedAnswer: { "@type": "Answer", text: "QR phishing attacks increased 400% between 2023 and 2025. The Anti-Phishing Working Group documented that 89.3% of these attacks target credential theft — login pages that impersonate banking, email, and corporate systems." },
+    },
+    {
+      "@type": "Question",
+      name: "How does Safe-Scan protect users from QR phishing?",
+      acceptedAnswer: { "@type": "Answer", text: "Safe-Scan is a three-layer verification system built into every redirect on Truly Free QR. Before completing the redirect, it checks SSL certificate validity, domain reputation, and the Google Safe Browsing API. Users also see a destination preview screen so they can confirm where the code leads before navigating there." },
+    },
+    {
+      "@type": "Question",
+      name: "Where do quishing attacks most commonly occur?",
+      acceptedAnswer: { "@type": "Answer", text: "Quishing attacks most commonly occur in physical environments where QR codes are expected: restaurants, hotel lobbies, parking payment kiosks, and public transit stations. Attackers place fake QR codes over legitimate ones or replace signage entirely." },
+    },
+  ],
+}
+
 export default function ArticlePhishing() {
   return (
     <div style={{ fontFamily: "Inter, system-ui, sans-serif", background: "#f7fafc", minHeight: "100vh", color: "#181c1e" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <nav style={{ background: "#fff", borderBottom: "1px solid rgba(74,85,104,0.12)", padding: "0 20px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 56, position: "sticky", top: 0, zIndex: 100 }}>
         <Link href="/" style={{ fontWeight: 700, fontSize: 14, color: "#181c1e", textDecoration: "none" }}>Truly Free <span style={{ color: "#0058c3" }}>QR</span></Link>
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
