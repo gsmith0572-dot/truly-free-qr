@@ -58,7 +58,7 @@ export default function AboutPage() {
               <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: "0 0 12px" }}>That felt like blackmail. So I built the alternative: dynamic QR codes that never expire, funded by Google AdSense instead of subscriptions. Free forever. No tricks.</p>
               <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: "0 0 20px" }}>Klickify Agency is my digital product studio focused on building ethical, ad-supported utility tools that solve real problems without extracting money from the people who can least afford it. Truly Free QR is the first product in that portfolio.</p>
               <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-                <a href="mailto:george@klickifyagency.com" style={{ fontSize: "13px", color: "#718096", textDecoration: "none", letterSpacing: "-0.01em" }}>george@klickifyagency.com</a>
+                <a href="mailto:info@klickifyagency.com" style={{ fontSize: "13px", color: "#718096", textDecoration: "none", letterSpacing: "-0.01em" }}>info@klickifyagency.com</a>
                 <a href="https://www.linkedin.com/in/george-smith-832113217/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "13px", color: "#0058c3", fontWeight: 600, textDecoration: "none", letterSpacing: "-0.01em" }}>LinkedIn →</a>
               </div>
             </div>
@@ -126,7 +126,7 @@ export default function AboutPage() {
         <div style={{ maxWidth: "720px", margin: "0 auto", textAlign: "center" }}>
           <div style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", color: "#718096", textTransform: "uppercase", marginBottom: "16px" }}>CONTACT</div>
           <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", marginBottom: "8px" }}>Questions, feedback, or partnership inquiries:</p>
-          <a href="mailto:george@klickifyagency.com" style={{ color: "#0058c3", fontWeight: 600, textDecoration: "none", fontSize: "16px" }}>george@klickifyagency.com</a>
+          <a href="mailto:info@klickifyagency.com" style={{ color: "#0058c3", fontWeight: 600, textDecoration: "none", fontSize: "16px" }}>info@klickifyagency.com</a>
           <p style={{ fontSize: "13px", color: "#718096", marginTop: "8px" }}>Typical response time: 24–48 hours.</p>
         </div>
       </section>
