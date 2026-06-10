@@ -22,6 +22,21 @@ const BLOG_POSTS: { slug: string; date: string }[] = [
   { slug: 'how-nike-uses-qr-codes', date: '2026-05-04' },
   { slug: 'codigo-qr-menu-restaurante', date: '2026-05-04' },
   { slug: 'generador-codigos-qr-gratis', date: '2026-05-04' },
+  { slug: 'free-dynamic-qr-code-generator-no-expiration', date: '2026-06-10' },
+  { slug: 'qr-code-restaurant-menu-free', date: '2026-06-10' },
+  { slug: 'dynamic-vs-static-qr-code', date: '2026-06-10' },
+  { slug: 'qr-code-business-card-free', date: '2026-06-10' },
+  { slug: 'qr-code-alternatives-bitly-free', date: '2026-06-10' },
+  { slug: 'why-do-qr-codes-expire', date: '2026-06-10' },
+  { slug: 'how-to-create-qr-code-free', date: '2026-06-10' },
+  { slug: 'qr-code-product-packaging-free', date: '2026-06-10' },
+  { slug: 'qr-code-real-estate-flyer-free', date: '2026-06-10' },
+  { slug: 'qr-code-phishing-quishing-protect', date: '2026-06-10' },
+  { slug: 'qr-code-analytics-free', date: '2026-06-10' },
+  { slug: 'qr-code-generator-events-free', date: '2026-06-10' },
+  { slug: 'best-free-qr-code-generator-2026', date: '2026-06-10' },
+  { slug: 'how-to-update-qr-code-without-reprinting', date: '2026-06-10' },
+  { slug: 'qr-code-wifi-password-free', date: '2026-06-10' },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
