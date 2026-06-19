@@ -88,7 +88,7 @@ export default function ArticleHowToCreateQRCodeFree() {
 
         <section style={{ marginBottom: 40 }}>
           <h2 style={h2Style}>Why Truly Free QR Is Actually Free (No Hidden Costs)</h2>
-          <p style={pStyle}>Let me explain the business model directly. Truly Free QR shows Google AdSense ads on the generator dashboard and on blog articles like this one. When you visit the site, you might see a banner ad for a web hosting company or a marketing tool. If you click that ad, I earn a few cents. That&apos;s it.</p>
+          <p style={pStyle}>Truly Free QR is free because it runs on display advertising, not subscriptions. Ads appear on the generator and blog pages — not on the QR code scan redirect, which would be annoying and unprofessional.</p>
           <p style={pStyle}>I do not show ads on the QR code scan redirect page. That would be annoying and would make your customers suspicious. I do not require accounts or emails. I do not have a &quot;Pro&quot; plan that unlocks basic features. What you see is what you get. Custom colors? Free. Logo embedding? Free. Analytics? Free for dynamic codes. No expiration? Free forever.</p>
           <p style={{ ...pStyle, margin: 0 }}>My costs are server hosting (about $20/month) and domain registration ($15/year). Ad revenue covers that and leaves a small surplus. I&apos;m not getting rich. I built this because I needed it for my own business and I was tired of subscription traps. If you find it useful, that&apos;s enough for me.</p>
         </section>

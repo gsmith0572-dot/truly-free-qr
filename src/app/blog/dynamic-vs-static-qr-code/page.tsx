@@ -97,8 +97,8 @@ export default function ArticleDynamicVsStaticQRCode() {
         </section>
 
         <section style={{ marginBottom: 40 }}>
-          <h2 style={h2Style}>Why Truly Free QR Never Expires (And How We Pay for It)</h2>
-          <p style={pStyle}>I run this site on Google AdSense. You see ads on the generator dashboard and on these blog articles. When you click an ad for a CRM or a web host, I get a few cents. That pays for my server costs. I don&apos;t charge subscriptions because I don&apos;t need to. My costs are low – a few hundred dollars a year. Ad revenue covers that.</p>
+          <h2 style={h2Style}>Why Truly Free QR Never Expires</h2>
+          <p style={pStyle}>Truly Free QR is ad-supported, not subscription-based. Display ads appear on the generator and blog pages. Server costs are low — a few hundred dollars a year — and advertising revenue covers that entirely, with no need to charge users.</p>
           <p style={pStyle}>The reason I can offer dynamic codes for free while competitors charge $9–$35 a month is overhead. QR Code Generator has dozens of employees, a sales team, and investors demanding returns. I have none of that. I&apos;m a solo developer who got burned by QR code expiration and decided to fix it. My tool costs almost nothing to run, so I give it away.</p>
           <p style={{ ...pStyle, margin: 0 }}>Safe-Scan protects everyone, regardless of code type. Before any dynamic redirect, I check the destination against Google Safe Browsing. Static codes are not checked because there&apos;s no redirect – the phone goes directly to the URL. That means if you encode a malicious URL into a static code, Safe-Scan cannot protect you. So be careful with static codes. Only use URLs you fully control.</p>
         </section>

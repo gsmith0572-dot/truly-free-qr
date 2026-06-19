@@ -89,8 +89,8 @@ export default function ArticleQRProductPackagingFree() {
         </section>
 
         <section style={{ marginBottom: 40 }}>
-          <h2 style={h2Style}>Why Truly Free QR Never Expires (And How We Pay for It)</h2>
-          <p style={pStyle}>The business model is simple: Google AdSense ads on the generator dashboard. When you create a packaging QR code, you might see an ad for a shipping service or a label printer. I get a few cents if you click. That&apos;s it. I don&apos;t run ads on the scan redirect because that would look unprofessional on your packaging.</p>
+          <h2 style={h2Style}>Why Truly Free QR Never Expires</h2>
+          <p style={pStyle}>Truly Free QR is free because it is ad-supported, not subscription-based. Display ads appear on the generator dashboard — never on the scan redirect, which would look unprofessional on your packaging materials.</p>
           <p style={pStyle}>My costs are minimal. Each dynamic QR code is a tiny database record – a few bytes. Even a million codes cost me less than $10 per month in storage. Scans cost about $0.00001 each. Ad revenue easily covers this. There&apos;s no need to charge you a subscription. The only reason competitors charge is because they have investors and sales teams. I don&apos;t.</p>
           <p style={{ ...pStyle, margin: 0 }}>Safe-Scan protects your customers. Before redirecting, I check the destination against Google Safe Browsing. If your product landing page ever gets hacked and starts serving malware, Safe-Scan will warn scanners. This protects your brand reputation. If a customer scans your soap box and gets a malware warning, they&apos;ll think your product is compromised. Safe-Scan prevents that.</p>
         </section>

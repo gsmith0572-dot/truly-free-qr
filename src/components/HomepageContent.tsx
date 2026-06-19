@@ -9,7 +9,7 @@ const faqSchema = {
       name: "Are dynamic QR codes on Truly Free QR really free forever?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Every dynamic QR code you create on Truly Free QR stays active permanently at no cost. We fund operations through non-intrusive Google AdSense advertising, not subscriptions. Your code will not be deactivated if you do not pay — because there is nothing to pay.",
+        text: "Yes. Every dynamic QR code you create on Truly Free QR stays active permanently at no cost. We fund operations through display advertising, not subscriptions. Your code will not be deactivated if you do not pay — because there is nothing to pay.",
       },
     },
     {
@@ -100,7 +100,7 @@ export default function HomepageContent() {
               The price isn't even the main issue. The timing is. By the time your trial runs out, those materials are already in the field. Reprinting costs money. You either pay or you leave dead codes on everything you printed. Trustpilot and G2 reviews use words like "extortion" and "blackmail." Those reviews are right.
             </p>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
-              Truly Free QR was built specifically to end this practice. Every dynamic QR code created here uses the same redirect infrastructure — but the codes are funded by Google AdSense advertising revenue, not by subscriptions. The redirect server runs on dedicated VPS infrastructure with Redis caching for sub-5ms resolution times. There is no trial period, no expiration date, and no mechanism by which a code can be deactivated due to non-payment, because payment is never requested.
+              Truly Free QR was built specifically to end this practice. Every dynamic QR code created here uses the same redirect infrastructure — but the codes are free because the service is ad-supported, not subscription-based. The redirect server runs on dedicated VPS infrastructure with Redis caching for sub-5ms resolution times. There is no trial period, no expiration date, and no mechanism by which a code can be deactivated due to non-payment, because payment is never requested.
             </p>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75 }}>
               That's not a marketing promise. It's how the system is built. The redirect infrastructure is separate from the application layer — specifically so that codes keep working even if something goes wrong on the app side.

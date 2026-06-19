@@ -41,7 +41,7 @@ const schema = {
         {
           '@type': 'Question',
           name: 'Is there a QR code generator with no subscription?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Yes. Truly Free QR is the only generator that provides dynamic QR codes with zero subscription model. There is no trial period, no credit card requirement, and no hidden fees. The service is funded by non-intrusive Google AdSense advertising, which means you get premium features permanently free.' },
+          acceptedAnswer: { '@type': 'Answer', text: 'Yes. Truly Free QR is the only generator that provides dynamic QR codes with zero subscription model. There is no trial period, no credit card requirement, and no hidden fees. The service is ad-supported, which means you get premium features permanently free.' },
         },
         {
           '@type': 'Question',
@@ -81,7 +81,7 @@ export default function NoSubscriptionPage() {
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 16px' }}>The Subscription Trap — How It Works and How We Ended It</h2>
           <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>Every major QR code generator uses the same playbook: offer dynamic codes free for 14 days, wait until businesses print them on menus, business cards, product packaging, and trade show materials — then send a payment demand. Pay $111–$180 per year or watch your codes go dark.</p>
           <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>Trustpilot reviews of the market leader use words like "blackmail" and "hostage." Small businesses report losing hundreds of dollars in wasted print materials because of this model.</p>
-          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>Truly Free QR runs on Google AdSense advertising. You see a non-intrusive ad. Your codes stay active forever. That is the entire business model — transparent, ethical, permanent.</p>
+          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>Truly Free QR is ad-supported. You see a non-intrusive display ad. Your codes stay active forever. That is the entire business model — transparent, ethical, permanent.</p>
         </div>
 
         <div style={{ background: '#f1f4f6', borderRadius: 8, padding: 32, marginBottom: 32 }}>
@@ -106,7 +106,7 @@ export default function NoSubscriptionPage() {
         <div style={{ background: '#fff', borderRadius: 8, padding: 32, marginBottom: 32, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)' }}>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 24px' }}>Frequently Asked Questions</h2>
           {[
-            ['Is there a QR code generator with no subscription?', 'Yes. Truly Free QR provides dynamic QR codes with zero subscription model. No trial period, no credit card, no hidden fees. Funded by non-intrusive Google AdSense advertising.'],
+            ['Is there a QR code generator with no subscription?', 'Yes. Truly Free QR provides dynamic QR codes with zero subscription model. No trial period, no credit card, no hidden fees. The service is ad-supported.'],
             ['Why do QR code generators charge subscriptions?', 'Dynamic QR codes require server infrastructure. Most generators charge $100–$180 per year after a free trial, deliberately waiting until users print codes before deactivating them. Truly Free QR uses an ad-supported model instead.'],
             ['Do free dynamic QR codes without subscription work long-term?', 'On Truly Free QR, yes. Our infrastructure runs on a dedicated VPS with Redis caching for sub-5ms redirects. Sustainable through advertising revenue, not subscriptions. Your codes remain active indefinitely.'],
             ['What is the catch with a free QR code generator with no subscription?', 'No catch. Truly Free QR displays non-intrusive ads on the generator page — the same model used by Google and YouTube. You see ads, your codes stay active forever. No data selling, no hidden fees, no subscription traps.'],

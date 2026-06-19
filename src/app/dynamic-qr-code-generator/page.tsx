@@ -46,7 +46,7 @@ const schema = {
         {
           '@type': 'Question',
           name: 'Are dynamic QR codes really free forever on Truly Free QR?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Yes. Truly Free QR provides unlimited dynamic QR codes permanently free. There is no trial period, no subscription, and no credit card required. The service is funded by non-intrusive Google AdSense advertising. Your codes remain active indefinitely on our dedicated VPS infrastructure with Redis caching for sub-5ms redirect performance.' },
+          acceptedAnswer: { '@type': 'Answer', text: 'Yes. Truly Free QR provides unlimited dynamic QR codes permanently free. There is no trial period, no subscription, and no credit card required. The service is ad-supported. Your codes remain active indefinitely on our dedicated VPS infrastructure with Redis caching for sub-5ms redirect performance.' },
         },
         {
           '@type': 'Question',

@@ -87,8 +87,8 @@ export default function ArticleWhyDoQRCodesExpire() {
         </section>
 
         <section style={{ marginBottom: 40 }}>
-          <h2 style={h2Style}>Why Truly Free QR Never Expires (And How We Pay for It)</h2>
-          <p style={pStyle}>I run this site on Google AdSense. When you create a QR code, you see banner ads on the generator page. That&apos;s it. No ads on the scan redirect. No subscription prompts. No &quot;your code will expire in 3 days&quot; emails. The ad revenue covers my server costs, which are minimal – a few hundred dollars a year.</p>
+          <h2 style={h2Style}>Why Truly Free QR Never Expires</h2>
+          <p style={pStyle}>Truly Free QR is ad-supported, not subscription-based. Display ads appear on the generator page — not on the scan redirect, and with no subscription prompts. Server costs are minimal — a few hundred dollars a year — covered entirely by advertising.</p>
           <p style={pStyle}>My database has no &quot;expiration_date&quot; column. Every QR code row has just an ID and a destination URL. That&apos;s it. I don&apos;t store creation date, last scan date, or any other metadata that would let me automatically expire codes. I would have to manually write a script to delete old codes. I haven&apos;t. I won&apos;t. It would hurt my reputation and drive users away.</p>
           <p style={{ ...pStyle, margin: 0 }}>If I ever needed to shut down the service (I don&apos;t plan to), I would give months of notice and provide a way to export your redirect mappings. You could then set up your own redirect server. But as long as the site runs, your codes run. I made a promise to myself after my restaurant got burned: never expire codes, never charge for basic functionality. I&apos;m keeping that promise.</p>
         </section>

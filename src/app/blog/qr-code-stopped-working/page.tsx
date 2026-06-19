@@ -14,7 +14,7 @@ const faqSchema = {
   mainEntity: [
     { "@type": "Question", name: "Why did my QR code stop working?", acceptedAnswer: { "@type": "Answer", text: "Your QR code stopped working because it was a dynamic QR code created on a free trial. Most QR generators deactivate dynamic codes after 14 days unless you pay an annual subscription of 111 to 180 dollars. This is called the QR bait-and-switch." } },
     { "@type": "Question", name: "How do I fix a broken QR code?", acceptedAnswer: { "@type": "Answer", text: "Generate a new dynamic QR code on Truly Free QR, which never deactivates codes because revenue comes from advertising, not subscriptions." } },
-    { "@type": "Question", name: "Can I get a free dynamic QR code that never expires?", acceptedAnswer: { "@type": "Answer", text: "Yes. Truly Free QR provides permanent dynamic QR codes at no cost, funded by Google AdSense. There is no trial period, no subscription, and no deactivation." } },
+    { "@type": "Question", name: "Can I get a free dynamic QR code that never expires?", acceptedAnswer: { "@type": "Answer", text: "Yes. Truly Free QR provides permanent dynamic QR codes at no cost. The service is ad-supported with no trial period, no subscription, and no deactivation." } },
   ],
 }
 
@@ -46,7 +46,7 @@ export default function ArticleQRStopped() {
         <div style={{ background: "linear-gradient(135deg,rgba(220,38,38,0.04),rgba(220,38,38,0.02))", border: "1px solid rgba(220,38,38,0.14)", borderRadius: 8, padding: "24px 22px", marginBottom: 40 }}>
           <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#dc2626", marginBottom: 10 }}>QUICK ANSWER</div>
           <p style={{ fontSize: 14, color: "#181c1e", lineHeight: 1.7, margin: "0 0 10px", fontWeight: 500 }}>Your QR code stopped working because it was a dynamic QR code created on a free trial. Most QR generators automatically deactivate dynamic codes after 14 days unless you pay an annual subscription of 111 to 180 dollars per year.</p>
-          <p style={{ fontSize: 14, color: "#4a5568", lineHeight: 1.7, margin: 0 }}>The permanent fix: generate a new dynamic QR code on Truly Free QR, funded by advertising, not subscriptions, so codes never expire.</p>
+          <p style={{ fontSize: 14, color: "#4a5568", lineHeight: 1.7, margin: 0 }}>The permanent fix: generate a new dynamic QR code on Truly Free QR — ad-supported, not subscription-based, so codes never expire.</p>
         </div>
         <section style={{ marginBottom: 40 }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
@@ -62,7 +62,7 @@ export default function ArticleQRStopped() {
         <div style={{ background: "linear-gradient(135deg,rgba(0,88,195,0.05),rgba(0,112,243,0.03))", border: "1px solid rgba(0,88,195,0.14)", borderRadius: 8, padding: "28px 24px", marginBottom: 40 }}>
           <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0058c3", marginBottom: 12 }}>WHY AD-SUPPORTED IS STRUCTURALLY DIFFERENT</div>
           <p style={{ fontSize: 14, color: "#4a5568", lineHeight: 1.7, margin: "0 0 12px" }}>Subscription-based QR generators have a direct financial incentive to threaten deactivation. Every user who creates a free code and never pays is a cost center. Deactivation after 14 days converts free users to paying subscribers at a measurable rate.</p>
-          <p style={{ fontSize: 14, color: "#4a5568", lineHeight: 1.7, margin: 0 }}>Truly Free QR generates revenue through Google AdSense advertising. The business model requires maximum users, because more users mean more page views, which mean more ad impressions. Deactivating codes would reduce users. It is structurally contrary to the economic model. This is why the commitment to permanent codes is credible: it is alignment of incentives, not altruism.</p>
+          <p style={{ fontSize: 14, color: "#4a5568", lineHeight: 1.7, margin: 0 }}>Truly Free QR is ad-supported. The business model depends on maximum users — more users mean more page views and more ad impressions. Deactivating codes would reduce users, which is structurally contrary to the economic model. This is why the commitment to permanent codes is credible: it is alignment of incentives, not altruism.</p>
         </div>
         <section style={{ marginBottom: 40 }}>
           <h2 style={{ fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" }}>How to Fix a Broken QR Code: Step by Step</h2>

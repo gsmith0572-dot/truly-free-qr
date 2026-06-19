@@ -55,7 +55,7 @@ export default function AboutPage() {
               <h2 style={{ fontSize: "28px", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 4px" }}>George Smith</h2>
               <p style={{ fontSize: "14px", color: "#0058c3", fontWeight: 600, letterSpacing: "-0.01em", margin: "0 0 16px" }}>Founder, Klickify Agency</p>
               <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: "0 0 12px" }}>I built Truly Free QR after watching small business owners get burned by QR generators that deactivate codes after 14 days unless you pay over $100 a year. I had already printed menus, flyers, and packaging. The code stopped working. The provider wanted an annual subscription to turn it back on.</p>
-              <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: "0 0 12px" }}>That felt like blackmail. So I built the alternative: dynamic QR codes that never expire, funded by Google AdSense instead of subscriptions. Free forever. No tricks.</p>
+              <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: "0 0 12px" }}>That felt like blackmail. So I built the alternative: dynamic QR codes that never expire, free forever. No subscriptions. No tricks.</p>
               <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: "0 0 20px" }}>Klickify Agency is my digital product studio focused on building ethical, ad-supported utility tools that solve real problems without extracting money from the people who can least afford it. Truly Free QR is the first product in that portfolio.</p>
               <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
                 <a href="mailto:info@klickifyagency.com" style={{ fontSize: "13px", color: "#718096", textDecoration: "none", letterSpacing: "-0.01em" }}>info@klickifyagency.com</a>
@@ -116,7 +116,7 @@ export default function AboutPage() {
             </div>
             <div>
               <h3 style={{ fontSize: "18px", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 8px" }}>Transparent monetization.</h3>
-              <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: 0 }}>The platform is funded by Google AdSense advertising. Ads appear on non-critical pages: the dashboard, success pages, and content pages. The generation flow and the redirect engine are ad-free. We make money when you use the platform, not when you pay a subscription.</p>
+              <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: 0 }}>The platform is ad-supported. Display ads appear on non-critical pages: the dashboard, success pages, and content pages. The generation flow and the redirect engine are ad-free. The service earns through advertising, not subscriptions.</p>
             </div>
           </div>
         </div>

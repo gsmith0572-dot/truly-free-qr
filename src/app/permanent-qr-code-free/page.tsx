@@ -81,7 +81,7 @@ export default function PermanentQRPage() {
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 16px' }}>Why Most Free QR Codes Are Not Actually Free</h2>
           <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>The QR code generator industry runs on a well-documented deception: offer free dynamic codes, allow users to print them on business cards, menus, and packaging, then deactivate the codes after 14 days unless an annual subscription of $100–$180 is paid.</p>
           <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>User reviews on Trustpilot describe this as "blackmail" — businesses trapped paying recurring fees because their printed materials are already deployed in the field. Thousands of small businesses have lost money to this model.</p>
-          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>Truly Free QR eliminates this entirely. Our infrastructure is funded by non-intrusive advertising — you never pay, and your codes never expire.</p>
+          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>Truly Free QR eliminates this entirely. The service is ad-supported — you never pay, and your codes never expire.</p>
         </div>
 
         <div style={{ background: '#f1f4f6', borderRadius: 8, padding: 32, marginBottom: 32 }}>

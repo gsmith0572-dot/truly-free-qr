@@ -89,8 +89,8 @@ export default function ArticleQRBusinessCardFree() {
         </section>
 
         <section style={{ marginBottom: 40 }}>
-          <h2 style={h2Style}>Why Truly Free QR Never Expires (And How We Pay for It)</h2>
-          <p style={pStyle}>The business model is straightforward. Google AdSense places ads on the QR generator dashboard and on these blog articles. When you visit, you might see a banner ad for a web hosting service or a CRM. I get a few cents if you click. That&apos;s it. No ads on the scan redirect page – that would be unprofessional and would make you look bad to your clients.</p>
+          <h2 style={h2Style}>Why Truly Free QR Never Expires</h2>
+          <p style={pStyle}>Truly Free QR is ad-supported, not subscription-based. Display ads appear on the generator dashboard and blog pages — not on the scan redirect, which would be unprofessional and would reflect poorly on your business cards.</p>
           <p style={pStyle}>The reason I can keep your QR code active forever is technical. Each dynamic code is just a row in a database: a short ID (like &quot;abc123&quot;) and a destination URL. There&apos;s no expiration date column. I don&apos;t automatically delete old codes. The storage cost is tiny – a million codes take up less space than a smartphone photo. So I have no incentive to expire codes. In fact, expiring codes would make me look bad and drive users away.</p>
           <p style={{ ...pStyle, margin: 0 }}>Safe-Scan protects the people who scan your business card. Before redirecting, I check the destination against Google Safe Browsing. If your portfolio site ever gets hacked and starts serving malware, Safe-Scan will show a warning. Your potential client will see &quot;Warning: This link may be unsafe&quot; and can choose to proceed or go back. This protects your professional reputation. If someone scans your card and gets a malware warning, they&apos;ll assume you&apos;re careless. Safe-Scan prevents that.</p>
         </section>
