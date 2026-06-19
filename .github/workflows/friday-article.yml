@@ -1,0 +1,175 @@
+name: Publish Friday Article
+
+on:
+  schedule:
+    - cron: '0 14 * * 5'  # Every Friday 2pm UTC (9am CDT)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Publish pre-scheduled article or generate new one
+        id: article
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          # --- Priority 1: publish from _scheduled/ folder ---
+          NEXT=$(ls _scheduled/*.tsx 2>/dev/null | sort | head -1)
+          if [ -n "$NEXT" ]; then
+            FILENAME=$(basename "$NEXT" .tsx)
+            SLUG=$(echo "$FILENAME" | sed 's/^[0-9-]*_//')
+            mkdir -p "src/app/blog/$SLUG"
+            mv "$NEXT" "src/app/blog/$SLUG/page.tsx"
+            echo "slug=$SLUG" >> $GITHUB_OUTPUT
+            echo "Published pre-scheduled: $SLUG"
+            exit 0
+          fi
+
+          # --- Priority 2: generate with Claude API ---
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "No scheduled articles and ANTHROPIC_API_KEY not set. Skipping."
+            exit 0
+          fi
+
+          WEEK=$(date +%V | python3 -c "import sys; w=int(sys.stdin.read().strip()); print(w)")
+          TODAY=$(date +%Y-%m-%d)
+
+          TOPICS=(
+            "QR code for loyalty programs and rewards cards"
+            "QR code A/B testing: how to test which link converts better"
+            "QR codes for gyms and fitness centers"
+            "QR code vs NFC tag: which technology should you choose"
+            "How to track QR code scans and understand your analytics"
+            "QR codes for trade shows and conferences"
+            "QR codes on product labels: food, beverage, and packaging guide"
+            "QR code security: how to protect your codes from tampering"
+            "QR codes in healthcare: patient forms, wayfinding, and appointment links"
+            "QR codes for hotels and hospitality"
+            "QR code design principles: colors, logos, and what affects scan rates"
+            "QR codes for retail stores: from window displays to price tags"
+            "How to create a QR code for a PDF document"
+            "QR codes for apartment and property management"
+            "QR codes for car dealerships and automotive businesses"
+            "How QR codes work: the technical explanation for non-engineers"
+            "QR codes for weddings: RSVP, seating, and thank-you cards"
+            "QR codes for construction and job sites"
+            "QR codes for schools and education"
+            "QR codes for veterinarians and pet care businesses"
+            "QR code analytics: what scan data actually tells you"
+            "QR codes for musicians and bands: linking to Spotify, merch, and bookings"
+            "QR codes for food trucks and mobile businesses"
+            "QR codes for legal offices and law firms"
+            "QR codes in manufacturing: asset tracking and maintenance logs"
+            "How to make a QR code for Instagram, TikTok, and social media"
+            "QR codes for apartment buildings: mailroom, amenities, and maintenance requests"
+            "QR codes for tourism: walking tours, maps, and local guides"
+            "QR code size guide: minimum size for print, fabric, and outdoor signage"
+            "QR codes for spas and salons: booking links and loyalty programs"
+            "How to use QR codes in email campaigns"
+            "QR codes for pharmacies and medical supply companies"
+            "QR codes for nonprofit fundraising campaigns"
+            "QR codes for insurance agents and brokers"
+            "QR codes for accountants and financial advisors"
+            "How small businesses use QR codes to compete with larger chains"
+            "QR codes for craft breweries, wineries, and distilleries"
+            "QR codes for home services: plumbers, electricians, and contractors"
+            "QR codes for childcare centers and preschools"
+            "QR codes for personal trainers and health coaches"
+            "QR code vs barcode: when to use each"
+            "QR codes for galleries and museums"
+            "QR code printing tips: what printers get right and wrong"
+            "How QR code quishing attacks work and how to defend against them"
+            "QR codes for inventory management in small warehouses"
+            "QR codes for tutoring centers and education businesses"
+            "QR codes for funeral homes and memorial services"
+            "How to embed a QR code in a PDF"
+            "QR codes for farmers markets and artisan vendors"
+            "QR codes for dentists and dental practices"
+            "QR codes for political campaigns and community organizing"
+            "How to create a QR code for a Google Maps location"
+          )
+
+          IDX=$(( ($WEEK - 1) % ${#TOPICS[@]} ))
+          TOPIC="${TOPICS[$IDX]}"
+
+          echo "Generating article for topic: $TOPIC"
+
+          SLUG=$(echo "$TOPIC" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9 ]//g' | tr ' ' '-' | sed 's/--*/-/g' | cut -c1-60)
+
+          python3 - <<PYEOF
+import json, urllib.request, os, re
+
+api_key = os.environ["ANTHROPIC_API_KEY"]
+topic = """$TOPIC"""
+slug = """$SLUG"""
+today = """$TODAY"""
+
+prompt = f"""Write a complete Next.js blog article (TSX file) for trulyfreeqr.com about: "{topic}"
+
+Requirements:
+- Complete, ready-to-deploy TSX file
+- Import: import type {{ Metadata }} from 'next' and import Link from 'next/link'
+- Export metadata with title, description, canonical URL: https://trulyfreeqr.com/blog/{slug}
+- Article + FAQ schema as const objects
+- datePublished: "{today}", author: George Smith (Founder, Klickify Agency)
+- Component: export default function Page() returning full JSX
+- Inline styles only (no Tailwind), same style as existing QR articles
+- Dark navy hero section, author box with george-smith.png, 5-8 content sections
+- 1 call-to-action section linking to / (homepage generator)
+- FAQ section with 4 questions
+- Related articles links at bottom
+- Word count: 1,200-1,800 words of actual text content
+- Do NOT mention "Google AdSense" anywhere — just say "ad-supported" if revenue model is mentioned
+- Write as George Smith in first person, specific and practical
+- Output ONLY the complete TSX code, no explanation, no markdown code blocks"""
+
+data = json.dumps({
+    "model": "claude-sonnet-4-6",
+    "max_tokens": 8000,
+    "messages": [{"role": "user", "content": prompt}]
+}).encode()
+
+req = urllib.request.Request(
+    "https://api.anthropic.com/v1/messages",
+    data=data,
+    headers={
+        "x-api-key": api_key,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json"
+    }
+)
+
+with urllib.request.urlopen(req) as resp:
+    result = json.loads(resp.read())
+
+content = result["content"][0]["text"]
+# Strip markdown code blocks if present
+content = re.sub(r'^```(?:tsx|typescript|jsx)?\n', '', content, flags=re.MULTILINE)
+content = re.sub(r'\n```\s*$', '', content, flags=re.MULTILINE)
+
+os.makedirs(f"src/app/blog/{slug}", exist_ok=True)
+with open(f"src/app/blog/{slug}/page.tsx", "w") as f:
+    f.write(content)
+
+print(f"Article written to src/app/blog/{slug}/page.tsx")
+PYEOF
+
+          echo "slug=$SLUG" >> $GITHUB_OUTPUT
+
+      - name: Commit and push
+        run: |
+          git config user.name "Klickify Agency Bot"
+          git config user.email "info@klickifyagency.com"
+          git add .
+          if git diff --staged --quiet; then
+            echo "Nothing to commit"
+          else
+            git commit -m "publish: weekly article - ${{ steps.article.outputs.slug }}"
+            git push
+          fi
