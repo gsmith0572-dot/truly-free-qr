@@ -9,6 +9,12 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: ['/dashboard/', '/api/'],
       },
+      { userAgent: 'GPTBot', allow: '/' },
+      { userAgent: 'Google-Extended', allow: '/' },
+      { userAgent: 'PerplexityBot', allow: '/' },
+      { userAgent: 'ClaudeBot', allow: '/' },
+      { userAgent: 'anthropic-ai', allow: '/' },
+      { userAgent: 'Amazonbot', allow: '/' },
     ],
     sitemap: `${BASE_URL}/sitemap.xml`,
   }

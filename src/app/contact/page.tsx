@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { useState } from "react";
 
-type FormState = "idle" | "sending" | "sent";
+type FormState = "idle" | "sending" | "sent" | "error";
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
@@ -39,8 +39,17 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormState("sending");
-    await new Promise((r) => setTimeout(r, 1200));
-    setFormState("sent");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ subject, name, email, message }),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setFormState("sent");
+    } catch {
+      setFormState("error");
+    }
   };
 
   return (
@@ -89,6 +98,13 @@ export default function ContactPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
+              {formState === "error" && (
+                <div style={{ padding: "16px 20px", background: "#fff5f5", borderRadius: "6px", border: "1px solid #fed7d7", marginBottom: "24px" }}>
+                  <p style={{ fontSize: "13px", lineHeight: 1.6, color: "#c53030", margin: 0, fontWeight: 500 }}>
+                    Something went wrong sending your message. Please try again.
+                  </p>
+                </div>
+              )}
               <div style={{ marginBottom: "24px" }}>
                 <label style={labelStyle}>Topic</label>
                 <select value={subject} onChange={(e) => setSubject(e.target.value)} style={{ ...inputStyle, cursor: "pointer" }}>

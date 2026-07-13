@@ -48,13 +48,6 @@ export const softwareAppSchema = {
     priceValidUntil: '2099-12-31',
     description: 'All features permanently free. No trial period.',
   },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    ratingCount: '1200',
-    bestRating: '5',
-    worstRating: '1',
-  },
   publisher: organizationSchema,
 }
 

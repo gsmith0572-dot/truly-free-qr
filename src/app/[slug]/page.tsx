@@ -30,7 +30,6 @@ function buildSchema(slug: string, name: string, description: string, faqs: { q:
       url: `${BASE}/${slug}`,
       description,
       offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
-      aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '2847', bestRating: '5' },
       featureList: ['Dynamic QR Codes — Never Expire', 'No Account Required', 'No Subscription', 'Real-time Analytics', 'SVG Vector Export', 'Safe-Scan Phishing Protection', 'Sub-5ms Redirect Speed'],
     },
     {
