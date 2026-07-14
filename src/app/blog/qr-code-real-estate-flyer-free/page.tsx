@@ -121,7 +121,7 @@ export default function ArticleQRRealEstateFlyerFree() {
           <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#718096", marginBottom: 16 }}>RELATED ARTICLES</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <Link href="/blog/free-dynamic-qr-code-generator-no-expiration" style={{ textDecoration: "none", fontSize: 14, fontWeight: 600, color: "#0058c3" }}>Free Dynamic QR Code Generator (Codes Never Expire)</Link>
-            <Link href="/blog/dynamic-vs-static-qr-code" style={{ textDecoration: "none", fontSize: 14, fontWeight: 600, color: "#0058c3" }}>Dynamic vs Static QR Code: What&apos;s the Difference?</Link>
+            <Link href="/blog/dynamic-vs-static-qr-codes" style={{ textDecoration: "none", fontSize: 14, fontWeight: 600, color: "#0058c3" }}>Dynamic vs Static QR Code: What&apos;s the Difference?</Link>
             <Link href="/blog/qr-code-business-card-free" style={{ textDecoration: "none", fontSize: 14, fontWeight: 600, color: "#0058c3" }}>QR Code for Business Cards (Free Generator)</Link>
           </div>
         </div>

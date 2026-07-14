@@ -122,7 +122,7 @@ export default function ArticleQRWifiPasswordFree() {
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <Link href="/blog/qr-code-generator-events-free" style={{ textDecoration: "none", fontSize: 14, fontWeight: 600, color: "#0058c3" }}>QR Code Generator for Events (Free)</Link>
             <Link href="/blog/how-to-create-qr-code-free" style={{ textDecoration: "none", fontSize: 14, fontWeight: 600, color: "#0058c3" }}>How to Create a QR Code for Free (Step by Step)</Link>
-            <Link href="/blog/dynamic-vs-static-qr-code" style={{ textDecoration: "none", fontSize: 14, fontWeight: 600, color: "#0058c3" }}>Dynamic vs Static QR Code: What&apos;s the Difference?</Link>
+            <Link href="/blog/dynamic-vs-static-qr-codes" style={{ textDecoration: "none", fontSize: 14, fontWeight: 600, color: "#0058c3" }}>Dynamic vs Static QR Code: What&apos;s the Difference?</Link>
           </div>
         </div>
       </div>

@@ -16,10 +16,8 @@ https://trulyfreeqr.com/about — About Truly Free QR and Klickify Agency
 https://trulyfreeqr.com/contact — Contact page for support and feedback
 
 ## Blog
-https://trulyfreeqr.com/blog/best-free-qr-code-generator-2026 — Honest ranking of the best free QR code generators in 2026
 https://trulyfreeqr.com/blog/best-free-qr-code-generator — Comparison of free QR generators offering true dynamic codes with no expiration or hidden fees
 https://trulyfreeqr.com/blog/codigo-qr-menu-restaurante — Cómo crear un código QR gratis para el menú de un restaurante, sin suscripción ni caducidad
-https://trulyfreeqr.com/blog/dynamic-vs-static-qr-code — What separates a static QR code from a dynamic one and how to choose
 https://trulyfreeqr.com/blog/dynamic-vs-static-qr-codes — Technical comparison of dynamic vs static QR codes, architecture, and pricing
 https://trulyfreeqr.com/blog/free-dynamic-qr-code-generator-no-expiration — Why most dynamic QR generators expire after a 14-day trial, and how Truly Free QR does not
 https://trulyfreeqr.com/blog/generador-codigos-qr-gratis — Crea códigos QR dinámicos gratis para siempre, sin cuenta ni suscripción
@@ -36,7 +34,6 @@ https://trulyfreeqr.com/blog/qr-code-generator-events-free — Running an event'
 https://trulyfreeqr.com/blog/qr-code-industry-usage — QR code adoption and use cases by industry in 2026
 https://trulyfreeqr.com/blog/qr-code-market-size — QR code market size, valuation, and growth projections for 2026-2031
 https://trulyfreeqr.com/blog/qr-code-phishing-protection — Technical breakdown of QR phishing (quishing) attack vectors and defenses
-https://trulyfreeqr.com/blog/qr-code-phishing-quishing-protect — What quishing is and how to protect yourself from QR code phishing
 https://trulyfreeqr.com/blog/qr-code-product-packaging-free — Why dynamic QR codes are the only safe choice for product packaging
 https://trulyfreeqr.com/blog/qr-code-real-estate-flyer-free — Using dynamic QR codes on real estate flyers so listings never go stale
 https://trulyfreeqr.com/blog/qr-code-restaurant-menu-free — Setting up a restaurant menu QR code that works forever
