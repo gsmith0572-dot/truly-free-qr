@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import QRCode from 'qrcode'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface ScanEvent { hour: string; count: string }
 interface DeviceData { device_type: string; count: string }
@@ -104,7 +105,7 @@ export default function Dashboard() {
     <div style={{ fontFamily: 'Inter, system-ui, sans-serif', background: '#f7fafc', minHeight: '100vh' }}>
       <nav style={{ background: '#fff', borderBottom: '1px solid rgba(74,85,104,0.15)', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56, position: 'sticky', top: 0, zIndex: 100 }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-          <img src="/logo.png" alt="TrulyFreeQR" style={{height:44,width:'auto'}} />
+          <Image src="/logo.png" alt="TrulyFreeQR" width={142} height={44} style={{height:44,width:'auto'}} />
         </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <div style={{ background: 'rgba(0,88,195,0.07)', border: '1px solid rgba(0,88,195,0.2)', color: '#0058c3', borderRadius: 2, padding: '4px 10px', fontSize: 11, fontWeight: 700, letterSpacing: '0.05em' }}>✦ NO ACCOUNT NEEDED</div>

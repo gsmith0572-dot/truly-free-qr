@@ -1,0 +1,46 @@
+# Truly Free QR — Free QR Code Generator
+> Free QR code generator with no signup, no watermark, no scan limits. Static and dynamic QR codes for URLs, WiFi, and vCards.
+
+## Pages
+https://trulyfreeqr.com/ — Homepage: free QR code generator, no signup required
+https://trulyfreeqr.com/dynamic-qr-code-generator — Dynamic QR codes that can be edited after printing
+https://trulyfreeqr.com/permanent-qr-code-free — Permanent free QR codes that never expire, no trial or credit card
+https://trulyfreeqr.com/qr-code-no-subscription — QR code generator with no recurring subscription required
+https://trulyfreeqr.com/qr-code-generator-without-login — Generate and download QR codes instantly with no account or email
+https://trulyfreeqr.com/wifi-qr-code-generator — QR codes that connect devices to WiFi networks
+https://trulyfreeqr.com/vcard-qr-code-generator — QR codes containing digital business cards
+https://trulyfreeqr.com/qr-code-for-restaurants — Contactless menu QR codes for restaurants, editable without reprinting
+https://trulyfreeqr.com/qr-code-for-real-estate — QR codes for property listings, virtual tours, and open house signage
+https://trulyfreeqr.com/safe-qr-code-generator — QR generator with Safe-Scan destination preview to prevent phishing
+https://trulyfreeqr.com/about — About Truly Free QR and Klickify Agency
+https://trulyfreeqr.com/contact — Contact page for support and feedback
+
+## Blog
+https://trulyfreeqr.com/blog/best-free-qr-code-generator-2026 — Honest ranking of the best free QR code generators in 2026
+https://trulyfreeqr.com/blog/best-free-qr-code-generator — Comparison of free QR generators offering true dynamic codes with no expiration or hidden fees
+https://trulyfreeqr.com/blog/codigo-qr-menu-restaurante — Cómo crear un código QR gratis para el menú de un restaurante, sin suscripción ni caducidad
+https://trulyfreeqr.com/blog/dynamic-vs-static-qr-code — What separates a static QR code from a dynamic one and how to choose
+https://trulyfreeqr.com/blog/dynamic-vs-static-qr-codes — Technical comparison of dynamic vs static QR codes, architecture, and pricing
+https://trulyfreeqr.com/blog/free-dynamic-qr-code-generator-no-expiration — Why most dynamic QR generators expire after a 14-day trial, and how Truly Free QR does not
+https://trulyfreeqr.com/blog/generador-codigos-qr-gratis — Crea códigos QR dinámicos gratis para siempre, sin cuenta ni suscripción
+https://trulyfreeqr.com/blog/how-coca-cola-uses-qr-codes — Breakdown of Coca-Cola's QR code campaigns and packaging activations
+https://trulyfreeqr.com/blog/how-mcdonalds-uses-qr-codes — How McDonald's deploys QR codes across packaging, in-store, and marketing
+https://trulyfreeqr.com/blog/how-nike-uses-qr-codes — Nike's QR code strategy across retail, packaging, and product authentication
+https://trulyfreeqr.com/blog/how-starbucks-uses-qr-codes — Starbucks' QR code use for mobile payments, rewards, and AR campaigns
+https://trulyfreeqr.com/blog/how-to-create-qr-code-free — How to create a QR code for free in under 60 seconds, no account needed
+https://trulyfreeqr.com/blog/how-to-update-qr-code-without-reprinting — How dynamic QR codes let you change the destination without changing the printed code
+https://trulyfreeqr.com/blog/qr-code-alternatives-bitly-free — Real alternatives to Bitly's quota-based QR pricing, ranked honestly
+https://trulyfreeqr.com/blog/qr-code-analytics-free — Free QR code scan analytics included with every dynamic code
+https://trulyfreeqr.com/blog/qr-code-business-card-free — Why dynamic QR codes are the right choice for business cards
+https://trulyfreeqr.com/blog/qr-code-generator-events-free — Running an event's QR code infrastructure for free
+https://trulyfreeqr.com/blog/qr-code-industry-usage — QR code adoption and use cases by industry in 2026
+https://trulyfreeqr.com/blog/qr-code-market-size — QR code market size, valuation, and growth projections for 2026-2031
+https://trulyfreeqr.com/blog/qr-code-phishing-protection — Technical breakdown of QR phishing (quishing) attack vectors and defenses
+https://trulyfreeqr.com/blog/qr-code-phishing-quishing-protect — What quishing is and how to protect yourself from QR code phishing
+https://trulyfreeqr.com/blog/qr-code-product-packaging-free — Why dynamic QR codes are the only safe choice for product packaging
+https://trulyfreeqr.com/blog/qr-code-real-estate-flyer-free — Using dynamic QR codes on real estate flyers so listings never go stale
+https://trulyfreeqr.com/blog/qr-code-restaurant-menu-free — Setting up a restaurant menu QR code that works forever
+https://trulyfreeqr.com/blog/qr-code-statistics — QR code statistics for 2026: market size, scan volume, and adoption data
+https://trulyfreeqr.com/blog/qr-code-stopped-working — Why QR codes stop working after a free trial ends, and how to avoid it
+https://trulyfreeqr.com/blog/qr-code-wifi-password-free — Creating a QR code that encodes a WiFi network name and password
+https://trulyfreeqr.com/blog/why-do-qr-codes-expire — Why QR codes only "expire" when the hosting platform deactivates the redirect

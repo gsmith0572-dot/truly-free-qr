@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -63,7 +64,7 @@ export default function ArticleQRProductPackagingFree() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You manufacture artisanal soap. Each box has a QR code linking to a video about the ingredients. Six months later, you update the video with a new URL. The QR codes on all your existing boxes still point to the old video. You have 5,000 boxes in inventory. To fix it, you either throw them away or add a sticker over each QR code.</p>
           <p style={pStyle}>This is the nightmare of product packaging. Once the boxes are printed, the QR code is permanent. If you need to change the link, you&apos;re stuck. Unless you used a dynamic QR code. Dynamic codes let you change the destination without changing the printed pattern. That&apos;s why dynamic is the only choice for product packaging.</p>
           <p style={{ ...pStyle, margin: 0 }}>Most QR code generators charge subscriptions for dynamic codes. QR Code Generator wants $108 a year. Bitly wants $420 a year. For a small product business, that&apos;s real money. Truly Free QR gives you dynamic codes for free. No expiration. No subscription. Update your product links anytime. Here&apos;s how to protect your packaging investment.</p>

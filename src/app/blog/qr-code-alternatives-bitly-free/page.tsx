@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -63,7 +64,7 @@ export default function ArticleQRAlternativesBitlyFree() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You need a QR code for your new product launch. You&apos;ve used Bitly for link shortening before. You go to create a QR code and hit a wall: 2 per month on the free plan. You need more than that for one launch alone. You start searching for alternatives.</p>
           <p style={pStyle}>Bitly is a great link shortener. Their QR product is quota-limited at every tier — 2/month free, 5/month at $10/mo, 10/month at $29/mo, capping at 200/month even on the $199/mo Premium plan. No anti-phishing. No logo embedding on the free tier. For a small business running more than a couple of codes, that adds up fast. There are free alternatives that do the same thing – and some do more.</p>
           <p style={{ ...pStyle, margin: 0 }}>Truly Free QR gives you dynamic QR codes, scan analytics, custom colors, logo embedding, and never-expiring codes. For free. No subscription. No account. I built it because I refused to pay Bitly $420 a year to keep my restaurant menus working. Here are the real alternatives to Bitly QR, ranked honestly.</p>

@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -63,7 +64,7 @@ export default function ArticleDynamicVsStaticQRCode() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You&apos;re printing new business cards. Your designer asks: &quot;Dynamic or static QR code?&quot; You have no idea. You Google it. The results are full of marketing jargon from companies trying to sell you subscriptions. &quot;Dynamic QR codes are more powerful!&quot; &quot;Static QR codes are simpler!&quot; Nobody actually explains what the difference means for your business.</p>
           <p style={pStyle}>Here&apos;s the simple truth. A static QR code has the destination URL baked directly into the pattern. You cannot change it. Ever. If you print a static code on your business card and later change jobs, that code still points to your old LinkedIn profile. You have to reprint every card. A dynamic QR code points to a short link on my server. That short link then redirects to your real destination. You can change the destination anytime without reprinting.</p>
           <p style={{ ...pStyle, margin: 0 }}>Static is free and permanent in the sense that no company can turn it off. But it&apos;s also permanent in the sense that you cannot fix mistakes. Dynamic gives you flexibility but depends on me keeping my server running. Most QR code generators charge monthly for dynamic codes – $9, $35, even $99 per month. Truly Free QR gives you dynamic codes for free. No expiration. No subscription. Here&apos;s exactly what you need to know to choose.</p>

@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -63,7 +64,7 @@ export default function ArticleHowToUpdateQRCodeWithoutReprinting() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You printed 1,000 brochures with a QR code. Six months later, you change your website. The QR code now points to a 404 error. Your brochures are worthless. To fix it, you can either reprint (expensive) or find a way to change where the QR code goes without changing the pattern.</p>
           <p style={pStyle}>The solution is dynamic QR codes. A dynamic QR code encodes a short link that redirects to your real destination. You can change the destination anytime. The printed pattern never changes. This is the single most important feature for any business that prints QR codes on physical materials.</p>
           <p style={{ ...pStyle, margin: 0 }}>Most people don&apos;t know about dynamic QR codes. They use static codes, get burned, and assume all QR codes are permanent. They&apos;re not. Here&apos;s exactly how dynamic QR codes work and how to update them without reprinting.</p>

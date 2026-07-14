@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -69,7 +70,7 @@ export default function ArticleQRPhishingQuishing() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You see a QR code on a parking meter. It promises &quot;easy payment via app.&quot; You scan it. It takes you to a website that looks like the official parking app. You enter your credit card info. Two days later, you see $500 in fraudulent charges. You&apos;ve been quished.</p>
           <p style={pStyle}>QR code phishing – called &quot;quishing&quot; – is exploding. Attacks increased over 400% since 2023, according to cybersecurity firms. Attackers print QR codes on stickers and place them over legitimate codes. Or they send QR codes via email, pretending to be from your bank or IT department. When you scan, you go to a fake website designed to steal your passwords or credit card numbers.</p>
           <p style={{ ...pStyle, margin: 0 }}>Most QR code generators don&apos;t protect against this. They just create the code and forget about it. Truly Free QR includes Safe-Scan, an anti-phishing layer that checks every destination against Google Safe Browsing before redirecting. If a link is known for malware or phishing, the scanner sees a warning. Here&apos;s what quishing is, why it&apos;s dangerous, and how to protect yourself.</p>

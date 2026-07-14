@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -61,7 +62,7 @@ export default function ArticleWhyDoQRCodesExpire() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You printed 500 flyers for your garage sale. You used a &quot;free QR code&quot; from a popular website. The flyers look great. The QR code points to a map of your location. Two weeks after the sale, you scan the code for fun. It doesn&apos;t work. You try again. Nothing. The QR code is dead.</p>
           <p style={pStyle}>Why did it expire? Because you used a dynamic QR code from a platform that deactivates free codes after a certain period. The platform doesn&apos;t tell you this upfront. The words &quot;free&quot; and &quot;expiration&quot; are buried in their terms of service. They count on you not reading the fine print. Then, when your code stops working, they offer to reactivate it – for a monthly fee.</p>
           <p style={{ ...pStyle, margin: 0 }}>QR codes themselves don&apos;t expire. A QR code is just a pattern of black and white squares. It&apos;s a physical thing (or digital image) that encodes text. That text could be a URL, a phone number, or plain words. The pattern doesn&apos;t have a clock. It doesn&apos;t know what day it is. The only way a QR code &quot;expires&quot; is if the thing it points to stops working, or if the platform that hosts the redirect deactivates it.</p>

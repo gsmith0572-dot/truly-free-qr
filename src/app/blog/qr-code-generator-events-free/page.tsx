@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -72,7 +73,7 @@ export default function ArticleQRGeneratorEventsFree() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You&apos;re organizing a community festival. You need QR codes for ticket sales, event schedules, volunteer check-in, and sponsor links. You look at event QR code providers. They want $29 per month for &quot;event packages.&quot; $59 for &quot;premium.&quot; $199 for &quot;enterprise.&quot; Your festival has no budget for software – every dollar goes to porta-potties and sound systems.</p>
           <p style={pStyle}>I built Truly Free QR for exactly this situation. Events have temporary needs but permanent costs. You don&apos;t need a subscription. You need a few QR codes that work for a weekend and then you never use them again. Or you need codes that you can update as the event schedule changes.</p>
           <p style={{ ...pStyle, margin: 0 }}>Truly Free QR gives you unlimited dynamic QR codes for free. Create a code for ticket sales. Another for the schedule. Another for the map. Update them as details change. No subscription. No expiration. Here&apos;s how to run your event&apos;s QR infrastructure for zero dollars.</p>

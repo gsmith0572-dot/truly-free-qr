@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -63,7 +64,7 @@ export default function ArticleQRRestaurantMenuFree() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You run a small taco shop. You spent $400 printing new table tents with a QR code for your digital menu. Two weeks later, the code stops working. A customer shows you: &quot;This link is broken.&quot; You scan it yourself. Dead. You check the QR service you used. Buried in your email confirmation: &quot;Free dynamic QR codes expire after 14 days. Upgrade for $9/month to reactivate.&quot;</p>
           <p style={pStyle}>This happened to me. My barbecue joint printed 200 coasters with QR codes. The provider deactivated them after 14 days. I had to either pay $108 a year forever or throw away $300 in printing. I was furious. A QR code that expires is not a QR code. It&apos;s a ransom note. So I built my own generator. No expiration. No subscription. Edit your menu link anytime without reprinting coasters.</p>
           <p style={{ ...pStyle, margin: 0 }}>Most QR providers treat restaurants like ATMs. QR Code Generator charges $108 a year for dynamic codes that don&apos;t expire. Bitly QR wants $35 a month ($420 a year). Beaconstac starts at $15 a month. Even QRCode Monkey charges $19 a month for dynamic. They all know you&apos;ve already printed the codes. They know reprinting is expensive. So they squeeze you. Truly Free QR never expires. Funded by ads, not by trapping you. Here&apos;s how to set up a restaurant menu QR code that works forever.</p>

@@ -1,11 +1,12 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Header() {
   return (
     <header style={{ background: '#ffffff', borderBottom: '1px solid rgba(74,85,104,0.15)', padding: '0 16px', position: 'sticky', top: 0, zIndex: 200 }}>
       <nav style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: 64, gap: 12, flexWrap: 'wrap', padding: '8px 0' }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}>
-          <img src="/logo.png" alt="Truly Free QR" style={{ height: 44, width: 'auto' }} />
+          <Image src="/logo.png" alt="Truly Free QR" width={142} height={44} style={{ height: 44, width: 'auto' }} priority />
         </Link>
         <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
           <Link href="/" style={{ fontSize: 13, color: '#4a5568', textDecoration: 'none', fontFamily: 'Inter, sans-serif', letterSpacing: '-0.01em', fontWeight: 500 }}>Home</Link>

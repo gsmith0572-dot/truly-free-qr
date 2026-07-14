@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -63,7 +64,7 @@ export default function ArticleFreeDynamicQRNoExpiration() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You own a small coffee shop. You printed 500 menu cards with a QR code that links to your weekly specials. Two weeks later, customers start complaining: &quot;The code doesn&apos;t work.&quot; You scan it yourself. Nothing. You check the QR service you used. Buried in their terms: &quot;Free dynamic QR codes expire after 14 days.&quot; To reactivate it, they want $9 a month. You already spent $200 on printing. Now you either reprint everything or pay a subscription forever.</p>
           <p style={pStyle}>This is the dirty secret of the QR code industry. QR Code Generator (qr-code-generator.com) gives you dynamic codes free for 14 days, then charges $108 a year. Bitly QR costs $35 a month – that&apos;s $420 a year. Beaconstac starts at $15 a month and goes up to $99. Even QRCode Monkey, which looks free, charges $19 a month for dynamic codes. They all use the same bait-and-switch: hook you with &quot;free&quot; then hold your printed materials hostage.</p>
           <p style={{ ...pStyle, margin: 0 }}>I built Truly Free QR because my own restaurant got burned. I printed 200 table tents with QR codes. The provider deactivated them after 14 days. I had to choose between paying $108 a year forever or throwing away $300 in printing. I chose neither. I built my own generator. No expiration. No account. No subscription. Dynamic codes you can edit anytime. Try it once – your printed materials will still work ten years from now.</p>

@@ -12,6 +12,7 @@ export default function Footer() {
         <a href="mailto:support@klickifyagency.com" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>Help Center</a>
         <a href="mailto:support@klickifyagency.com" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>Feedback</a>
         <a href="mailto:support@klickifyagency.com" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>API Docs</a>
+        <a href="https://google.com/preferences/source?q=trulyfreeqr.com" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: '#718096', textDecoration: 'none' }}>Prefer this source on Google</a>
       </div>
       <div style={{ marginBottom: 8 }}>
         <a href="https://notifier.so/status/g6x8Ua55bi/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "#718096", textDecoration: "none" }}>System Status</a>

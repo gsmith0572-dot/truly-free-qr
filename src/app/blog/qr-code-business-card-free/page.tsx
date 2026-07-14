@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -63,7 +64,7 @@ export default function ArticleQRBusinessCardFree() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You&apos;re a freelance graphic designer. You order 1,000 premium business cards. On the back, you print a QR code that links to your portfolio. Six months later, you redesign your website. The portfolio link changes. Your business cards now point to a 404 error. You have 950 cards left. To fix it, you need to either reorder cards ($150) or find a way to change the link without reprinting.</p>
           <p style={pStyle}>This happened to me. I printed 500 cards with a static QR code. Six months later, I changed my freelance portfolio URL. Those cards became trash. I learned the hard way: static QR codes on business cards are a mistake unless you never change anything about your online presence. But dynamic QR codes let you update the destination forever. No reprinting.</p>
           <p style={{ ...pStyle, margin: 0 }}>Most QR code generators charge subscriptions for dynamic codes. QR Code Generator wants $108 a year. Bitly QR wants $420 a year. Beaconstac starts at $15 a month. Even Canva QR only gives you static – no editing. Truly Free QR gives you dynamic QR codes for free. No expiration. No account. Update your portfolio link, your phone number, your Calendly booking page – anything – without throwing away your beautiful cards.</p>

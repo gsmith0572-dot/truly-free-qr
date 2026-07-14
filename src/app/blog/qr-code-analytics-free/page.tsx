@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -71,7 +72,7 @@ export default function ArticleQRAnalyticsFree() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You printed 500 flyers with a QR code. You hand them out at a trade show. Three weeks later, you have no idea if anyone scanned them. Did the flyers work? Did people even notice the QR code? You&apos;re flying blind.</p>
           <p style={pStyle}>This is the problem with static QR codes. They give you zero data. You know how many codes you printed, but you have no idea how many were scanned. Dynamic QR codes give you analytics: scan counts, timestamps, device types, locations. That data tells you which marketing campaigns are working and which are a waste of money.</p>
           <p style={{ ...pStyle, margin: 0 }}>Most QR generators charge extra for analytics. QR Code Generator includes analytics in their $9/month plan. Bitly includes it in their $35/month plan. Beaconstac&apos;s analytics come with $15/month. Truly Free QR gives you analytics for free on every dynamic code. No subscription. No upgrade. Just data.</p>

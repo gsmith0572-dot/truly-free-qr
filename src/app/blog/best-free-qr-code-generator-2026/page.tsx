@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -69,7 +70,7 @@ export default function ArticleBestFreeQRGenerator2026() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You need a QR code. You search &quot;best free QR code generator.&quot; The results are overwhelming. Dozens of tools, each claiming to be free. But when you dig in, you find limits: dynamic codes expire after 14 days, analytics are locked behind a paywall, custom colors require a subscription, and your email gets harvested for spam.</p>
           <p style={{ ...pStyle, margin: 0 }}>I&apos;ve tested every major QR code generator on the market. I&apos;ve read their terms of service. I&apos;ve created codes, waited for them to expire, and tracked their hidden fees. Here&apos;s my honest ranking of the best free QR code generators in 2026. I include my own tool (Truly Free QR) in the list. You can decide if I&apos;m biased, but I&apos;ve used all of these personally.</p>
         </section>

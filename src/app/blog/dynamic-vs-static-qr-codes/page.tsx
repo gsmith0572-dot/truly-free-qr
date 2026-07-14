@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -72,7 +73,7 @@ export default function ArticleDynamicVsStatic() {
       </div>
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <h2 style={{ fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" }}>How Static QR Codes Work: Data Encoded in the Pattern</h2>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>A static QR code is a self-contained data matrix. Every character of your destination URL is encoded directly into the arrangement of black and white modules that form the QR pattern. When a camera scans the code, it reads the pattern and extracts the encoded data without contacting any server.</p>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>The QR standard <a href="https://www.iso.org/standard/62021.html" target="_blank" rel="noopener noreferrer">ISO 18004</a> defines four error correction levels: L at 7% data recovery, M at 15%, Q at 25%, and H at 30%. Higher error correction adds redundant modules to the pattern, allowing the code to remain scannable when partially damaged, but also increasing visual complexity.</p>

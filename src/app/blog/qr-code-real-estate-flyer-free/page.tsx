@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -63,7 +64,7 @@ export default function ArticleQRRealEstateFlyerFree() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You&apos;re a real estate agent. You print 1,000 flyers for an open house. The flyer has a QR code linking to a virtual tour. Two days before the open house, the seller accepts an offer. The house is no longer for sale. Your flyers are now useless. You can&apos;t hand them out – they promote a property that&apos;s off the market.</p>
           <p style={pStyle}>This happens constantly in real estate. Properties sell fast. Prices change. Open house dates move. If your QR code points to a static URL, you&apos;re stuck. But with a dynamic QR code, you can change the destination after the flyers are printed. The house sold? Point the code to a &quot;Thank you for your interest – here are similar listings&quot; page. Open house canceled? Point it to a virtual tour instead.</p>
           <p style={{ ...pStyle, margin: 0 }}>Most QR generators charge subscriptions for dynamic codes. QR Code Generator wants $108 a year. Bitly wants $420 a year. Beaconstac starts at $180 a year. For a real estate agent who prints flyers weekly, that adds up. Truly Free QR gives you dynamic codes for free. No expiration. No subscription. Change your destination anytime. Here&apos;s how to never waste another flyer.</p>

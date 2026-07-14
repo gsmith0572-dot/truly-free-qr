@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -63,7 +64,7 @@ export default function ArticleQRWifiPasswordFree() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <p style={pStyle}>You have guests over. They ask for your WiFi password. It&apos;s &quot;B4c0n&amp;3ggs2024!&quot; You have to spell it out. They mistype it three times. You finally write it on a sticky note. The sticky note gets lost.</p>
           <p style={pStyle}>There&apos;s a better way. Create a QR code that encodes your WiFi network name and password. Guests scan it with their phones and connect instantly. No typing. No sticky notes. No frustration.</p>
           <p style={{ ...pStyle, margin: 0 }}>Most WiFi QR code generators are full of ads or require accounts. Truly Free QR lets you create WiFi QR codes for free. No account. No expiration. And because it&apos;s a static code (the WiFi credentials are baked into the pattern), there&apos;s no server dependency. The code works even if my site goes down. Here&apos;s how.</p>

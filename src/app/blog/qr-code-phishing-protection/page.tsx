@@ -1,4 +1,5 @@
 import AuthorBox from "@/components/blog/AuthorBox";
+import Image from "next/image"
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -72,7 +73,7 @@ export default function ArticlePhishing() {
           </div>
         </div>
         <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><img src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid rgba(74,85,104,0.1)" }}><Image src="/george-smith.png" alt="George Smith" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover" }} /><div><span style={{ fontSize: "14px", fontWeight: 600, color: "#181c1e", letterSpacing: "-0.01em" }}>George Smith</span><span style={{ fontSize: "13px", color: "#718096", letterSpacing: "-0.01em" }}> — Founder, Klickify Agency</span></div></div>
           <h2 style={{ fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" }}>What Is QR Phishing (Quishing)?</h2>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>Quishing is a cyberattack that uses malicious QR codes to redirect victims to fraudulent websites designed to <a href="https://consumer.ftc.gov/consumer-alerts/2023/12/scammers-hide-harmful-links-qr-codes-steal-your-information" target="_blank" rel="noopener noreferrer">steal credentials, install malware, or capture payment information</a>. It exploits a fundamental property of QR code scanning: users cannot read the destination URL before scanning. In a traditional phishing email, a trained user can hover over a link to preview the destination. With a QR code, no preview is possible in the default scanning flow.</p>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: 0 }}>The Anti-Phishing Working Group documented a 400% increase in quishing incidents between 2023 and 2025, with 89.3% of attacks targeting credential theft — login pages for banking, email, and corporate systems that are visually indistinguishable from the legitimate services they impersonate.</p>
