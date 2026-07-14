@@ -130,7 +130,7 @@ jobs:
           - Output ONLY the complete TSX code, no explanation, no markdown code blocks"""
 
           data = json.dumps({
-              "model": "claude-sonnet-4-6",
+              "model": "claude-sonnet-5",
               "max_tokens": 8000,
               "messages": [{"role": "user", "content": prompt}]
           }).encode()
@@ -145,8 +145,12 @@ jobs:
               }
           )
 
-          with urllib.request.urlopen(req) as resp:
-              result = json.loads(resp.read())
+          try:
+              with urllib.request.urlopen(req) as resp:
+                  result = json.loads(resp.read())
+          except urllib.error.HTTPError as e:
+              print("Anthropic API error", e.code, e.read().decode())
+              raise
 
           content = result["content"][0]["text"]
           # Strip markdown code blocks if present
