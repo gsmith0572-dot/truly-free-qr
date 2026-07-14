@@ -167,7 +167,7 @@ export default function ArticleQRCodeStatistics() {
 
         <section style={{ marginBottom: 40 }}>
           <h2 style={{ fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" }}>QR Code Security Statistics: The Quishing Threat</h2>
-          <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>As QR code adoption has grown, so has their use as a vector for phishing attacks. "Quishing" — QR code phishing — involves replacing legitimate QR codes with malicious ones that redirect users to credential-harvesting pages. The FBI issued a public warning about this attack vector in 2022, and the threat has grown significantly since.</p>
+          <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>As QR code adoption has grown, so has their use as a vector for phishing attacks. "Quishing" — QR code phishing — involves replacing legitimate QR codes with malicious ones that redirect users to credential-harvesting pages. The <a href="https://www.ic3.gov/PSA/2022/PSA220118" target="_blank" rel="noopener noreferrer">FBI issued a public warning about this attack vector in 2022</a>, and the threat has grown significantly since.</p>
           {[
             { stat: "400%", label: "Increase in QR phishing attacks between 2023 and 2025", bg: "rgba(220,38,38,0.04)", border: "rgba(220,38,38,0.12)", color: "#dc2626" },
             { stat: "51%", label: "Year-over-year increase in quishing attempts in 2023 alone", bg: "rgba(220,38,38,0.04)", border: "rgba(220,38,38,0.12)", color: "#dc2626" },
