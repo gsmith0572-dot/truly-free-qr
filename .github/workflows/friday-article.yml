@@ -102,13 +102,13 @@ jobs:
 
           SLUG=$(echo "$TOPIC" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9 ]//g' | tr ' ' '-' | sed 's/--*/-/g' | cut -c1-60)
 
-          python3 - <<PYEOF
+          TOPIC="$TOPIC" SLUG="$SLUG" TODAY="$TODAY" python3 - <<'PYEOF'
           import json, urllib.request, os, re
 
           api_key = os.environ["ANTHROPIC_API_KEY"]
-          topic = """$TOPIC"""
-          slug = """$SLUG"""
-          today = """$TODAY"""
+          topic = os.environ["TOPIC"]
+          slug = os.environ["SLUG"]
+          today = os.environ["TODAY"]
 
           prompt = f"""Write a complete Next.js blog article (TSX file) for trulyfreeqr.com about: "{topic}"
 
