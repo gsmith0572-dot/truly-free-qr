@@ -17,7 +17,7 @@ jobs:
       - name: Publish pre-scheduled article or generate new one
         id: article
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
           # --- Priority 1: publish from _scheduled/ folder ---
           NEXT=$(ls _scheduled/*.tsx 2>/dev/null | sort | head -1)
@@ -31,9 +31,9 @@ jobs:
             exit 0
           fi
 
-          # --- Priority 2: generate with Claude API ---
-          if [ -z "$ANTHROPIC_API_KEY" ]; then
-            echo "No scheduled articles and ANTHROPIC_API_KEY not set. Skipping."
+          # --- Priority 2: generate with Groq ---
+          if [ -z "$GROQ_API_KEY" ]; then
+            echo "No scheduled articles and GROQ_API_KEY not set. Skipping."
             exit 0
           fi
 
@@ -105,7 +105,7 @@ jobs:
           TOPIC="$TOPIC" SLUG="$SLUG" TODAY="$TODAY" python3 - <<'PYEOF'
           import json, urllib.request, os, re
 
-          api_key = os.environ["ANTHROPIC_API_KEY"]
+          api_key = os.environ["GROQ_API_KEY"]
           topic = os.environ["TOPIC"]
           slug = os.environ["SLUG"]
           today = os.environ["TODAY"]
@@ -130,18 +130,17 @@ jobs:
           - Output ONLY the complete TSX code, no explanation, no markdown code blocks"""
 
           data = json.dumps({
-              "model": "claude-sonnet-5",
+              "model": "llama-3.3-70b-versatile",
               "max_tokens": 8000,
               "messages": [{"role": "user", "content": prompt}]
           }).encode()
 
           req = urllib.request.Request(
-              "https://api.anthropic.com/v1/messages",
+              "https://api.groq.com/openai/v1/chat/completions",
               data=data,
               headers={
-                  "x-api-key": api_key,
-                  "anthropic-version": "2023-06-01",
-                  "content-type": "application/json"
+                  "Authorization": f"Bearer {api_key}",
+                  "Content-Type": "application/json"
               }
           )
 
@@ -149,10 +148,10 @@ jobs:
               with urllib.request.urlopen(req) as resp:
                   result = json.loads(resp.read())
           except urllib.error.HTTPError as e:
-              print("Anthropic API error", e.code, e.read().decode())
+              print("Groq API error", e.code, e.read().decode())
               raise
 
-          content = result["content"][0]["text"]
+          content = result["choices"][0]["message"]["content"]
           # Strip markdown code blocks if present
           content = re.sub(r'^```(?:tsx|typescript|jsx)?\n', '', content, flags=re.MULTILINE)
           content = re.sub(r'\n```\s*$', '', content, flags=re.MULTILINE)
