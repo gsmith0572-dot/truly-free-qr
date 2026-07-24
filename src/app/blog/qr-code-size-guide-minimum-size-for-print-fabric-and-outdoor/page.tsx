@@ -71,7 +71,9 @@ const article = {
 export const metadata: Metadata = {
   title: article.title,
   description: article.description,
-  canonical: "https://trulyfreeqr.com/blog/qr-code-size-guide-minimum-size-for-print-fabric-and-outdoor",
+  alternates: {
+    canonical: "https://trulyfreeqr.com/blog/qr-code-size-guide-minimum-size-for-print-fabric-and-outdoor",
+  },
 };
 
 export default function Page() {

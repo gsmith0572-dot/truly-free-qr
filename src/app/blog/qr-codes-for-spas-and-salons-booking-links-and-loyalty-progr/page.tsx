@@ -4,7 +4,9 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'QR codes for spas and salons: booking links and loyalty programs',
   description: 'Discover how QR codes can transform your spa or salon business by streamlining bookings and loyalty programs.',
-  canonicalUrl: 'https://trulyfreeqr.com/blog/qr-codes-for-spas-and-salons-booking-links-and-loyalty-progr',
+  alternates: {
+    canonical: 'https://trulyfreeqr.com/blog/qr-codes-for-spas-and-salons-booking-links-and-loyalty-progr',
+  },
 };
 
 const article = {

@@ -115,7 +115,7 @@ jobs:
           Requirements:
           - Complete, ready-to-deploy TSX file
           - Import: import type {{ Metadata }} from 'next' and import Link from 'next/link'
-          - Export metadata with title, description, canonical URL: https://trulyfreeqr.com/blog/{slug}
+          - Export metadata: {{ title, description, alternates: {{ canonical: "https://trulyfreeqr.com/blog/{slug}" }} }} — canonical MUST be nested under alternates, never a top-level Metadata key
           - Article + FAQ schema as const objects
           - datePublished: "{today}", author: George Smith (Founder, Klickify Agency)
           - Component: export default function Page() returning full JSX
