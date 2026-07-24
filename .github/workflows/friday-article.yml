@@ -2,7 +2,7 @@ name: Publish Friday Article
 
 on:
   schedule:
-    - cron: '0 14 * * 5'  # Every Friday 2pm UTC (9am CDT)
+    - cron: '15 14 * * 5'  # Every Friday 2:15pm UTC (staggered vs Tools/Mortgage, shared Groq key)
   workflow_dispatch:
 
 permissions:
