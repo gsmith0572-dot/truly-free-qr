@@ -32,6 +32,10 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState<string | null>(null)
   const [copying, setCopying] = useState('')
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editValue, setEditValue] = useState('')
+  const [editSaving, setEditSaving] = useState(false)
+  const [editError, setEditError] = useState('')
 
   useEffect(() => {
     const saved = localStorage.getItem('tfqr_codes')
@@ -82,6 +86,37 @@ export default function Dashboard() {
     setQrs(updated)
     localStorage.setItem('tfqr_codes', JSON.stringify(updated))
     if (selected === shortId) setSelected(null)
+  }
+
+  function startEdit(qr: QRItem) {
+    setEditingId(qr.short_id)
+    setEditValue(qr.destination_url)
+    setEditError('')
+  }
+
+  function cancelEdit() {
+    setEditingId(null)
+    setEditError('')
+  }
+
+  async function saveEdit(shortId: string) {
+    if (!editValue || editSaving) return
+    setEditSaving(true)
+    setEditError('')
+    try {
+      const sessionToken = localStorage.getItem('tfqr_session') || ''
+      const res = await fetch(`/api/qr/${shortId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ destination_url: editValue, session_token: sessionToken }) })
+      const data = await res.json()
+      if (!res.ok) { setEditError(data.error || 'Failed to update destination'); return }
+      const updated = qrs.map(q => q.short_id === shortId ? { ...q, destination_url: editValue } : q)
+      setQrs(updated)
+      localStorage.setItem('tfqr_codes', JSON.stringify(updated))
+      setEditingId(null)
+    } catch {
+      setEditError('Failed to update destination')
+    } finally {
+      setEditSaving(false)
+    }
   }
 
   function getMaxScans(activity: ScanEvent[]) {
@@ -162,9 +197,29 @@ export default function Dashboard() {
                       {copying === qr.short_id ? '✓ Copied' : 'Copy'}
                     </button>
                     <button onClick={e => { e.stopPropagation(); downloadQR(qr.redirect_url, qr.short_id) }} style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '6px 12px', fontSize: 11, fontWeight: 600, color: '#4a5568', cursor: 'pointer' }}>PNG</button>
+                    <button onClick={e => { e.stopPropagation(); startEdit(qr) }} style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '6px 12px', fontSize: 11, fontWeight: 600, color: '#4a5568', cursor: 'pointer' }}>Edit</button>
                     <button onClick={e => { e.stopPropagation(); deleteQR(qr.short_id) }} style={{ background: '#fff', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '6px 10px', fontSize: 11, fontWeight: 600, color: '#718096', cursor: 'pointer' }}>✕</button>
                   </div>
                 </div>
+
+                {editingId === qr.short_id && (
+                  <div style={{ borderTop: '1px solid rgba(74,85,104,0.1)', padding: '16px 20px', background: '#f7fafc' }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 8 }}>Edit Destination URL</div>
+                    <input
+                      type="text"
+                      value={editValue}
+                      onChange={e => setEditValue(e.target.value)}
+                      style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid rgba(74,85,104,0.2)', borderRadius: 4, fontSize: 13, marginBottom: 8, fontFamily: 'inherit' }}
+                    />
+                    {editError && <div style={{ color: '#c53030', fontSize: 12, marginBottom: 8 }}>{editError}</div>}
+                    <div style={{ display: 'flex', gap: 8 }}>
+                      <button onClick={() => saveEdit(qr.short_id)} disabled={editSaving} style={{ background: 'linear-gradient(135deg,#0058c3,#0070f3)', color: '#fff', border: 'none', borderRadius: 4, padding: '8px 16px', fontSize: 12, fontWeight: 600, cursor: editSaving ? 'default' : 'pointer', opacity: editSaving ? 0.7 : 1 }}>
+                        {editSaving ? 'Saving...' : 'Save'}
+                      </button>
+                      <button onClick={cancelEdit} style={{ background: '#fff', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '8px 16px', fontSize: 12, fontWeight: 600, color: '#4a5568', cursor: 'pointer' }}>Cancel</button>
+                    </div>
+                  </div>
+                )}
 
                 {selected === qr.short_id && (
                   <div style={{ borderTop: '1px solid rgba(74,85,104,0.1)', padding: '20px', background: '#f7fafc' }}>
