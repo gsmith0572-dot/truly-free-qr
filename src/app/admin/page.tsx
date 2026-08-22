@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -43,6 +43,7 @@ export default function AdminPage() {
   const [saveError, setSaveError] = useState('')
   const [saveSuccess, setSaveSuccess] = useState(false)
 
+  const editCardRef = useRef<HTMLDivElement>(null)
   const [categoryInput, setCategoryInput] = useState('')
   const [items, setItems] = useState<QRListItem[] | null>(null)
   const [browseLoading, setBrowseLoading] = useState(false)
@@ -105,6 +106,7 @@ export default function AdminPage() {
     setEditValue(item.destination_url)
     setSaveSuccess(false)
     setSaveError('')
+    setTimeout(() => editCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 0)
   }
 
   async function lookup(e: React.FormEvent) {
@@ -274,7 +276,7 @@ export default function AdminPage() {
         )}
 
         {record && (
-          <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)', padding: 20 }}>
+          <div ref={editCardRef} style={{ background: '#fff', borderRadius: 8, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)', padding: 20 }}>
             <div style={{ marginBottom: 16 }}>
               <div style={{ fontSize: 14, fontWeight: 600, color: '#181c1e', marginBottom: 3 }}>{record.qr.project_name || record.short_id}</div>
               <div style={{ fontSize: 11, color: '#718096', fontFamily: 'monospace', marginBottom: 4 }}>{record.redirect_url}</div>
