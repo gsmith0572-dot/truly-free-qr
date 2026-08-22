@@ -14,6 +14,7 @@ interface QRRecord {
     sale_status: string | null
     sale_price: string | null
     sold_date: string | null
+    client_phone: string | null
     created_at: string
     updated_at: string | null
   }
@@ -28,6 +29,7 @@ interface QRListItem {
   sale_status: string | null
   sale_price: string | null
   sold_date: string | null
+  client_phone: string | null
   created_at: string
 }
 
@@ -49,6 +51,7 @@ export default function AdminPage() {
   const [saleStatusValue, setSaleStatusValue] = useState('available')
   const [salePriceValue, setSalePriceValue] = useState('')
   const [soldDateValue, setSoldDateValue] = useState('')
+  const [clientPhoneValue, setClientPhoneValue] = useState('')
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState('')
   const [saveSuccess, setSaveSuccess] = useState(false)
@@ -111,13 +114,14 @@ export default function AdminPage() {
       short_id: item.short_id,
       redirect_url: item.redirect_url,
       safe_scan_url: `https://trulyfreeqr.link/safe/${item.short_id}`,
-      qr: { destination_url: item.destination_url, project_name: item.project_name, category: item.category, sale_status: item.sale_status, sale_price: item.sale_price, sold_date: item.sold_date, created_at: item.created_at, updated_at: null },
+      qr: { destination_url: item.destination_url, project_name: item.project_name, category: item.category, sale_status: item.sale_status, sale_price: item.sale_price, sold_date: item.sold_date, client_phone: item.client_phone, created_at: item.created_at, updated_at: null },
     })
     setEditValue(item.destination_url)
     setNameValue(item.project_name || '')
     setSaleStatusValue(item.sale_status || 'available')
     setSalePriceValue(item.sale_price || '')
     setSoldDateValue(item.sold_date || '')
+    setClientPhoneValue(item.client_phone || '')
     setSaveSuccess(false)
     setSaveError('')
     setTimeout(() => editCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 0)
@@ -145,6 +149,7 @@ export default function AdminPage() {
       setSaleStatusValue(data.qr.sale_status || 'available')
       setSalePriceValue(data.qr.sale_price || '')
       setSoldDateValue(data.qr.sold_date || '')
+      setClientPhoneValue(data.qr.client_phone || '')
     } catch {
       setLookupError('Failed to look up QR code')
     } finally {
@@ -161,7 +166,7 @@ export default function AdminPage() {
       const res = await fetch(`/api/qr/${record.short_id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
-        body: JSON.stringify({ destination_url: editValue, project_name: nameValue, sale_status: saleStatusValue, sale_price: salePriceValue || null, sold_date: soldDateValue || null }),
+        body: JSON.stringify({ destination_url: editValue, project_name: nameValue, sale_status: saleStatusValue, sale_price: salePriceValue || null, sold_date: soldDateValue || null, client_phone: clientPhoneValue || null }),
       })
       const data = await res.json()
       if (res.status === 403) {
@@ -170,7 +175,7 @@ export default function AdminPage() {
         return
       }
       if (!res.ok) { setSaveError(data.error || 'Failed to update destination'); return }
-      setRecord({ ...record, qr: { ...record.qr, destination_url: editValue, project_name: nameValue, sale_status: saleStatusValue, sale_price: salePriceValue || null, sold_date: soldDateValue || null } })
+      setRecord({ ...record, qr: { ...record.qr, destination_url: editValue, project_name: nameValue, sale_status: saleStatusValue, sale_price: salePriceValue || null, sold_date: soldDateValue || null, client_phone: clientPhoneValue || null } })
       setSaveSuccess(true)
     } catch {
       setSaveError('Failed to update destination')
@@ -319,6 +324,15 @@ export default function AdminPage() {
               value={nameValue}
               onChange={e => setNameValue(e.target.value)}
               placeholder="e.g. Biscuits and Blues"
+              style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid rgba(74,85,104,0.2)', borderRadius: 4, fontSize: 13, marginBottom: 16, fontFamily: 'inherit' }}
+            />
+
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 8 }}>Client Phone (for SMS)</div>
+            <input
+              type="tel"
+              value={clientPhoneValue}
+              onChange={e => setClientPhoneValue(e.target.value)}
+              placeholder="e.g. +14155551234"
               style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid rgba(74,85,104,0.2)', borderRadius: 4, fontSize: 13, marginBottom: 16, fontFamily: 'inherit' }}
             />
 
