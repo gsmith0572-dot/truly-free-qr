@@ -11,6 +11,9 @@ interface QRRecord {
     destination_url: string
     project_name: string | null
     category: string | null
+    sale_status: string | null
+    sale_price: string | null
+    sold_date: string | null
     created_at: string
     updated_at: string | null
   }
@@ -22,6 +25,9 @@ interface QRListItem {
   destination_url: string
   project_name: string | null
   category: string | null
+  sale_status: string | null
+  sale_price: string | null
+  sold_date: string | null
   created_at: string
 }
 
@@ -40,6 +46,9 @@ export default function AdminPage() {
 
   const [editValue, setEditValue] = useState('')
   const [nameValue, setNameValue] = useState('')
+  const [saleStatusValue, setSaleStatusValue] = useState('available')
+  const [salePriceValue, setSalePriceValue] = useState('')
+  const [soldDateValue, setSoldDateValue] = useState('')
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState('')
   const [saveSuccess, setSaveSuccess] = useState(false)
@@ -102,10 +111,13 @@ export default function AdminPage() {
       short_id: item.short_id,
       redirect_url: item.redirect_url,
       safe_scan_url: `https://trulyfreeqr.link/safe/${item.short_id}`,
-      qr: { destination_url: item.destination_url, project_name: item.project_name, category: item.category, created_at: item.created_at, updated_at: null },
+      qr: { destination_url: item.destination_url, project_name: item.project_name, category: item.category, sale_status: item.sale_status, sale_price: item.sale_price, sold_date: item.sold_date, created_at: item.created_at, updated_at: null },
     })
     setEditValue(item.destination_url)
     setNameValue(item.project_name || '')
+    setSaleStatusValue(item.sale_status || 'available')
+    setSalePriceValue(item.sale_price || '')
+    setSoldDateValue(item.sold_date || '')
     setSaveSuccess(false)
     setSaveError('')
     setTimeout(() => editCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 0)
@@ -130,6 +142,9 @@ export default function AdminPage() {
       setRecord(data)
       setEditValue(data.qr.destination_url)
       setNameValue(data.qr.project_name || '')
+      setSaleStatusValue(data.qr.sale_status || 'available')
+      setSalePriceValue(data.qr.sale_price || '')
+      setSoldDateValue(data.qr.sold_date || '')
     } catch {
       setLookupError('Failed to look up QR code')
     } finally {
@@ -146,7 +161,7 @@ export default function AdminPage() {
       const res = await fetch(`/api/qr/${record.short_id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
-        body: JSON.stringify({ destination_url: editValue, project_name: nameValue }),
+        body: JSON.stringify({ destination_url: editValue, project_name: nameValue, sale_status: saleStatusValue, sale_price: salePriceValue || null, sold_date: soldDateValue || null }),
       })
       const data = await res.json()
       if (res.status === 403) {
@@ -155,7 +170,7 @@ export default function AdminPage() {
         return
       }
       if (!res.ok) { setSaveError(data.error || 'Failed to update destination'); return }
-      setRecord({ ...record, qr: { ...record.qr, destination_url: editValue, project_name: nameValue } })
+      setRecord({ ...record, qr: { ...record.qr, destination_url: editValue, project_name: nameValue, sale_status: saleStatusValue, sale_price: salePriceValue || null, sold_date: soldDateValue || null } })
       setSaveSuccess(true)
     } catch {
       setSaveError('Failed to update destination')
@@ -240,6 +255,7 @@ export default function AdminPage() {
                       <th style={{ textAlign: 'left', padding: '8px 12px', color: '#718096', fontWeight: 600, fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Name</th>
                       <th style={{ textAlign: 'left', padding: '8px 12px', color: '#718096', fontWeight: 600, fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Short ID</th>
                       <th style={{ textAlign: 'left', padding: '8px 12px', color: '#718096', fontWeight: 600, fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Destination</th>
+                      <th style={{ textAlign: 'left', padding: '8px 12px', color: '#718096', fontWeight: 600, fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Status</th>
                       <th style={{ padding: '8px 12px' }}></th>
                     </tr>
                   </thead>
@@ -249,6 +265,14 @@ export default function AdminPage() {
                         <td style={{ padding: '8px 12px', color: '#181c1e', fontWeight: 500 }}>{item.project_name || '—'}</td>
                         <td style={{ padding: '8px 12px', fontFamily: 'monospace', color: '#4a5568' }}>{item.short_id}</td>
                         <td style={{ padding: '8px 12px', color: '#718096', maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.destination_url}</td>
+                        <td style={{ padding: '8px 12px' }}>
+                          <span style={{
+                            fontSize: 10, fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase',
+                            padding: '3px 8px', borderRadius: 2,
+                            color: item.sale_status === 'sold' ? '#16a34a' : '#718096',
+                            background: item.sale_status === 'sold' ? 'rgba(22,163,74,0.08)' : 'rgba(113,128,150,0.08)',
+                          }}>{item.sale_status === 'sold' ? 'Sold' : 'Available'}</span>
+                        </td>
                         <td style={{ padding: '8px 12px' }}>
                           <button onClick={() => selectItem(item)} style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '4px 10px', fontSize: 11, fontWeight: 600, color: '#0058c3', cursor: 'pointer' }}>Edit</button>
                         </td>
@@ -303,8 +327,47 @@ export default function AdminPage() {
               type="text"
               value={editValue}
               onChange={e => setEditValue(e.target.value)}
-              style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid rgba(74,85,104,0.2)', borderRadius: 4, fontSize: 13, marginBottom: 8, fontFamily: 'inherit' }}
+              style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid rgba(74,85,104,0.2)', borderRadius: 4, fontSize: 13, marginBottom: 16, fontFamily: 'inherit' }}
             />
+
+            <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 8 }}>Status</div>
+                <select
+                  value={saleStatusValue}
+                  onChange={e => {
+                    const next = e.target.value
+                    setSaleStatusValue(next)
+                    if (next === 'sold' && !soldDateValue) setSoldDateValue(new Date().toISOString().slice(0, 10))
+                  }}
+                  style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid rgba(74,85,104,0.2)', borderRadius: 4, fontSize: 13, fontFamily: 'inherit', background: '#fff' }}
+                >
+                  <option value="available">Available</option>
+                  <option value="sold">Sold</option>
+                </select>
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 8 }}>Sale Price</div>
+                <input
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  value={salePriceValue}
+                  onChange={e => setSalePriceValue(e.target.value)}
+                  placeholder="$0.00"
+                  style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid rgba(74,85,104,0.2)', borderRadius: 4, fontSize: 13, fontFamily: 'inherit' }}
+                />
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 8 }}>Sold Date</div>
+                <input
+                  type="date"
+                  value={soldDateValue}
+                  onChange={e => setSoldDateValue(e.target.value)}
+                  style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid rgba(74,85,104,0.2)', borderRadius: 4, fontSize: 13, fontFamily: 'inherit' }}
+                />
+              </div>
+            </div>
             {saveError && <div style={{ color: '#c53030', fontSize: 12, marginBottom: 8 }}>{saveError}</div>}
             {saveSuccess && <div style={{ color: '#16a34a', fontSize: 12, marginBottom: 8 }}>Destination updated.</div>}
             <button onClick={save} disabled={saving} style={{ background: 'linear-gradient(135deg,#0058c3,#0070f3)', color: '#fff', border: 'none', borderRadius: 4, padding: '8px 16px', fontSize: 12, fontWeight: 600, cursor: saving ? 'default' : 'pointer', opacity: saving ? 0.7 : 1 }}>
