@@ -130,8 +130,9 @@ jobs:
           - Output ONLY the complete TSX code, no explanation, no markdown code blocks"""
 
           data = json.dumps({
-              "model": "llama-3.3-70b-versatile",
-              "max_tokens": 8000,
+              "model": "openai/gpt-oss-120b",
+              "max_tokens": 6000,
+              "reasoning_effort": "low",
               "messages": [{"role": "user", "content": prompt}]
           }).encode()
 
