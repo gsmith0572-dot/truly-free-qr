@@ -16,6 +16,15 @@ interface QRRecord {
   }
 }
 
+interface QRListItem {
+  short_id: string
+  redirect_url: string
+  destination_url: string
+  project_name: string | null
+  category: string | null
+  created_at: string
+}
+
 const STORAGE_KEY = 'tfqr_admin_key'
 
 export default function AdminPage() {
@@ -32,6 +41,11 @@ export default function AdminPage() {
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState('')
   const [saveSuccess, setSaveSuccess] = useState(false)
+
+  const [categoryInput, setCategoryInput] = useState('')
+  const [items, setItems] = useState<QRListItem[] | null>(null)
+  const [browseLoading, setBrowseLoading] = useState(false)
+  const [browseError, setBrowseError] = useState('')
 
   useEffect(() => {
     const saved = sessionStorage.getItem(STORAGE_KEY)
@@ -51,6 +65,43 @@ export default function AdminPage() {
     setAdminKey(null)
     setPasswordInput('')
     setRecord(null)
+    setItems(null)
+  }
+
+  async function browse(e: React.FormEvent) {
+    e.preventDefault()
+    if (!adminKey) return
+    setBrowseLoading(true)
+    setBrowseError('')
+    setItems(null)
+    try {
+      const qs = categoryInput ? `?category=${encodeURIComponent(categoryInput.trim())}` : ''
+      const res = await fetch(`/api/qr${qs}`, { headers: { 'x-admin-key': adminKey } })
+      const data = await res.json()
+      if (res.status === 403) {
+        setGateError('Incorrect admin password')
+        logout()
+        return
+      }
+      if (!res.ok) { setBrowseError(data.error || 'Failed to list QR codes'); return }
+      setItems(data.qrs)
+    } catch {
+      setBrowseError('Failed to list QR codes')
+    } finally {
+      setBrowseLoading(false)
+    }
+  }
+
+  function selectItem(item: QRListItem) {
+    setRecord({
+      short_id: item.short_id,
+      redirect_url: item.redirect_url,
+      safe_scan_url: `https://trulyfreeqr.link/safe/${item.short_id}`,
+      qr: { destination_url: item.destination_url, project_name: item.project_name, category: item.category, created_at: item.created_at, updated_at: null },
+    })
+    setEditValue(item.destination_url)
+    setSaveSuccess(false)
+    setSaveError('')
   }
 
   async function lookup(e: React.FormEvent) {
@@ -138,10 +189,59 @@ export default function AdminPage() {
         </div>
       </nav>
 
-      <div style={{ maxWidth: 640, margin: '0 auto', padding: '32px 24px' }}>
+      <div style={{ maxWidth: 800, margin: '0 auto', padding: '32px 24px' }}>
         <div style={{ marginBottom: 24 }}>
           <h1 style={{ fontSize: 24, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 6px' }}>Manage Any QR Code</h1>
           <p style={{ fontSize: 13, color: '#718096', margin: 0 }}>Look up by short ID and edit its destination — bypasses the per-browser ownership check.</p>
+        </div>
+
+        <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)', padding: 20, marginBottom: 20 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 8 }}>Browse by Category</div>
+          <form onSubmit={browse} style={{ display: 'flex', gap: 8, marginBottom: items || browseError ? 16 : 0 }}>
+            <input
+              type="text"
+              value={categoryInput}
+              onChange={e => setCategoryInput(e.target.value)}
+              placeholder="Category (e.g. standee) — blank shows most recent 200"
+              style={{ flex: 1, boxSizing: 'border-box', padding: '10px 12px', border: '1px solid rgba(74,85,104,0.2)', borderRadius: 4, fontSize: 13, fontFamily: 'inherit' }}
+            />
+            <button type="submit" disabled={browseLoading} style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '10px 20px', fontSize: 13, fontWeight: 600, color: '#4a5568', cursor: browseLoading ? 'default' : 'pointer', opacity: browseLoading ? 0.7 : 1 }}>
+              {browseLoading ? 'Loading...' : 'Browse'}
+            </button>
+          </form>
+
+          {browseError && <div style={{ color: '#c53030', fontSize: 12 }}>{browseError}</div>}
+
+          {items && (
+            items.length === 0 ? (
+              <div style={{ fontSize: 13, color: '#718096' }}>No QR codes found{categoryInput ? ` for category "${categoryInput}"` : ''}.</div>
+            ) : (
+              <div style={{ maxHeight: 400, overflowY: 'auto', border: '1px solid rgba(74,85,104,0.1)', borderRadius: 6 }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
+                  <thead>
+                    <tr style={{ background: '#f7fafc', position: 'sticky', top: 0 }}>
+                      <th style={{ textAlign: 'left', padding: '8px 12px', color: '#718096', fontWeight: 600, fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Name</th>
+                      <th style={{ textAlign: 'left', padding: '8px 12px', color: '#718096', fontWeight: 600, fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Short ID</th>
+                      <th style={{ textAlign: 'left', padding: '8px 12px', color: '#718096', fontWeight: 600, fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Destination</th>
+                      <th style={{ padding: '8px 12px' }}></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {items.map(item => (
+                      <tr key={item.short_id} style={{ borderTop: '1px solid rgba(74,85,104,0.08)' }}>
+                        <td style={{ padding: '8px 12px', color: '#181c1e', fontWeight: 500 }}>{item.project_name || '—'}</td>
+                        <td style={{ padding: '8px 12px', fontFamily: 'monospace', color: '#4a5568' }}>{item.short_id}</td>
+                        <td style={{ padding: '8px 12px', color: '#718096', maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.destination_url}</td>
+                        <td style={{ padding: '8px 12px' }}>
+                          <button onClick={() => selectItem(item)} style={{ background: '#f1f4f6', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '4px 10px', fontSize: 11, fontWeight: 600, color: '#0058c3', cursor: 'pointer' }}>Edit</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )
+          )}
         </div>
 
         <form onSubmit={lookup} style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
