@@ -83,7 +83,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <p.getAs I've worked with numerous pharmacies and medical supply companies, I've seen firsthand the challenges they face in streamlining operations and improving patient engagement. That's why I'm excited to share with you the benefits of using QR codes in these industries.</p>
+        <p>As the founder of Klickify Agency, I&apos;ve worked with numerous pharmacies and medical supply companies, and I&apos;ve seen firsthand the challenges they face in streamlining operations and improving patient engagement. That&apos;s why I&apos;m excited to share with you the benefits of using QR codes in these industries.</p>
         <h2>What are QR codes and how do they work?</h2>
         <p>QR codes, or Quick Response codes, are two-dimensional barcodes that can be scanned using a smartphone or tablet. They can store a wide range of information, from text and numbers to images and videos.</p>
         <h2>Benefits of using QR codes in pharmacies and medical supply companies</h2>
