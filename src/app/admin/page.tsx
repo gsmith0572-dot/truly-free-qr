@@ -39,6 +39,7 @@ export default function AdminPage() {
   const [lookupError, setLookupError] = useState('')
 
   const [editValue, setEditValue] = useState('')
+  const [nameValue, setNameValue] = useState('')
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState('')
   const [saveSuccess, setSaveSuccess] = useState(false)
@@ -104,6 +105,7 @@ export default function AdminPage() {
       qr: { destination_url: item.destination_url, project_name: item.project_name, category: item.category, created_at: item.created_at, updated_at: null },
     })
     setEditValue(item.destination_url)
+    setNameValue(item.project_name || '')
     setSaveSuccess(false)
     setSaveError('')
     setTimeout(() => editCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 0)
@@ -127,6 +129,7 @@ export default function AdminPage() {
       if (!res.ok) { setLookupError(data.error || 'QR code not found'); return }
       setRecord(data)
       setEditValue(data.qr.destination_url)
+      setNameValue(data.qr.project_name || '')
     } catch {
       setLookupError('Failed to look up QR code')
     } finally {
@@ -143,7 +146,7 @@ export default function AdminPage() {
       const res = await fetch(`/api/qr/${record.short_id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
-        body: JSON.stringify({ destination_url: editValue }),
+        body: JSON.stringify({ destination_url: editValue, project_name: nameValue }),
       })
       const data = await res.json()
       if (res.status === 403) {
@@ -152,7 +155,7 @@ export default function AdminPage() {
         return
       }
       if (!res.ok) { setSaveError(data.error || 'Failed to update destination'); return }
-      setRecord({ ...record, qr: { ...record.qr, destination_url: editValue } })
+      setRecord({ ...record, qr: { ...record.qr, destination_url: editValue, project_name: nameValue } })
       setSaveSuccess(true)
     } catch {
       setSaveError('Failed to update destination')
@@ -285,6 +288,15 @@ export default function AdminPage() {
                 <span style={{ fontSize: 10, color: '#718096' }}>Created {new Date(record.qr.created_at).toLocaleDateString()}</span>
               </div>
             </div>
+
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 8 }}>Client / Business Name</div>
+            <input
+              type="text"
+              value={nameValue}
+              onChange={e => setNameValue(e.target.value)}
+              placeholder="e.g. Biscuits and Blues"
+              style={{ width: '100%', boxSizing: 'border-box', padding: '8px 10px', border: '1px solid rgba(74,85,104,0.2)', borderRadius: 4, fontSize: 13, marginBottom: 16, fontFamily: 'inherit' }}
+            />
 
             <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 8 }}>Destination URL</div>
             <input
