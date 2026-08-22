@@ -29,6 +29,7 @@ const STORAGE_KEY = 'tfqr_admin_key'
 
 export default function AdminPage() {
   const [adminKey, setAdminKey] = useState<string | null>(null)
+  const [usernameInput, setUsernameInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
   const [gateError, setGateError] = useState('')
 
@@ -54,15 +55,17 @@ export default function AdminPage() {
 
   function submitGate(e: React.FormEvent) {
     e.preventDefault()
-    if (!passwordInput) return
-    sessionStorage.setItem(STORAGE_KEY, passwordInput)
-    setAdminKey(passwordInput)
+    if (!usernameInput || !passwordInput) return
+    const key = `${usernameInput}:${passwordInput}`
+    sessionStorage.setItem(STORAGE_KEY, key)
+    setAdminKey(key)
     setGateError('')
   }
 
   function logout() {
     sessionStorage.removeItem(STORAGE_KEY)
     setAdminKey(null)
+    setUsernameInput('')
     setPasswordInput('')
     setRecord(null)
     setItems(null)
@@ -161,13 +164,22 @@ export default function AdminPage() {
       <div style={{ fontFamily: 'Inter, system-ui, sans-serif', background: '#f7fafc', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <form onSubmit={submitGate} style={{ background: '#fff', borderRadius: 8, padding: 32, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)', width: '100%', maxWidth: 340 }}>
           <div style={{ fontSize: 15, fontWeight: 700, color: '#181c1e', marginBottom: 4 }}>Admin Access</div>
-          <div style={{ fontSize: 12, color: '#718096', marginBottom: 16 }}>Enter the admin password to manage any QR code.</div>
+          <div style={{ fontSize: 12, color: '#718096', marginBottom: 16 }}>Enter your admin credentials to manage any QR code.</div>
+          <input
+            type="text"
+            value={usernameInput}
+            onChange={e => setUsernameInput(e.target.value)}
+            placeholder="Username"
+            autoFocus
+            autoComplete="username"
+            style={{ width: '100%', boxSizing: 'border-box', padding: '10px 12px', border: '1px solid rgba(74,85,104,0.2)', borderRadius: 4, fontSize: 13, marginBottom: 8, fontFamily: 'inherit' }}
+          />
           <input
             type="password"
             value={passwordInput}
             onChange={e => setPasswordInput(e.target.value)}
             placeholder="Password"
-            autoFocus
+            autoComplete="current-password"
             style={{ width: '100%', boxSizing: 'border-box', padding: '10px 12px', border: '1px solid rgba(74,85,104,0.2)', borderRadius: 4, fontSize: 13, marginBottom: 12, fontFamily: 'inherit' }}
           />
           {gateError && <div style={{ color: '#c53030', fontSize: 12, marginBottom: 12 }}>{gateError}</div>}
