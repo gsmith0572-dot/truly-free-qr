@@ -60,6 +60,14 @@ const schema = {
         },
       ],
     },
+    {
+      '@type': 'WebPage',
+      url: 'https://trulyfreeqr.com/dynamic-qr-code-generator',
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['.aeo-capsule', '.aeo-answer'],
+      },
+    },
   ],
 }
 
@@ -75,6 +83,13 @@ export default function DynamicQRPage() {
           <h1 style={{ fontSize: 36, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', lineHeight: 1.2, margin: '0 0 16px' }}>Free Dynamic QR Code Generator — Edit Anytime, Track Everything, Never Expires</h1>
           <p style={{ fontSize: 16, color: '#4a5568', lineHeight: 1.7, margin: '0 0 24px' }}>Create dynamic QR codes that you can edit after printing — free forever. Change the destination URL anytime from your dashboard. Real-time analytics included. No subscription, no 14-day trial, no account required.</p>
           <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'linear-gradient(135deg,#0058c3,#0070f3)', color: '#fff', borderRadius: 4, padding: '14px 28px', fontSize: 15, fontWeight: 700, textDecoration: 'none' }}>Create Free Dynamic QR Code →</Link>
+        </div>
+
+        <div className="aeo-capsule" style={{ background: '#f0f4ff', borderLeft: '4px solid #2563eb', borderRadius: 8, padding: '28px 32px', marginBottom: 32 }}>
+          <h2 style={{ fontSize: 18, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 12px' }}>How does a free dynamic QR code generator work?</h2>
+          <p className="aeo-answer" style={{ fontSize: 15, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>
+            Truly Free QR generates a short redirect URL, encodes that URL into the QR pattern, and lets you change the underlying destination anytime from your dashboard without reprinting anything. Every dynamic code includes real-time scan analytics and is permanently free — there is no trial period, no subscription tier, and no account requirement, because the service is funded by advertising instead.
+          </p>
         </div>
 
         <div style={{ background: '#fff', borderRadius: 8, padding: 32, marginBottom: 32, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)' }}>
@@ -126,7 +141,7 @@ export default function DynamicQRPage() {
           ].map(([q, a], i) => (
             <div key={i} style={{ borderTop: i === 0 ? 'none' : '1px solid rgba(74,85,104,0.1)', paddingTop: i === 0 ? 0 : 20, marginTop: i === 0 ? 0 : 20 }}>
               <div style={{ fontSize: 15, fontWeight: 700, color: '#181c1e', marginBottom: 8, letterSpacing: '-0.01em' }}>{q}</div>
-              <div style={{ fontSize: 13, color: '#4a5568', lineHeight: 1.7 }}>{a}</div>
+              <div className="aeo-answer" style={{ fontSize: 13, color: '#4a5568', lineHeight: 1.7 }}>{a}</div>
             </div>
           ))}
         </div>

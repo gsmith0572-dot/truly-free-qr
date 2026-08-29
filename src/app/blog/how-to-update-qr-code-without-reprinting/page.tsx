@@ -14,9 +14,19 @@ const articleSchema = {
   "@type": "Article",
   headline: "How to Update a QR Code Without Reprinting",
   datePublished: "2026-06-10",
-  dateModified: "2026-06-10",
+  dateModified: "2026-08-29",
   author: { "@type": "Person", name: "George Smith", url: "https://www.linkedin.com/in/george-smith-832113217/" },
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
+}
+
+const speakableSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  url: "https://trulyfreeqr.com/blog/how-to-update-qr-code-without-reprinting",
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: [".aeo-capsule", ".aeo-answer"],
+  },
 }
 
 const faqSchema = {
@@ -32,6 +42,15 @@ const faqSchema = {
   ],
 }
 
+const HOWTO_STEPS = [
+  { name: "Locate your edit link", text: "Find the unique edit link you received when you created the dynamic QR code. Without it, the code still works but cannot be edited." },
+  { name: "Open the edit link in your browser", text: "No login required — the link itself is your access key. Bookmark it for future edits." },
+  { name: "Review the current destination URL", text: "The edit page shows the current destination and a text box to enter a new one, alongside the QR code for reference." },
+  { name: "Paste your new destination URL", text: "Double-check the new URL by opening it in another tab before saving." },
+  { name: "Click Save", text: "The change takes effect instantly — there is no approval delay or propagation window." },
+  { name: "Test the QR code", text: "Scan the printed code with your phone to confirm it now goes to the new destination." },
+]
+
 const STEPS = [
   { t: "1. Locate your edit link", d: "This is the unique URL you received when you created the dynamic QR code. It looks something like \"https://trulyfreeqr.com/edit/abc123def456\". If you didn't save it, you cannot edit. The code still works with the original destination, but you're stuck." },
   { t: "2. Open the edit link in your browser", d: "No login required. The link is your key. Bookmark it for future edits." },
@@ -43,6 +62,20 @@ const STEPS = [
   { t: "8. Update again anytime", d: "You can change the destination as many times as you want. There's no limit, no cooldown, no fee. Each update is instant and free." },
 ]
 
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Update a QR Code Without Reprinting",
+  description: "Update the destination of a dynamic QR code using its edit link — the printed pattern never changes, only the redirect target does.",
+  totalTime: "PT2M",
+  step: HOWTO_STEPS.map((s, i) => ({
+    "@type": "HowToStep",
+    position: i + 1,
+    name: s.name,
+    text: s.text,
+  })),
+}
+
 const pStyle = { fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" } as const
 const h2Style = { fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" } as const
 
@@ -51,6 +84,8 @@ export default function ArticleHowToUpdateQRCodeWithoutReprinting() {
     <div style={{ fontFamily: "Inter, system-ui, sans-serif", background: "#f7fafc", minHeight: "100vh", color: "#181c1e" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
 
       <div style={{ background: "linear-gradient(160deg,#08122a 0%,#0c1e45 55%,#08122a 100%)", color: "#fff", padding: "56px 20px 44px" }}>
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
@@ -69,6 +104,13 @@ export default function ArticleHowToUpdateQRCodeWithoutReprinting() {
           <p style={pStyle}>The solution is dynamic QR codes. A dynamic QR code encodes a short link that redirects to your real destination. You can change the destination anytime. The printed pattern never changes. This is the single most important feature for any business that prints QR codes on physical materials.</p>
           <p style={{ ...pStyle, margin: 0 }}>Most people don&apos;t know about dynamic QR codes. They use static codes, get burned, and assume all QR codes are permanent. They&apos;re not. Here&apos;s exactly how dynamic QR codes work and how to update them without reprinting.</p>
         </section>
+
+        <div className="aeo-capsule" style={{ background: "#f0f4ff", borderLeft: "4px solid #2563eb", borderRadius: 8, padding: "24px 28px", marginBottom: 40 }}>
+          <h2 style={{ fontSize: 18, fontWeight: 700, color: "#181c1e", letterSpacing: "-0.02em", margin: "0 0 12px" }}>How do I update a QR code without reprinting it?</h2>
+          <p className="aeo-answer" style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.7, margin: 0 }}>
+            Open the unique edit link you saved when you created the dynamic QR code, enter the new destination URL, and click Save. The update takes effect instantly and the printed QR pattern never changes — only the server-side redirect target does. This only works for dynamic codes; a static QR code has the URL baked into the pattern and cannot be updated after printing.
+          </p>
+        </div>
 
         <section style={{ marginBottom: 40 }}>
           <h2 style={h2Style}>How Dynamic QR Codes Work (Technical but Simple)</h2>
@@ -97,11 +139,16 @@ export default function ArticleHowToUpdateQRCodeWithoutReprinting() {
         </section>
 
         <section style={{ marginBottom: 40 }}>
+          <h2 style={h2Style}>Editing a Dynamic Code from a Dedicated Generator Page</h2>
+          <p style={{ ...pStyle, margin: 0 }}>The edit-link flow described above works the same regardless of which generator page created the code — including the <Link href="/dynamic-qr-code-generator" style={{ color: "#0058c3", fontWeight: 600 }}>Dynamic QR Code Generator</Link>, <Link href="/wifi-qr-code-generator" style={{ color: "#0058c3", fontWeight: 600 }}>WiFi QR Code Generator</Link>, and <Link href="/vcard-qr-code-generator" style={{ color: "#0058c3", fontWeight: 600 }}>vCard QR Code Generator</Link> pages. Any code marked dynamic at creation time gets an edit link; static codes from any of these pages do not.</p>
+        </section>
+
+        <section style={{ marginBottom: 40 }}>
           <h2 style={h2Style}>Frequently Asked Questions</h2>
           {faqSchema.mainEntity.map((item, i) => (
             <div key={i} style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(74,85,104,0.09)", padding: "18px 22px", marginBottom: 10 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#181c1e", marginBottom: 8 }}>{item.name}</div>
-              <div style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
+              <div className="aeo-answer" style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
             </div>
           ))}
         </section>

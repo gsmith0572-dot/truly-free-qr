@@ -55,12 +55,27 @@ const faqSchema = {
   ],
 }
 
+const speakableSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  url: "https://trulyfreeqr.com/",
+  name: "Truly Free QR — Free Dynamic QR Code Generator",
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: [".aeo-capsule", ".aeo-answer"],
+  },
+}
+
 export default function HomepageContent() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
       />
 
       <div style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "-0.02em", color: "#0a0f1e" }}>
@@ -73,9 +88,11 @@ export default function HomepageContent() {
             <h2 style={{ fontSize: "clamp(24px, 4vw, 36px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.15, margin: "0 0 20px", color: "#181c1e" }}>
               A QR code that works for your business, not against it
             </h2>
-            <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
-              A dynamic QR code doesn't store your actual URL in the pattern. It stores a short redirect link. When someone scans it, that redirect fires and sends them to wherever you've set as the destination. The key thing: you can change that destination any time, without touching the printed code.
-            </p>
+            <div className="aeo-capsule" style={{ background: "#f0f4ff", borderLeft: "4px solid #2563eb", borderRadius: 8, padding: "24px 28px", marginBottom: "24px" }}>
+              <p className="aeo-answer" style={{ fontSize: "16px", color: "#181c1e", lineHeight: 1.75, margin: 0, fontWeight: 500 }}>
+                A dynamic QR code stores a short redirect link instead of your destination URL, so you can change where it points at any time without reprinting. Truly Free QR generates dynamic codes with no account, no expiration, and no subscription — plus real-time scan analytics (device, country, time of day) and built-in Safe-Scan phishing protection, all funded by advertising rather than fees.
+              </p>
+            </div>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
               Restaurant? Update your menu without reprinting 200 table cards. Real estate? Point the code on a For Sale sign to the new listing when a property changes. Product packaging? Swap the campaign link quarterly without a new print run. One code, endless flexibility.
             </p>
@@ -163,7 +180,7 @@ export default function HomepageContent() {
               {faqSchema.mainEntity.map((item) => (
                 <div key={item.name} style={{ borderBottom: "1px solid #e5e9eb", paddingBottom: "32px" }}>
                   <h3 style={{ fontSize: "16px", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 10px" }}>{item.name}</h3>
-                  <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, margin: 0 }}>{item.acceptedAnswer.text}</p>
+                  <p className="aeo-answer" style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, margin: 0 }}>{item.acceptedAnswer.text}</p>
                 </div>
               ))}
             </div>

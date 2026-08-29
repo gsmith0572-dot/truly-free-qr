@@ -14,9 +14,19 @@ const articleSchema = {
   "@type": "Article",
   headline: "QR Code Statistics 2026: 50+ Facts, Trends & Market Data",
   datePublished: "2026-05-04",
-  dateModified: "2026-05-04",
+  dateModified: "2026-08-29",
   author: { "@type": "Person", name: "George Smith", url: "https://www.linkedin.com/in/george-smith-832113217/" },
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
+}
+
+const speakableSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  url: "https://trulyfreeqr.com/blog/qr-code-statistics",
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: [".aeo-capsule", ".aeo-answer"],
+  },
 }
 
 const faqSchema = {
@@ -69,7 +79,7 @@ export default function ArticleQRCodeStatistics() {
     <div style={{ fontFamily: "Inter, system-ui, sans-serif", background: "#f7fafc", minHeight: "100vh", color: "#181c1e" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
 
       <div style={{ background: "linear-gradient(160deg,#08122a 0%,#0c1e45 55%,#08122a 100%)", color: "#fff", padding: "56px 20px 44px" }}>
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
@@ -81,6 +91,13 @@ export default function ArticleQRCodeStatistics() {
       </div>
 
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
+
+        <div className="aeo-capsule" style={{ background: "#f0f4ff", borderLeft: "4px solid #2563eb", borderRadius: 8, padding: "24px 28px", marginBottom: 24 }}>
+          <h2 style={{ fontSize: 18, fontWeight: 700, color: "#181c1e", letterSpacing: "-0.02em", margin: "0 0 12px" }}>How many QR codes are scanned per day?</h2>
+          <p className="aeo-answer" style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.7, margin: 0 }}>
+            Over 26 million QR codes are scanned globally every day in 2026, adding up to more than 9.7 billion scans annually. The global QR code market is valued at roughly $16.4 billion in 2026, and 89% of US smartphone users have scanned a QR code at least once.
+          </p>
+        </div>
 
         <div style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(0,88,195,0.15)", padding: "20px 24px", marginBottom: 40, display: "flex", flexDirection: "column", gap: 6 }}>
           <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#0058c3", marginBottom: 8 }}>KEY NUMBERS AT A GLANCE</div>
@@ -112,7 +129,7 @@ export default function ArticleQRCodeStatistics() {
               </div>
             ))}
           </div>
-          <p style={{ fontSize: 13, color: "#a0aec0", lineHeight: 1.6, margin: 0 }}>Sources: QRTiger Market Report 2026, Statista QR Code Market Forecast, Grand View Research QR Code Technology Report.</p>
+          <p style={{ fontSize: 13, color: "#a0aec0", lineHeight: 1.6, margin: 0 }}>Sources: QRTiger Market Report 2026, Statista QR Code Market Forecast, Grand View Research QR Code Technology Report. These figures are aggregated across multiple third-party market research firms that use different methodologies; treat them as directional estimates rather than a single precise measurement, and expect some variance if you cross-check against an individual vendor's report.</p>
         </section>
 
         <section style={{ marginBottom: 40 }}>
@@ -214,7 +231,7 @@ export default function ArticleQRCodeStatistics() {
           {faqSchema.mainEntity.map((item, i) => (
             <div key={i} style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(74,85,104,0.09)", padding: "18px 22px", marginBottom: 10 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#181c1e", marginBottom: 8 }}>{item.name}</div>
-              <div style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
+              <div className="aeo-answer" style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
             </div>
           ))}
         </section>
