@@ -89,7 +89,7 @@ export default function Page() {
         margin: '0 auto',
         padding: '0 1rem',
       }}
-      itemsScope
+      itemScope
       itemType="https://schema.org/Article"
     >
       <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
