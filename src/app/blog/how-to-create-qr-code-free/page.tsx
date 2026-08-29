@@ -14,9 +14,19 @@ const articleSchema = {
   "@type": "Article",
   headline: "How to Create a QR Code for Free (Step by Step)",
   datePublished: "2026-06-10",
-  dateModified: "2026-06-10",
+  dateModified: "2026-08-29",
   author: { "@type": "Person", name: "George Smith", url: "https://www.linkedin.com/in/george-smith-832113217/" },
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
+}
+
+const speakableSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  url: "https://trulyfreeqr.com/blog/how-to-create-qr-code-free",
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: [".aeo-capsule", ".aeo-answer"],
+  },
 }
 
 const faqSchema = {
@@ -32,6 +42,17 @@ const faqSchema = {
   ],
 }
 
+const HOWTO_STEPS = [
+  { name: "Go to trulyfreeqr.com", text: "Open the generator. No account, no email — a URL input box and a Generate button are front and center." },
+  { name: "Decide what the code should do", text: "Paste a website URL, or use a special format for a phone call (tel:), email (mailto:), or WiFi credentials." },
+  { name: "Choose dynamic or static", text: "Dynamic lets you change the destination later and adds scan analytics. Static bakes the URL in permanently with no analytics." },
+  { name: "Customize the design (optional)", text: "Set colors, add a logo under 20% of the code's area, and choose eye shapes — keep contrast high so it still scans." },
+  { name: "Click Generate QR Code", text: "The code appears instantly with a preview of what a scanner will see." },
+  { name: "Test the code with your phone", text: "Scan it with your phone's camera before downloading to confirm it opens the right destination." },
+  { name: "Download in the right format", text: "Use SVG or PDF for print; use PNG at 500x500px or larger for web, or 200x200px for email signatures." },
+  { name: "Save your edit link (if dynamic)", text: "Bookmark the unique edit link shown after generating a dynamic code — it's the only way to change the destination later." },
+]
+
 const STEPS = [
   { t: "1. Go to trulyfreeqr.com", d: "No account. No email. The generator is front and center. I designed it to be obvious – a big URL input box and a \"Generate\" button." },
   { t: "2. Decide what you want your QR code to do", d: "Most people want to link to a website. But QR codes can also trigger phone calls (tel:), send emails (mailto:), or connect to WiFi (special format). For now, let's assume a website URL. Paste your URL into the box. Example: https://yourwebsite.com/special-offer" },
@@ -43,6 +64,20 @@ const STEPS = [
   { t: "8. Save your edit link (if dynamic)", d: "After generating a dynamic code, you'll see a unique edit link. Bookmark it. Paste it into a document. This link lets you change the destination later. If you lose it, you cannot edit. The code still works, but you lose flexibility." },
 ]
 
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Create a QR Code for Free",
+  description: "Create a free QR code with Truly Free QR: paste a URL, choose dynamic or static, generate, and download — no account required.",
+  totalTime: "PT1M",
+  step: HOWTO_STEPS.map((s, i) => ({
+    "@type": "HowToStep",
+    position: i + 1,
+    name: s.name,
+    text: s.text,
+  })),
+}
+
 const pStyle = { fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" } as const
 const h2Style = { fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" } as const
 
@@ -51,6 +86,8 @@ export default function ArticleHowToCreateQRCodeFree() {
     <div style={{ fontFamily: "Inter, system-ui, sans-serif", background: "#f7fafc", minHeight: "100vh", color: "#181c1e" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
 
       <div style={{ background: "linear-gradient(160deg,#08122a 0%,#0c1e45 55%,#08122a 100%)", color: "#fff", padding: "56px 20px 44px" }}>
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
@@ -68,6 +105,13 @@ export default function ArticleHowToCreateQRCodeFree() {
           <p style={pStyle}>You need a QR code. Maybe it&apos;s for a yard sign, a product package, or a handout at a conference. You Google &quot;free QR code generator.&quot; You get hundreds of results. Most of them ask for your email. Some want you to sign up for a &quot;free trial&quot; that requires a credit card. Others offer &quot;free&quot; codes that expire after two weeks.</p>
           <p style={{ ...pStyle, margin: 0 }}>Creating a QR code should be simple. Type a URL, click a button, download an image. That&apos;s it. No account. No trial. No expiration. I built Truly Free QR to be that simple. Here&apos;s exactly how to create a QR code in under 60 seconds, for free, with no strings attached.</p>
         </section>
+
+        <div className="aeo-capsule" style={{ background: "#f0f4ff", borderLeft: "4px solid #2563eb", borderRadius: 8, padding: "24px 28px", marginBottom: 40 }}>
+          <h2 style={{ fontSize: 18, fontWeight: 700, color: "#181c1e", letterSpacing: "-0.02em", margin: "0 0 12px" }}>How do I create a free QR code?</h2>
+          <p className="aeo-answer" style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.7, margin: 0 }}>
+            Go to trulyfreeqr.com, paste the URL you want the code to point to, choose dynamic or static, and click Generate. Test the code with your phone camera, then download it as SVG or PDF for print, or PNG for web and email. No account, no email, and no credit card are required, and the code stays active forever at no cost.
+          </p>
+        </div>
 
         <section style={{ marginBottom: 40 }}>
           <h2 style={h2Style}>The Right Way to Create a QR Code (Without Getting Trapped)</h2>
@@ -95,11 +139,16 @@ export default function ArticleHowToCreateQRCodeFree() {
         </section>
 
         <section style={{ marginBottom: 40 }}>
+          <h2 style={h2Style}>Dedicated Generators for Specific QR Code Types</h2>
+          <p style={{ ...pStyle, margin: 0 }}>If you know exactly what you&apos;re encoding, skip the generic flow and use a purpose-built page: <Link href="/wifi-qr-code-generator" style={{ color: "#0058c3", fontWeight: 600 }}>WiFi QR Code Generator</Link> for guest network access, <Link href="/vcard-qr-code-generator" style={{ color: "#0058c3", fontWeight: 600 }}>vCard QR Code Generator</Link> for a scannable digital business card, or <Link href="/dynamic-qr-code-generator" style={{ color: "#0058c3", fontWeight: 600 }}>Dynamic QR Code Generator</Link> if you already know you want an editable, trackable code. Each uses the same free, no-account engine described above, pre-configured for that format.</p>
+        </section>
+
+        <section style={{ marginBottom: 40 }}>
           <h2 style={h2Style}>Frequently Asked Questions</h2>
           {faqSchema.mainEntity.map((item, i) => (
             <div key={i} style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(74,85,104,0.09)", padding: "18px 22px", marginBottom: 10 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#181c1e", marginBottom: 8 }}>{item.name}</div>
-              <div style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
+              <div className="aeo-answer" style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
             </div>
           ))}
         </section>
