@@ -6,18 +6,18 @@ const article = {
   description: "Learn the minimum QR code size for print, fabric, and outdoor signage to ensure your codes are scannable and effective.",
   datePublished: "2026-07-17",
   author: "George Smith",
-  image: "/author/george-smith.png",
+  image: "/george-smith.png",
   schema: {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: "QR Code Size Guide: Minimum Size for Print, Fabric, and Outdoor Signage",
     description: "Learn the minimum QR code size for print, fabric, and outdoor signage to ensure your codes are scannable and effective.",
-    image: "/author/george-smith.png",
+    image: "https://trulyfreeqr.com/george-smith.png",
     author: {
       "@type": "Person",
       name: "George Smith",
-      url: "https://trulyfreeqr.com",
-      image: "/author/george-smith.png",
+      url: "https://www.linkedin.com/in/george-smith-832113217/",
+      image: "https://trulyfreeqr.com/george-smith.png",
     },
     publisher: {
       "@type": "Organization",
@@ -30,6 +30,16 @@ const article = {
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": "https://trulyfreeqr.com/blog/qr-code-size-guide-minimum-size-for-print-fabric-and-outdoor",
+    },
+    dateModified: "2026-08-29",
+  },
+  speakable: {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    url: "https://trulyfreeqr.com/blog/qr-code-size-guide-minimum-size-for-print-fabric-and-outdoor",
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: [".aeo-capsule", ".aeo-answer"],
     },
   },
   faq: [
@@ -79,6 +89,9 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div style={{ fontFamily: "Arial, sans-serif" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(article.schema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: article.faq }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(article.speakable) }} />
       <div
         style={{
           background: "#1a1d23",
@@ -97,7 +110,7 @@ export default function Page() {
       <div style={{ padding: "20px" }}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <img
-            src="/author/george-smith.png"
+            src="/george-smith.png"
             alt="George Smith"
             style={{ width: "100px", height: "100px", borderRadius: "50%" }}
           />
@@ -107,6 +120,12 @@ export default function Page() {
               Published on {article.datePublished}
             </p>
           </div>
+        </div>
+        <div className="aeo-capsule" style={{ background: "#f0f4ff", borderLeft: "4px solid #2563eb", borderRadius: 8, padding: "20px 24px", margin: "20px 0" }}>
+          <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 10px" }}>What is the minimum size for a QR code?</h2>
+          <p className="aeo-answer" style={{ fontSize: 15, lineHeight: 1.7, margin: 0 }}>
+            0.5 x 0.5 inches (1.3 x 1.3 cm) for print materials like business cards and flyers, 1 x 1 inch (2.5 x 2.5 cm) on fabric due to weave texture, and at least 5 x 5 inches (12.7 x 12.7 cm) for outdoor signage viewed from a distance. Always size up for low-resolution images, dense data, or long viewing distances.
+          </p>
         </div>
         <h2 style={{ fontSize: "24px", margin: "20px 0" }}>
           Why QR Code Size Matters
@@ -156,25 +175,25 @@ export default function Page() {
           <h3 style={{ fontSize: "18px", margin: "10px 0" }}>
             What is the minimum size for a QR code on print materials?
           </h3>
-          <p style={{ fontSize: "16px" }}>
+          <p className="aeo-answer" style={{ fontSize: "16px" }}>
             The minimum size for a QR code on print materials is 0.5 x 0.5 inches (1.3 x 1.3 cm).
           </p>
           <h3 style={{ fontSize: "18px", margin: "10px 0" }}>
             Can I use a smaller QR code on fabric?
           </h3>
-          <p style={{ fontSize: "16px" }}>
+          <p className="aeo-answer" style={{ fontSize: "16px" }}>
             No, the minimum size for a QR code on fabric is 1 x 1 inch (2.5 x 2.5 cm) due to the texture and weave of the material.
           </p>
           <h3 style={{ fontSize: "18px", margin: "10px 0" }}>
             What is the recommended size for a QR code on outdoor signage?
           </h3>
-          <p style={{ fontSize: "16px" }}>
+          <p className="aeo-answer" style={{ fontSize: "16px" }}>
             The recommended size for a QR code on outdoor signage is at least 5 x 5 inches (12.7 x 12.7 cm).
           </p>
           <h3 style={{ fontSize: "18px", margin: "10px 0" }}>
             How do I determine the best size for my QR code?
           </h3>
-          <p style={{ fontSize: "16px" }}>
+          <p className="aeo-answer" style={{ fontSize: "16px" }}>
             To determine the best size for your QR code, consider the intended use, material, and viewing distance. As a general rule, larger QR codes are more scannable and effective.
           </p>
         </div>
@@ -183,18 +202,18 @@ export default function Page() {
         </h2>
         <ul style={{ fontSize: "18px", listStyle: "none", padding: "0" }}>
           <li style={{ margin: "10px 0" }}>
-            <Link href="/blog/qr-code-best-practices" style={{ textDecoration: "none" }}>
-              QR Code Best Practices: Tips for Creating Effective QR Codes
+            <Link href="/blog/how-to-create-qr-code-free" style={{ textDecoration: "none" }}>
+              How to Create a QR Code for Free (Step by Step)
             </Link>
           </li>
           <li style={{ margin: "10px 0" }}>
-            <Link href="/blog/qr-code-design-tips" style={{ textDecoration: "none" }}>
-              QR Code Design Tips: How to Make Your QR Code Stand Out
+            <Link href="/blog/qr-code-business-card-free" style={{ textDecoration: "none" }}>
+              QR Code for Business Cards (Free Generator)
             </Link>
           </li>
           <li style={{ margin: "10px 0" }}>
-            <Link href="/blog/qr-code-security" style={{ textDecoration: "none" }}>
-              QR Code Security: How to Protect Your QR Code from Malicious Activity
+            <Link href="/blog/qr-code-phishing-protection" style={{ textDecoration: "none" }}>
+              QR Code Security: Phishing Protection Explained
             </Link>
           </li>
         </ul>

@@ -14,7 +14,7 @@ const articleSchema = {
   "@type": "Article",
   headline: "QR Code Alternatives to Bitly (No Monthly Fee)",
   datePublished: "2026-06-10",
-  dateModified: "2026-07-03",
+  dateModified: "2026-08-29",
   author: { "@type": "Person", name: "George Smith", url: "https://www.linkedin.com/in/george-smith-832113217/" },
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
 }
@@ -51,6 +51,7 @@ export default function ArticleQRAlternativesBitlyFree() {
     <div style={{ fontFamily: "Inter, system-ui, sans-serif", background: "#f7fafc", minHeight: "100vh", color: "#181c1e" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebPage", url: "https://trulyfreeqr.com/blog/qr-code-alternatives-bitly-free", speakable: { "@type": "SpeakableSpecification", cssSelector: [".aeo-capsule", ".aeo-answer"] } }) }} />
 
       <div style={{ background: "linear-gradient(160deg,#08122a 0%,#0c1e45 55%,#08122a 100%)", color: "#fff", padding: "56px 20px 44px" }}>
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
@@ -81,7 +82,7 @@ export default function ArticleQRAlternativesBitlyFree() {
           <p style={pStyle}>Alternative #1: QR Code Generator (qr-code-generator.com). Their free dynamic codes expire after 14 days. Paid plans start at $9 per month ($108 per year). That&apos;s cheaper than Bitly&apos;s Core tier but still a subscription. Their analytics are more detailed. They offer logo embedding. But the expiration trap is real. I&apos;ve heard horror stories from business owners who printed codes and got deactivated on day 15.</p>
           <p style={pStyle}>Alternative #2: Beaconstac. $15 per month for the basic plan ($180 per year). They&apos;re enterprise-focused, so the features are robust: advanced analytics, integrations with CRMs, team access. But for a solo business owner or a small team, it&apos;s overkill. And their free tier? Dynamic codes expire after 7 days. That&apos;s even worse than QR Code Generator.</p>
           <p style={pStyle}>Alternative #3: QRCode Monkey. Free static codes. Dynamic codes require $19 per month ($228 per year). That&apos;s more than QR Code Generator but less than Bitly Core. Their dynamic codes don&apos;t expire as long as you pay. But they have no free dynamic tier at all. You pay or you use static.</p>
-          <p style={{ ...pStyle, margin: 0 }}>Alternative #4: Truly Free QR. Unlimited dynamic QR codes, no monthly quota, no expiration, scan analytics, custom colors, logo embedding, anti-phishing Safe-Scan. Cost: $0. No subscription. No account. Funded by AdSense. The only tradeoff is you see ads on the generator dashboard. Not on the scan redirect. Not on your printed materials. Just on the website when you create codes.</p>
+          <p style={{ ...pStyle, margin: 0 }}>Alternative #4: Truly Free QR. Unlimited dynamic QR codes, no monthly quota, no expiration, scan analytics, custom colors, logo embedding, anti-phishing Safe-Scan. Cost: $0. No subscription. No account. Funded by display advertising. The only tradeoff is you see ads on the generator dashboard. Not on the scan redirect. Not on your printed materials. Just on the website when you create codes.</p>
         </section>
 
         <section style={{ marginBottom: 40 }}>
@@ -107,7 +108,7 @@ export default function ArticleQRAlternativesBitlyFree() {
           {faqSchema.mainEntity.map((item, i) => (
             <div key={i} style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(74,85,104,0.09)", padding: "18px 22px", marginBottom: 10 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#181c1e", marginBottom: 8 }}>{item.name}</div>
-              <div style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
+              <div className="aeo-answer" style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
             </div>
           ))}
         </section>

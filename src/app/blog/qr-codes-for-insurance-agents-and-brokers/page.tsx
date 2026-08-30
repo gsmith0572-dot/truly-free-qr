@@ -21,12 +21,14 @@ const articleSchema = {
     '@type': 'Person',
     name: 'George Smith',
     jobTitle: 'Founder',
+    url: 'https://www.linkedin.com/in/george-smith-832113217/',
     worksFor: {
       '@type': 'Organization',
       name: 'Klickify Agency',
     },
   },
   datePublished: '2026-08-22',
+  dateModified: '2026-08-29',
   mainEntityOfPage: {
     '@type': 'WebPage',
     '@id':
@@ -40,6 +42,13 @@ const articleSchema = {
       url: 'https://trulyfreeqr.com/logo.png',
     },
   },
+};
+
+const speakableSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  url: 'https://trulyfreeqr.com/blog/qr-codes-for-insurance-agents-and-brokers',
+  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.aeo-capsule', '.aeo-answer'] },
 };
 
 const faqSchema = {
@@ -96,6 +105,7 @@ export default function Page() {
       {/* Structured data */}
       <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      <script type="application/ld+json">{JSON.stringify(speakableSchema)}</script>
 
       {/* Hero */}
       <section
@@ -135,7 +145,7 @@ export default function Page() {
         }}
       >
         <img
-          src="/authors/george-smith.png"
+          src="/george-smith.png"
           alt="George Smith"
           style={{
             width: '80px',
@@ -152,6 +162,17 @@ export default function Page() {
             professionals modernise their client communications.
           </p>
         </div>
+      </section>
+
+      {/* Direct answer */}
+      <section
+        className="aeo-capsule"
+        style={{ background: '#eef2ff', borderLeft: '4px solid #2563eb', borderRadius: 8, padding: '1rem 1.5rem', marginTop: '2rem' }}
+      >
+        <h2 style={{ color: '#0b1d2e', marginTop: 0 }}>How do insurance agents and brokers use QR codes?</h2>
+        <p className="aeo-answer" style={{ margin: 0 }}>
+          Insurance agents use QR codes to onboard clients with a scannable link to a mobile intake form, deliver bound policy documents through a password-protected link, and drive quote requests from business cards, flyers, and renewal notices. Dynamic codes can be updated after printing, and HTTPS destinations with access controls keep client data compliant with state and federal rules.
+        </p>
       </section>
 
       {/* Content sections */}
@@ -384,7 +405,7 @@ export default function Page() {
           <dt style={{ fontWeight: 'bold', marginTop: '1rem' }}>
             Can I track QR code scans for insurance campaigns?
           </dt>
-          <dd style={{ marginLeft: '1rem' }}>
+          <dd className="aeo-answer" style={{ marginLeft: '1rem' }}>
             Yes. By using a URL shortener or a dedicated QR platform you can see
             when, where, and on which device a code was scanned.
           </dd>
@@ -392,7 +413,7 @@ export default function Page() {
           <dt style={{ fontWeight: 'bold', marginTop: '1rem' }}>
             Are QR codes secure for sharing policy documents?
           </dt>
-          <dd style={{ marginLeft: '1rem' }}>
+          <dd className="aeo-answer" style={{ marginLeft: '1rem' }}>
             When the destination URL uses HTTPS and the document is stored on a
             secure server, QR codes are as safe as any other link.
           </dd>
@@ -400,7 +421,7 @@ export default function Page() {
           <dt style={{ fontWeight: 'bold', marginTop: '1rem' }}>
             Do my clients need a special app to read QR codes?
           </dt>
-          <dd style={{ marginLeft: '1rem' }}>
+          <dd className="aeo-answer" style={{ marginLeft: '1rem' }}>
             No. All modern smartphones have built‑in scanners in the camera app.
             Even older devices can use free scanning apps from the App Store or
             Google Play.
@@ -409,7 +430,7 @@ export default function Page() {
           <dt style={{ fontWeight: 'bold', marginTop: '1rem' }}>
             How many QR codes can I generate for free?
           </dt>
-          <dd style={{ marginLeft: '1rem' }}>
+          <dd className="aeo-answer" style={{ marginLeft: '1rem' }}>
             TrulyFreeQR lets you create unlimited static QR codes at no cost.
             Dynamic codes are also free for basic use.
           </dd>
@@ -421,23 +442,23 @@ export default function Page() {
         <h2 style={{ fontSize: '1.8rem', color: '#0b1d2e' }}>Related Articles</h2>
         <ul style={{ marginLeft: '1.5rem' }}>
           <li>
-            <Link href="/blog/qr-codes-for-real-estate-agents" style={{ color: '#0b1d2e' }}>
-              QR Codes for Real Estate Agents: Show Listings on the Go
+            <Link href="/blog/qr-code-real-estate-flyer-free" style={{ color: '#0b1d2e' }}>
+              QR Code for Real Estate Flyers (Free, Editable)
             </Link>
           </li>
           <li>
-            <Link href="/blog/qr-codes-for-healthcare-providers" style={{ color: '#0b1d2e' }}>
-              How Healthcare Providers Can Use QR Codes for Patient Check‑In
+            <Link href="/blog/qr-codes-for-pharmacies-and-medical-supply-companies" style={{ color: '#0b1d2e' }}>
+              QR Codes for Pharmacies and Medical Supply Companies
             </Link>
           </li>
           <li>
-            <Link href="/blog/qr-codes-for-event-marketing" style={{ color: '#0b1d2e' }}>
-              Boost Event Attendance with QR‑Based Ticketing
+            <Link href="/blog/qr-code-generator-events-free" style={{ color: '#0b1d2e' }}>
+              QR Code Generator for Events (Free)
             </Link>
           </li>
           <li>
-            <Link href="/blog/qr-codes-for-retail-promo" style={{ color: '#0b1d2e' }}>
-              QR Codes in Retail: Turning Shelf‑Tags into Interactive Ads
+            <Link href="/blog/qr-code-product-packaging-free" style={{ color: '#0b1d2e' }}>
+              QR Code for Product Packaging (Free, Permanent)
             </Link>
           </li>
         </ul>

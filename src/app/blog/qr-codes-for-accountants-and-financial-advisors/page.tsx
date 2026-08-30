@@ -17,11 +17,11 @@ const articleSchema = {
   headline: 'QR Codes for Accountants and Financial Advisors',
   description:
     'A practical guide for accountants and financial advisors on using QR codes to simplify workflows, improve security, and enhance client experience.',
-  image: 'https://trulyfreeqr.com/assets/qr-codes-accountants.jpg',
+  image: 'https://trulyfreeqr.com/george-smith.png',
   author: {
     '@type': 'Person',
     name: 'George Smith',
-    url: 'https://trulyfreeqr.com/about',
+    url: 'https://www.linkedin.com/in/george-smith-832113217/',
   },
   publisher: {
     '@type': 'Organization',
@@ -32,11 +32,19 @@ const articleSchema = {
     },
   },
   datePublished: '2026-08-28',
+  dateModified: '2026-08-29',
   mainEntityOfPage: {
     '@type': 'WebPage',
     '@id':
       'https://trulyfreeqr.com/blog/qr-codes-for-accountants-and-financial-advisors',
   },
+};
+
+const speakableSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  url: 'https://trulyfreeqr.com/blog/qr-codes-for-accountants-and-financial-advisors',
+  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.aeo-capsule', '.aeo-answer'] },
 };
 
 const faqSchema = {
@@ -94,6 +102,7 @@ export default function Page() {
     >
       <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      <script type="application/ld+json">{JSON.stringify(speakableSchema)}</script>
 
       {/* Hero */}
       <section
@@ -126,7 +135,7 @@ export default function Page() {
         }}
       >
         <img
-          src="https://trulyfreeqr.com/assets/george-smith.png"
+          src="https://trulyfreeqr.com/george-smith.png"
           alt="George Smith"
           style={{
             width: '80px',
@@ -142,6 +151,17 @@ export default function Page() {
             Founder, Klickify Agency
           </p>
         </div>
+      </section>
+
+      {/* Direct answer */}
+      <section
+        className="aeo-capsule"
+        style={{ background: '#eef2ff', borderLeft: '4px solid #2563eb', borderRadius: 8, padding: '1.5rem', marginTop: '2rem' }}
+      >
+        <h2 style={{ color: '#001f3f', marginTop: 0 }}>How can accountants and financial advisors use QR codes?</h2>
+        <p className="aeo-answer" style={{ margin: 0 }}>
+          Accountants and financial advisors use QR codes to speed up client onboarding with pre-filled digital forms, deliver documents through time-limited encrypted links, collect payments via a code linked to a checkout page, and capture documented consent for compliance. Dynamic codes can be updated at any time without reprinting, and every scan can log a timestamp for an audit trail.
+        </p>
       </section>
 
       {/* Introduction */}
@@ -354,7 +374,7 @@ export default function Page() {
               itemScope
               itemType="https://schema.org/Answer"
             >
-              <p itemProp="text">
+              <p itemProp="text" className="aeo-answer">
                 When paired with encryption, password protection, or time‑limited
                 links, QR codes can be as secure as any other digital transmission
                 method.
@@ -376,7 +396,7 @@ export default function Page() {
               itemScope
               itemType="https://schema.org/Answer"
             >
-              <p itemProp="text">
+              <p itemProp="text" className="aeo-answer">
                 No. All modern smartphones have built‑in QR scanners. For advanced
                 features (e.g., auto‑fill forms) you can recommend a lightweight
                 companion app, but it’s optional.
@@ -398,7 +418,7 @@ export default function Page() {
               itemScope
               itemType="https://schema.org/Answer"
             >
-              <p itemProp="text">
+              <p itemProp="text" className="aeo-answer">
                 Yes. By embedding links to consent forms, audit trails, and encrypted
                 documents, QR codes can become a compliance‑friendly touchpoint.
               </p>
@@ -419,7 +439,7 @@ export default function Page() {
               itemScope
               itemType="https://schema.org/Answer"
             >
-              <p itemProp="text">
+              <p itemProp="text" className="aeo-answer">
                 Use a URL shortener with analytics or our own dashboard. You’ll see
                 scans, geographic data, device types, and conversion metrics.
               </p>
@@ -433,18 +453,18 @@ export default function Page() {
         <h2 style={{ color: '#001f3f' }}>Related Articles</h2>
         <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
           <li style={{ marginBottom: '0.5rem' }}>
-            <Link href="/blog/qr-codes-for-legal-professionals">
-              QR Codes for Legal Professionals: Secure Client Portals
+            <Link href="/blog/qr-codes-for-insurance-agents-and-brokers">
+              QR Codes for Insurance Agents and Brokers
             </Link>
           </li>
           <li style={{ marginBottom: '0.5rem' }}>
-            <Link href="/blog/qr-code-marketing-strategies">
-              10 QR Code Marketing Strategies That Actually Convert
+            <Link href="/blog/qr-code-analytics-free">
+              Free QR Code Analytics — Track Scans Without Paying
             </Link>
           </li>
           <li style={{ marginBottom: '0.5rem' }}>
-            <Link href="/blog/how-to-create-dynamic-qr-codes">
-              How to Create Dynamic QR Codes for Real‑Time Tracking
+            <Link href="/dynamic-qr-code-generator">
+              Dynamic QR Code Generator for Real‑Time Tracking
             </Link>
           </li>
         </ul>

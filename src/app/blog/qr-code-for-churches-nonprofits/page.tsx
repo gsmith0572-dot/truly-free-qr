@@ -11,10 +11,16 @@ const articleSchema = {
   '@context': 'https://schema.org', '@type': 'Article',
   headline: 'Free QR Code for Churches and Nonprofits (Never Expires)',
   description: 'Generate free dynamic QR codes for churches, nonprofits, and charities.',
-  datePublished: '2026-06-26', dateModified: '2026-06-26',
+  datePublished: '2026-06-26', dateModified: '2026-08-29',
   author: { '@type': 'Person', name: 'George Smith', url: 'https://www.linkedin.com/in/george-smith-832113217/' },
   publisher: { '@type': 'Organization', name: 'Truly Free QR', url: 'https://trulyfreeqr.com' },
   mainEntityOfPage: 'https://trulyfreeqr.com/blog/qr-code-for-churches-nonprofits',
+}
+
+const speakableSchema = {
+  '@context': 'https://schema.org', '@type': 'WebPage',
+  url: 'https://trulyfreeqr.com/blog/qr-code-for-churches-nonprofits',
+  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.aeo-capsule', '.aeo-answer'] },
 }
 
 const faqSchema = {
@@ -35,6 +41,7 @@ export default function QRCodeChurchesNonprofits() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
 
       <div style={{ fontFamily: "'Inter', sans-serif", background: '#fff', minHeight: '100vh' }}>
         <nav style={{ background: '#fff', borderBottom: '1px solid rgba(74,85,104,0.1)', padding: '0 20px', display: 'flex', alignItems: 'center', height: 52 }}>
@@ -61,6 +68,13 @@ export default function QRCodeChurchesNonprofits() {
               <span style={{ fontSize: 14, fontWeight: 600, color: '#181c1e' }}>George Smith</span>
               <span style={{ fontSize: 13, color: '#718096' }}> — Founder, Klickify Agency</span>
             </div>
+          </div>
+
+          <div className="aeo-capsule" style={{ background: '#f0f4ff', borderLeft: '4px solid #2563eb', borderRadius: 8, padding: '24px 28px', marginBottom: 32 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 700, color: '#181c1e', margin: '0 0 12px' }}>Can churches and nonprofits get free QR codes?</h2>
+            <p className="aeo-answer" style={{ fontSize: 15, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>
+              Yes. Truly Free QR generates unlimited dynamic QR codes at no cost, permanently, with no trial period or subscription. Churches use them for donation links, sermon recordings, event registration, and bulletin supplements — updating the destination anytime without reprinting, with Safe-Scan phishing protection built in.
+            </p>
           </div>
 
           <section style={{ marginBottom: 40 }}>
@@ -137,7 +151,7 @@ export default function QRCodeChurchesNonprofits() {
             ].map(faq => (
               <div key={faq.q} style={{ marginBottom: 24, paddingBottom: 24, borderBottom: '1px solid rgba(74,85,104,0.08)' }}>
                 <div style={{ fontSize: 15, fontWeight: 700, color: '#181c1e', marginBottom: 8 }}>{faq.q}</div>
-                <div style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7 }}>{faq.a}</div>
+                <div className="aeo-answer" style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7 }}>{faq.a}</div>
               </div>
             ))}
           </section>
@@ -147,7 +161,7 @@ export default function QRCodeChurchesNonprofits() {
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
               {[
                 { href: '/blog/qr-code-generator-events-free', label: 'QR Codes for Events' },
-                { href: '/blog/qr-code-for-restaurant-menu', label: 'QR Codes for Menus' },
+                { href: '/blog/qr-code-restaurant-menu-free', label: 'QR Codes for Menus' },
                 { href: '/blog/free-dynamic-qr-code-generator-no-expiration', label: 'Dynamic QR Generator' },
               ].map(l => (
                 <Link key={l.href} href={l.href} style={{ fontSize: 13, color: '#0058c3', textDecoration: 'none', fontWeight: 500 }}>{l.label} →</Link>

@@ -9,6 +9,25 @@ export const metadata: Metadata = {
   },
 };
 
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'QR codes for spas and salons: booking links and loyalty programs',
+  description: 'Discover how QR codes can transform your spa or salon business by streamlining bookings and loyalty programs.',
+  datePublished: '2026-07-24',
+  dateModified: '2026-08-29',
+  author: { '@type': 'Person', name: 'George Smith', url: 'https://www.linkedin.com/in/george-smith-832113217/' },
+  publisher: { '@type': 'Organization', name: 'Truly Free QR', url: 'https://trulyfreeqr.com', logo: { '@type': 'ImageObject', url: 'https://trulyfreeqr.com/logo.png' } },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://trulyfreeqr.com/blog/qr-codes-for-spas-and-salons-booking-links-and-loyalty-progr' },
+}
+
+const speakableSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  url: 'https://trulyfreeqr.com/blog/qr-codes-for-spas-and-salons-booking-links-and-loyalty-progr',
+  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.aeo-capsule', '.aeo-answer'] },
+}
+
 const article = {
   datePublished: '2026-07-24',
   author: 'George Smith (Founder, Klickify Agency)',
@@ -61,19 +80,38 @@ const faq = {
   ],
 };
 
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.questions.map((q) => ({
+    '@type': 'Question',
+    name: q.question,
+    acceptedAnswer: { '@type': 'Answer', text: q.answer },
+  })),
+}
+
 export default function Page() {
   return (
     <div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
       <div style={{ backgroundColor: '#03055B', color: '#FFFFFF', padding: '50px', textAlign: 'center' }}>
         <h1>QR codes for spas and salons: booking links and loyalty programs</h1>
       </div>
       <div style={{ margin: '20px', padding: '20px' }}>
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-          <img src={'george-smith.png'} alt={'George Smith'} style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
+          <img src={'/george-smith.png'} alt={'George Smith'} style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
           <div style={{ marginLeft: '20px' }}>
             <p>George Smith (Founder, Klickify Agency)</p>
             <p>Published on: {article.datePublished}</p>
           </div>
+        </div>
+        <div className="aeo-capsule" style={{ background: '#eef2ff', borderLeft: '4px solid #2563eb', borderRadius: 8, padding: '20px 24px', marginBottom: '20px' }}>
+          <h2 style={{ margin: '0 0 10px' }}>How do spas and salons use QR codes?</h2>
+          <p className="aeo-answer" style={{ margin: 0 }}>
+            Spas and salons put a QR code on a receipt, window decal, or business card that links to an online booking page or a loyalty program sign-up. Scanning the code takes the customer straight to that page — no app, no typing a URL — and a dynamic code lets the destination be updated later without reprinting anything.
+          </p>
         </div>
         <h2>Introduction to QR codes for spas and salons</h2>
         <p>
@@ -101,28 +139,22 @@ export default function Page() {
         </p>
         <div style={{ backgroundColor: '#03055B', color: '#FFFFFF', padding: '20px', textAlign: 'center', marginTop: '20px' }}>
           <h2>Get started with QR codes for your spa or salon today!</h2>
-          <Link href={'/'}>
-            <a style={{ color: '#FFFFFF' }}>Create your first QR code</a>
-          </Link>
+          <Link href={'/'} style={{ color: '#FFFFFF' }}>Create your first QR code</Link>
         </div>
         <h2>Frequently Asked Questions</h2>
         {faq.questions.map((question, index) => (
           <div key={index}>
             <h3>{question.question}</h3>
-            <p>{question.answer}</p>
+            <p className="aeo-answer">{question.answer}</p>
           </div>
         ))}
         <h2>Related Articles</h2>
         <ul>
           <li>
-            <Link href={'/blog/qr-codes-for-restaurants-and-bars'}>
-              <a>QR codes for restaurants and bars: menu links and ordering</a>
-            </Link>
+            <Link href={'/blog/qr-code-restaurant-menu-free'}>QR Code for Restaurant Menu (Free, Never Expires)</Link>
           </li>
           <li>
-            <Link href={'/blog/qr-codes-for-retailers-and-ecommerce'}>
-              <a>QR codes for retailers and ecommerce: product links and checkout</a>
-            </Link>
+            <Link href={'/blog/qr-code-business-card-free'}>QR Code for Business Cards (Free Generator)</Link>
           </li>
         </ul>
       </div>

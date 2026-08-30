@@ -14,7 +14,7 @@ const articleSchema = {
   "@type": "Article",
   headline: "Why Do QR Codes Expire? (And How to Avoid It)",
   datePublished: "2026-06-10",
-  dateModified: "2026-06-10",
+  dateModified: "2026-08-29",
   author: { "@type": "Person", name: "George Smith", url: "https://www.linkedin.com/in/george-smith-832113217/" },
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
 }
@@ -35,7 +35,7 @@ const faqSchema = {
 const STEPS = [
   { t: "1. Understand the difference between static and dynamic", d: "Static codes encode the URL directly. They cannot expire because there's no middleman. But you also cannot edit them. Dynamic codes use a redirect. They can expire if the redirect service shuts down or deactivates your code. Dynamic gives you flexibility; static gives you permanence. Choose based on your needs." },
   { t: "2. If you need dynamic, use a provider that doesn't expire", d: "Truly Free QR never expires. QR Code Generator expires after 14 days. Beaconstac after 7 days. Bitly doesn't expire as long as you pay $35/month. Choose a provider that aligns with your need for permanence. I'm biased, but I built mine specifically to solve this problem." },
-  { t: "3. Avoid \"free\" dynamic codes from unknown providers", d: "If a website offers free dynamic QR codes without showing ads or asking for payment, they're probably expiring them or selling your data. There's no such thing as a free lunch. My site uses AdSense, so the \"cost\" is you seeing an ad. That's transparent. If a site has no visible revenue model, be suspicious." },
+  { t: "3. Avoid \"free\" dynamic codes from unknown providers", d: "If a website offers free dynamic QR codes without showing ads or asking for payment, they're probably expiring them or selling your data. There's no such thing as a free lunch. My site runs on display advertising, so the \"cost\" is you seeing an ad. That's transparent. If a site has no visible revenue model, be suspicious." },
   { t: "4. Test your code after 30 days", d: "Even if you trust your provider, test your printed QR codes periodically. Scan them with your phone. Make sure they still work. I've seen cases where a provider changed their policy without notice and deactivated old codes. Don't assume permanence. Verify." },
   { t: "5. Own your redirect if possible", d: "The most permanent solution: buy a domain (e.g., yourname.link or yourbusiness.com/qr). Set up a simple redirect server. Each QR code points to a path on your domain (yourdomain.com/qr/menu). You control the redirects via a simple text file. This costs about $15 a year for the domain plus free hosting. No one can expire your codes except you." },
   { t: "6. Use static codes for truly permanent links", d: "If you're linking to your own website that you control forever, static codes are fine. The URL never changes because you own the domain. Your website might change content, but the URL stays the same. Static codes are immune to provider expiration because there's no provider involved. The QR code is just the URL." },
@@ -49,6 +49,7 @@ export default function ArticleWhyDoQRCodesExpire() {
     <div style={{ fontFamily: "Inter, system-ui, sans-serif", background: "#f7fafc", minHeight: "100vh", color: "#181c1e" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebPage", url: "https://trulyfreeqr.com/blog/why-do-qr-codes-expire", speakable: { "@type": "SpeakableSpecification", cssSelector: [".aeo-capsule", ".aeo-answer"] } }) }} />
 
       <div style={{ background: "linear-gradient(160deg,#08122a 0%,#0c1e45 55%,#08122a 100%)", color: "#fff", padding: "56px 20px 44px" }}>
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
@@ -99,7 +100,7 @@ export default function ArticleWhyDoQRCodesExpire() {
           {faqSchema.mainEntity.map((item, i) => (
             <div key={i} style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(74,85,104,0.09)", padding: "18px 22px", marginBottom: 10 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#181c1e", marginBottom: 8 }}>{item.name}</div>
-              <div style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
+              <div className="aeo-answer" style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
             </div>
           ))}
         </section>

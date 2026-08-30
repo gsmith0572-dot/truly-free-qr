@@ -34,6 +34,13 @@ const BLOG_POSTS: { slug: string; date: string }[] = [
   { slug: 'qr-code-generator-events-free', date: '2026-06-10' },
   { slug: 'how-to-update-qr-code-without-reprinting', date: '2026-06-10' },
   { slug: 'qr-code-wifi-password-free', date: '2026-06-10' },
+  { slug: 'qr-code-for-churches-nonprofits', date: '2026-08-29' },
+  { slug: 'qr-codes-for-spas-and-salons-booking-links-and-loyalty-progr', date: '2026-08-29' },
+  { slug: 'qr-code-size-guide-minimum-size-for-print-fabric-and-outdoor', date: '2026-08-29' },
+  { slug: 'how-to-use-qr-codes-in-email-campaigns', date: '2026-08-29' },
+  { slug: 'qr-codes-for-insurance-agents-and-brokers', date: '2026-08-29' },
+  { slug: 'qr-codes-for-pharmacies-and-medical-supply-companies', date: '2026-08-29' },
+  { slug: 'qr-codes-for-accountants-and-financial-advisors', date: '2026-08-29' },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {

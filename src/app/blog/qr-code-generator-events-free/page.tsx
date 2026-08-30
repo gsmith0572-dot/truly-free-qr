@@ -14,7 +14,7 @@ const articleSchema = {
   "@type": "Article",
   headline: "QR Code Generator for Events (Free)",
   datePublished: "2026-06-10",
-  dateModified: "2026-06-10",
+  dateModified: "2026-08-29",
   author: { "@type": "Person", name: "George Smith", url: "https://www.linkedin.com/in/george-smith-832113217/" },
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
 }
@@ -60,6 +60,7 @@ export default function ArticleQRGeneratorEventsFree() {
     <div style={{ fontFamily: "Inter, system-ui, sans-serif", background: "#f7fafc", minHeight: "100vh", color: "#181c1e" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebPage", url: "https://trulyfreeqr.com/blog/qr-code-generator-events-free", speakable: { "@type": "SpeakableSpecification", cssSelector: [".aeo-capsule", ".aeo-answer"] } }) }} />
 
       <div style={{ background: "linear-gradient(160deg,#08122a 0%,#0c1e45 55%,#08122a 100%)", color: "#fff", padding: "56px 20px 44px" }}>
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
@@ -105,7 +106,7 @@ export default function ArticleQRGeneratorEventsFree() {
         <section style={{ marginBottom: 40 }}>
           <h2 style={h2Style}>Why Truly Free QR Never Expires (And How We Pay for It)</h2>
           <p style={pStyle}>Events are temporary, but your QR codes don&apos;t have to be. With Truly Free QR, your codes stay active forever. Even if your event ends, you can keep the codes as a portfolio of past events. Link them to photo galleries or recaps. That&apos;s not possible with providers that expire codes after 14 days.</p>
-          <p style={pStyle}>My business model (AdSense) works because event organizers create many codes. More codes = more dashboard visits = more ad views. I don&apos;t need to charge you. I just need you to use the tool. It&apos;s a virtuous cycle: you get free codes, I get ad revenue. No one holds anyone hostage.</p>
+          <p style={pStyle}>My business model (display advertising) works because event organizers create many codes. More codes = more dashboard visits = more ad views. I don&apos;t need to charge you. I just need you to use the tool. It&apos;s a virtuous cycle: you get free codes, I get ad revenue. No one holds anyone hostage.</p>
           <p style={{ ...pStyle, margin: 0 }}>Safe-Scan protects your attendees. Before redirecting, I check the destination against Google Safe Browsing. If your schedule Google Doc gets hacked (unlikely, but possible), Safe-Scan will warn scanners. For events with thousands of attendees, that&apos;s a valuable safety net. No other free QR tool offers this.</p>
         </section>
 
@@ -114,7 +115,7 @@ export default function ArticleQRGeneratorEventsFree() {
           {faqSchema.mainEntity.map((item, i) => (
             <div key={i} style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(74,85,104,0.09)", padding: "18px 22px", marginBottom: 10 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#181c1e", marginBottom: 8 }}>{item.name}</div>
-              <div style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
+              <div className="aeo-answer" style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
             </div>
           ))}
         </section>

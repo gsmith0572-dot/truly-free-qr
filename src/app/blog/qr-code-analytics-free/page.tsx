@@ -14,7 +14,7 @@ const articleSchema = {
   "@type": "Article",
   headline: "Free QR Code Analytics — Track Scans Without Paying",
   datePublished: "2026-06-10",
-  dateModified: "2026-06-10",
+  dateModified: "2026-08-29",
   author: { "@type": "Person", name: "George Smith", url: "https://www.linkedin.com/in/george-smith-832113217/" },
   publisher: { "@type": "Organization", name: "Truly Free QR", url: "https://trulyfreeqr.com" },
 }
@@ -59,6 +59,7 @@ export default function ArticleQRAnalyticsFree() {
     <div style={{ fontFamily: "Inter, system-ui, sans-serif", background: "#f7fafc", minHeight: "100vh", color: "#181c1e" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebPage", url: "https://trulyfreeqr.com/blog/qr-code-analytics-free", speakable: { "@type": "SpeakableSpecification", cssSelector: [".aeo-capsule", ".aeo-answer"] } }) }} />
 
       <div style={{ background: "linear-gradient(160deg,#08122a 0%,#0c1e45 55%,#08122a 100%)", color: "#fff", padding: "56px 20px 44px" }}>
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
@@ -113,7 +114,7 @@ export default function ArticleQRAnalyticsFree() {
           {faqSchema.mainEntity.map((item, i) => (
             <div key={i} style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(74,85,104,0.09)", padding: "18px 22px", marginBottom: 10 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#181c1e", marginBottom: 8 }}>{item.name}</div>
-              <div style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
+              <div className="aeo-answer" style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{item.acceptedAnswer.text}</div>
             </div>
           ))}
         </section>

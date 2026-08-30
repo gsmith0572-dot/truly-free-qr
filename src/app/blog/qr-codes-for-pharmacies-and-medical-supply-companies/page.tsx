@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-const metadata: Metadata = {
+export const metadata: Metadata = {
   title: 'QR Codes for Pharmacies and Medical Supply Companies',
   description: 'Discover how QR codes can streamline operations and improve patient engagement for pharmacies and medical supply companies.',
   alternates: {
@@ -18,13 +18,21 @@ const articleSchema = {
   },
   "headline": "QR Codes for Pharmacies and Medical Supply Companies",
   "datePublished": "2026-08-07",
+  "dateModified": "2026-08-29",
   "author": {
     "@type": "Person",
     "name": "George Smith",
-    "url": "https://trulyfreeqr.com/about",
+    "url": "https://www.linkedin.com/in/george-smith-832113217/",
     "image": "https://trulyfreeqr.com/george-smith.png",
     "jobTitle": "Founder, Klickify Agency"
   }
+};
+
+const speakableSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  url: "https://trulyfreeqr.com/blog/qr-codes-for-pharmacies-and-medical-supply-companies",
+  speakable: { "@type": "SpeakableSpecification", cssSelector: [".aeo-capsule", ".aeo-answer"] },
 };
 
 const faqSchema = {
@@ -69,11 +77,20 @@ const faqSchema = {
 export default function Page() {
   return (
     <div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
       <div style={{ backgroundColor: '#03055B', color: '#FFFFFF', padding: '20px', textAlign: 'center' }}>
         <h1>QR Codes for Pharmacies and Medical Supply Companies</h1>
         <p>Discover how QR codes can streamline operations and improve patient engagement for pharmacies and medical supply companies.</p>
       </div>
       <div style={{ padding: '20px' }}>
+        <div className="aeo-capsule" style={{ background: '#eef2ff', borderLeft: '4px solid #2563eb', borderRadius: 8, padding: '20px 24px', marginBottom: '20px' }}>
+          <h2 style={{ margin: '0 0 10px' }}>How do pharmacies use QR codes?</h2>
+          <p className="aeo-answer" style={{ margin: 0 }}>
+            Pharmacies and medical supply companies use QR codes on labels and packaging to give patients instant access to medication instructions and dosage information, to track inventory and automate reordering, and to link customers to product information and reviews. Codes should use secure, encrypted destinations and proper authentication when linked to any patient data.
+          </p>
+        </div>
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
           <div style={{ backgroundColor: '#F7F7F7', padding: '10px', borderRadius: '10px', maxWidth: '300px' }}>
             <img src="https://trulyfreeqr.com/george-smith.png" alt="George Smith" style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '10px 10px 0 0' }} />
@@ -113,26 +130,26 @@ export default function Page() {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ padding: '10px', borderBottom: '1px solid #CCCCCC' }}>
             <h3>What are the benefits of using QR codes in pharmacies and medical supply companies?</h3>
-            <p>QR codes can help streamline operations, improve patient engagement, and increase revenue.</p>
+            <p className="aeo-answer">QR codes can help streamline operations, improve patient engagement, and increase revenue.</p>
           </div>
           <div style={{ padding: '10px', borderBottom: '1px solid #CCCCCC' }}>
             <h3>How can QR codes be used to improve patient engagement?</h3>
-            <p>QR codes can be used to provide patients with easy access to medical information, medication instructions, and appointment scheduling.</p>
+            <p className="aeo-answer">QR codes can be used to provide patients with easy access to medical information, medication instructions, and appointment scheduling.</p>
           </div>
           <div style={{ padding: '10px', borderBottom: '1px solid #CCCCCC' }}>
             <h3>Can QR codes be used for inventory management in pharmacies and medical supply companies?</h3>
-            <p>Yes, QR codes can be used to track inventory levels, monitor stock levels, and automate ordering processes.</p>
+            <p className="aeo-answer">Yes, QR codes can be used to track inventory levels, monitor stock levels, and automate ordering processes.</p>
           </div>
           <div style={{ padding: '10px' }}>
             <h3>Are QR codes secure for use in pharmacies and medical supply companies?</h3>
-            <p>Yes, QR codes can be secure when used properly, with secure encryption and proper authentication protocols in place.</p>
+            <p className="aeo-answer">Yes, QR codes can be secure when used properly, with secure encryption and proper authentication protocols in place.</p>
           </div>
         </div>
         <h2>Related articles</h2>
         <ul>
-          <li><Link href="/blog/qr-codes-for-marketing" style={{ color: '#03055B' }}>QR Codes for Marketing</Link></li>
-          <li><Link href="/blog/qr-codes-for-inventory-management" style={{ color: '#03055B' }}>QR Codes for Inventory Management</Link></li>
-          <li><Link href="/blog/qr-codes-for-customer-engagement" style={{ color: '#03055B' }}>QR Codes for Customer Engagement</Link></li>
+          <li><Link href="/blog/qr-code-analytics-free" style={{ color: '#03055B' }}>Free QR Code Analytics — Track Scans Without Paying</Link></li>
+          <li><Link href="/blog/qr-code-product-packaging-free" style={{ color: '#03055B' }}>QR Code for Product Packaging (Free, Permanent)</Link></li>
+          <li><Link href="/blog/qr-code-industry-usage" style={{ color: '#03055B' }}>QR Code Usage by Industry (Healthcare &amp; More)</Link></li>
         </ul>
       </div>
     </div>
