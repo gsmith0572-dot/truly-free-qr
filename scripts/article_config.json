@@ -1,0 +1,20 @@
+{
+  "app_dir": "src/app",
+  "site_url": "https://trulyfreeqr.com",
+  "author": {
+    "name": "George Smith",
+    "title": "Founder, Klickify Agency"
+  },
+  "imports": [
+    "import type { Metadata } from 'next'",
+    "import Link from 'next/link'",
+    "import AuthorBox from '@/components/blog/AuthorBox'"
+  ],
+  "prompt_extra": "- Plain JSX, no wrapper component. Include <AuthorBox /> with NO props near the end.\n- AuthorBox accepts no props at all.",
+  "default_card": {
+    "category": "HOW-TO GUIDE",
+    "categoryColor": "#16a34a",
+    "categoryBg": "#f0fdf4",
+    "readTime": "9 min read"
+  }
+}
