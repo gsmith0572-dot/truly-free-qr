@@ -2,7 +2,7 @@ name: Publish Friday Article
 
 on:
   schedule:
-    - cron: '15 14 * * 5'  # Every Friday 2:15pm UTC (staggered vs Tools/Mortgage, shared Groq key)
+    - cron: '0 14 * * 5'  # Every Friday 2pm UTC (9am CDT)
   workflow_dispatch:
 
 permissions:
@@ -14,12 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Publish pre-scheduled article or generate new one
-        id: article
-        env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Pick topic
+        id: topic
         run: |
-          # --- Priority 1: publish from _scheduled/ folder ---
           NEXT=$(ls _scheduled/*.tsx 2>/dev/null | sort | head -1)
           if [ -n "$NEXT" ]; then
             FILENAME=$(basename "$NEXT" .tsx)
@@ -27,18 +28,11 @@ jobs:
             mkdir -p "src/app/blog/$SLUG"
             mv "$NEXT" "src/app/blog/$SLUG/page.tsx"
             echo "slug=$SLUG" >> $GITHUB_OUTPUT
-            echo "Published pre-scheduled: $SLUG"
+            echo "source=scheduled" >> $GITHUB_OUTPUT
             exit 0
           fi
 
-          # --- Priority 2: generate with Groq ---
-          if [ -z "$GROQ_API_KEY" ]; then
-            echo "No scheduled articles and GROQ_API_KEY not set. Skipping."
-            exit 0
-          fi
-
-          WEEK=$(date +%V | python3 -c "import sys; w=int(sys.stdin.read().strip()); print(w)")
-          TODAY=$(date +%Y-%m-%d)
+          WEEK=$(date +%V | sed 's/^0*//')
 
           TOPICS=(
             "QR code for loyalty programs and rewards cards"
@@ -97,84 +91,49 @@ jobs:
 
           IDX=$(( ($WEEK - 1) % ${#TOPICS[@]} ))
           TOPIC="${TOPICS[$IDX]}"
-
-          echo "Generating article for topic: $TOPIC"
-
           SLUG=$(echo "$TOPIC" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9 ]//g' | tr ' ' '-' | sed 's/--*/-/g' | cut -c1-60)
 
-          TOPIC="$TOPIC" SLUG="$SLUG" TODAY="$TODAY" python3 - <<'PYEOF'
-          import json, urllib.request, os, re
-
-          api_key = os.environ["GROQ_API_KEY"]
-          topic = os.environ["TOPIC"]
-          slug = os.environ["SLUG"]
-          today = os.environ["TODAY"]
-
-          prompt = f"""Write a complete Next.js blog article (TSX file) for trulyfreeqr.com about: "{topic}"
-
-          Requirements:
-          - Complete, ready-to-deploy TSX file
-          - Import: import type {{ Metadata }} from 'next' and import Link from 'next/link'
-          - Export metadata: {{ title, description, alternates: {{ canonical: "https://trulyfreeqr.com/blog/{slug}" }} }} — canonical MUST be nested under alternates, never a top-level Metadata key
-          - Article + FAQ schema as const objects
-          - datePublished: "{today}", author: George Smith (Founder, Klickify Agency)
-          - Component: export default function Page() returning full JSX
-          - Inline styles only (no Tailwind), same style as existing QR articles
-          - Dark navy hero section, author box with george-smith.png, 5-8 content sections
-          - 1 call-to-action section linking to / (homepage generator)
-          - FAQ section with 4 questions
-          - Related articles links at bottom
-          - Word count: 1,200-1,800 words of actual text content
-          - Do NOT mention "Google AdSense" anywhere — just say "ad-supported" if revenue model is mentioned
-          - Write as George Smith in first person, specific and practical
-          - Output ONLY the complete TSX code, no explanation, no markdown code blocks"""
-
-          data = json.dumps({
-              "model": "openai/gpt-oss-120b",
-              "max_tokens": 6000,
-              "reasoning_effort": "low",
-              "messages": [{"role": "user", "content": prompt}]
-          }).encode()
-
-          req = urllib.request.Request(
-              "https://api.groq.com/openai/v1/chat/completions",
-              data=data,
-              headers={
-                  "Authorization": f"Bearer {api_key}",
-                  "Content-Type": "application/json",
-                  "User-Agent": "Mozilla/5.0 (compatible; TrulyFreeQRBot/1.0)"
-              }
-          )
-
-          try:
-              with urllib.request.urlopen(req) as resp:
-                  result = json.loads(resp.read())
-          except urllib.error.HTTPError as e:
-              print("Groq API error", e.code, e.read().decode())
-              raise
-
-          content = result["choices"][0]["message"]["content"]
-          # Strip markdown code blocks if present
-          content = re.sub(r'^```(?:tsx|typescript|jsx)?\n', '', content, flags=re.MULTILINE)
-          content = re.sub(r'\n```\s*$', '', content, flags=re.MULTILINE)
-
-          os.makedirs(f"src/app/blog/{slug}", exist_ok=True)
-          with open(f"src/app/blog/{slug}/page.tsx", "w") as f:
-              f.write(content)
-
-          print(f"Article written to src/app/blog/{slug}/page.tsx")
-          PYEOF
-
+          echo "topic=$TOPIC" >> $GITHUB_OUTPUT
           echo "slug=$SLUG" >> $GITHUB_OUTPUT
+          echo "source=generated" >> $GITHUB_OUTPUT
+
+      - name: Generate + validate article
+        if: steps.topic.outputs.source == 'generated'
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          TOPIC: ${{ steps.topic.outputs.topic }}
+          SLUG: ${{ steps.topic.outputs.slug }}
+        run: |
+          if [ -z "$GROQ_API_KEY" ]; then
+            echo "::error::GROQ_API_KEY no esta seteado"
+            exit 1
+          fi
+          TODAY=$(date +%Y-%m-%d) python3 scripts/generate_article.py
+
+      # El gate que faltaba. Antes se commiteaba sin compilar nunca, y el
+      # articulo roto llegaba a main. Si esto falla, no se pushea nada.
+      - name: Build gate
+        run: |
+          env -u NODE_ENV npm ci
+          npm run build
 
       - name: Commit and push
         run: |
           git config user.name "Klickify Agency Bot"
           git config user.email "info@klickifyagency.com"
-          git add .
+          SLUG="${{ steps.topic.outputs.slug }}"
+          git add "src/app/blog/$SLUG" "src/app/sitemap.ts" "src/app/blog/page.tsx"
+          git add -u _scheduled 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Nothing to commit"
           else
-            git commit -m "publish: weekly article - ${{ steps.article.outputs.slug }}"
+            git commit -m "publish: weekly article - $SLUG"
             git push
           fi
+
+      - name: Report failure
+        if: failure()
+        run: |
+          echo "::error::El articulo de esta semana NO se publico. Revisar el log:"
+          echo "::error::validacion rechazada, o el build no compila. Nada fue pusheado."
+          ls -la _rejected_*.tsx 2>/dev/null && cat _rejected_*.tsx | head -60 || true
