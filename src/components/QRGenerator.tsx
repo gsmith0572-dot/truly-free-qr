@@ -525,7 +525,12 @@ export default function QRGenerator() {
             {SIDEBAR_TOOLS.map(tool => (
               <div key={tool} onClick={()=>setActiveTool(activeTool===tool?'':tool)} style={{display:'flex',alignItems:'center',gap:8,padding:'8px 10px',borderRadius:4,cursor:'pointer',color:activeTool===tool?'#0058c3':'#4a5568',background:activeTool===tool?'rgba(0,88,195,0.06)':'none',fontSize:13,fontWeight:500,marginBottom:2}}>{tool}</div>
             ))}
-            <AdSlot slot="1647450745" format="rectangle" />
+            {/* El ad va separado de los controles de arriba: pegado al .map() de
+                SIDEBAR_TOOLS quedaba a 2px de elementos clickeables, que es
+                exactamente el placement que AdSense prohibe por clicks accidentales. */}
+            <div style={{marginTop:40,paddingTop:24,borderTop:'1px solid #e5e9eb'}}>
+              <AdSlot slot="1647450745" format="rectangle" />
+            </div>
           </aside>
         )}
         <main style={{padding:isMobile?'0':'0 12px',minWidth:0}}>

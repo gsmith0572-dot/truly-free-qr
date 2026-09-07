@@ -25,28 +25,11 @@ export default function AdSlot({ slot, format }: AdSlotProps) {
     } catch {}
   }, [])
 
-  if (!ADSENSE_ENABLED) {
-    return (
-      <div style={{
-        width: '100%',
-        maxWidth: width,
-        height,
-        background: '#e5e9eb',
-        borderRadius: 8,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#718096',
-        fontSize: 11,
-        fontWeight: 500,
-        letterSpacing: '0.08em',
-        textTransform: 'uppercase',
-        margin: '0 auto',
-      }}>
-        Advertisement
-      </div>
-    )
-  }
+  // Con AdSense apagado no se renderiza nada. Una caja gris etiquetada
+  // "Advertisement" sin ningun ad es enganosa y, en una reaplicacion, le
+  // muestra al revisor un esqueleto de ads en vez de un sitio de contenido.
+  if (!ADSENSE_ENABLED) return null
+
 
   return (
     <div style={{ width: '100%', maxWidth: width, margin: '0 auto', overflow: 'hidden' }}>
