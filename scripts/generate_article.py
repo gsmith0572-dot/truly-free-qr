@@ -99,22 +99,33 @@ HARD RULES — breaking any of these makes the article unusable
 {extra}
 Write as {AUTHOR_NAME}, practical and direct, first person."""
 
-    body = json.dumps({
-        "model": os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b"),
-        # El tier free de Groq tiene TPM=8000 contando prompt + completion.
-        # Con 8000 aca, una sola request se pasa sola y devuelve 429.
-        "max_tokens": 6000,
-        "reasoning_effort": "low",
-        "messages": [{"role": "user", "content": prompt}],
-    }).encode()
+    # 2026-09-18: gpt-oss-120b devolvio content vacio 11 de 11 veces con este
+    # prompt (~2400 completion tokens que Groq no entrega ni en content ni en
+    # reasoning) y el articulo del 09-11 no salio. Con la misma prompt:
+    # gpt-oss-20b 2/2 y qwen3.8-27b 2/2. Si el primario vuelve vacio 3 veces,
+    # los intentos 4-6 usan el fallback.
+    primary = os.environ.get("GROQ_MODEL", "openai/gpt-oss-20b")
+    fallback = "qwen/qwen3.8-27b"
 
-    # gpt-oss a veces contesta con finish_reason=stop, gasta los tokens en el
-    # canal de razonamiento y devuelve content vacio. Es intermitente: medido
-    # en la misma prompt, un intento vacio y los 4 siguientes con contenido.
+    def request_body(model):
+        b = {
+            "model": model,
+            # El tier free de Groq tiene TPM=8000 contando prompt + completion.
+            # Con 8000 aca, una sola request se pasa sola y devuelve 429.
+            "max_tokens": 6000,
+            "messages": [{"role": "user", "content": prompt}],
+        }
+        if model.startswith("openai/gpt-oss"):
+            b["reasoning_effort"] = "low"
+        return json.dumps(b).encode()
+
+    # gpt-oss a veces contesta con finish_reason=stop y content vacio.
     last = ""
     attempt = 0
     rate_waits = 0
     while attempt < 6 and rate_waits < 8:
+        model = primary if attempt < 3 else fallback
+        body = request_body(model)
         req = urllib.request.Request(
             "https://api.groq.com/openai/v1/chat/completions", data=body,
             headers={"Authorization": "Bearer " + os.environ["GROQ_API_KEY"],
@@ -139,7 +150,7 @@ Write as {AUTHOR_NAME}, practical and direct, first person."""
         last = res["choices"][0]["message"].get("content") or ""
         if len(last.strip()) > 500:
             return last
-        print(f"  intento {attempt}/6: Groq devolvio {len(last)} chars, reintentando")
+        print(f"  intento {attempt}/6 ({model}): Groq devolvio {len(last)} chars, reintentando")
         time.sleep(3)
     die("Groq no devolvio contenido usable tras 6 intentos")
 
@@ -262,26 +273,42 @@ def register(title, description, read_time):
     sm = APP / "sitemap.ts"
     s = sm.read_text()
     if f'"{SLUG}"' not in s and f"'{SLUG}'" not in s:
+        # dos formas segun el repo: blogPosts = ["slug", ...] o
+        # BLOG_POSTS: {slug, date}[] = [...] (trulyfreeqr)
         m = re.search(r"(const\s+blogPosts\s*=\s*\[)", s)
-        if not m:
-            die("no encuentro el array blogPosts en sitemap.ts")
-        s = s[:m.end()] + f'\n    "{SLUG}",' + s[m.end():]
+        if m:
+            s = s[:m.end()] + f'\n    "{SLUG}",' + s[m.end():]
+        else:
+            m = re.search(r"const\s+BLOG_POSTS\b[^=]*=\s*\[", s)
+            if not m:
+                die("no encuentro el array blogPosts ni BLOG_POSTS en sitemap.ts")
+            s = s[:m.end()] + f"\n  {{ slug: '{SLUG}', date: '{TODAY}' }}," + s[m.end():]
         sm.write_text(s)
         done.append("sitemap.ts")
 
     bi = APP / "blog" / "page.tsx"
     b = bi.read_text()
     if f'"{SLUG}"' not in b and f"'{SLUG}'" not in b:
-        m = re.search(r"(const\s+posts\s*=\s*\[)", b)
-        if not m:
-            die("no encuentro el array posts en blog/page.tsx")
         d = CFG.get("default_card", {})
-        entry = (f'\n  {{ slug: "{SLUG}", title: {json.dumps(title)}, '
-                 f'description: {json.dumps(description)}, '
-                 f'date: {json.dumps(pretty_date(TODAY))}, readTime: "{read_time}", '
-                 f'lang: "EN", category: {json.dumps(d.get("category", "GUIDE"))}, '
-                 f'categoryColor: "{d.get("categoryColor", "#16a34a")}", '
-                 f'categoryBg: "{d.get("categoryBg", "#f0fdf4")}" }},')
+        m = re.search(r"(const\s+posts\s*=\s*\[)", b)
+        if m:
+            entry = (f'\n  {{ slug: "{SLUG}", title: {json.dumps(title)}, '
+                     f'description: {json.dumps(description)}, '
+                     f'date: {json.dumps(pretty_date(TODAY))}, readTime: "{read_time}", '
+                     f'lang: "EN", category: {json.dumps(d.get("category", "GUIDE"))}, '
+                     f'categoryColor: "{d.get("categoryColor", "#16a34a")}", '
+                     f'categoryBg: "{d.get("categoryBg", "#f0fdf4")}" }},')
+        else:
+            # trulyfreeqr: POSTS = [{slug, label, labelColor, title, excerpt,
+            # readTime, date: "August 2026"}]
+            m = re.search(r"const\s+POSTS\s*=\s*\[", b)
+            if not m:
+                die("no encuentro el array posts ni POSTS en blog/page.tsx")
+            month_year = pretty_date(TODAY).split()[0] + " " + TODAY[:4]
+            entry = (f'\n  {{ slug: "{SLUG}", label: {json.dumps(d.get("category", "GUIDE"))}, '
+                     f'labelColor: "{d.get("categoryColor", "#16a34a")}", '
+                     f'title: {json.dumps(title)}, excerpt: {json.dumps(description)}, '
+                     f'readTime: "{read_time}", date: {json.dumps(month_year)} }},')
         b = b[:m.end()] + entry + b[m.end():]
         bi.write_text(b)
         done.append("blog/page.tsx")

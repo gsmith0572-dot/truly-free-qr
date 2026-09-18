@@ -104,6 +104,12 @@ jobs:
           TOPIC: ${{ steps.topic.outputs.topic }}
           SLUG: ${{ steps.topic.outputs.slug }}
         run: |
+          # Un run manual + el programado en la misma semana eligen el mismo
+          # tema: sin esto el segundo pisaba el articulo ya publicado.
+          if [ -f "src/app/blog/$SLUG/page.tsx" ]; then
+            echo "::notice::$SLUG ya esta publicado, nada que hacer esta semana"
+            exit 0
+          fi
           if [ -z "$GROQ_API_KEY" ]; then
             echo "::error::GROQ_API_KEY no esta seteado"
             exit 1
