@@ -12,14 +12,13 @@
     "@supabase/ssr": "^0.10.0",
     "@supabase/supabase-js": "^2.102.1",
     "@vercel/analytics": "^2.0.1",
-    "next": "16.2.2",
+    "next": "16.3.5",
     "next-seo": "^7.2.0",
     "qrcode": "^1.5.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-qrcode-logo": "^4.0.0",
-    "sharp": "^0.34.5",
-    "vercel": "^52.0.0",
+    "sharp": "^0.35.4",
     "zustand": "^5.0.12"
   },
   "devDependencies": {
@@ -29,7 +28,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.2",
+    "eslint-config-next": "16.3.5",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

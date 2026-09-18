@@ -276,12 +276,12 @@ function PDFForm({ fields, setField, pdfUploading, onPDFUpload }: { fields: Reco
   return (
     <div style={{display:'flex',flexDirection:'column',gap:10}}>
       <div>
-        <label style={lbl}>Upload PDF or Image (max 20MB)</label>
+        <label style={lbl}>Upload PDF (max 20MB)</label>
         <label style={{display:'block',background:'#fff',borderRadius:6,padding:20,border:'2px dashed rgba(0,88,195,0.3)',textAlign:'center',cursor:'pointer'}}>
-          <input type="file" accept="application/pdf,image/*" style={{display:'none'}} onChange={onPDFUpload} />
+          <input type="file" accept="application/pdf" style={{display:'none'}} onChange={onPDFUpload} />
           {pdfUploading ? <div style={{fontSize:13,color:'#0058c3'}}>Uploading...</div>
             : fields.pdfUrl ? <div style={{fontSize:13,color:'#16a34a',fontWeight:600}}>File uploaded — QR ready</div>
-            : <><div style={{fontSize:24,marginBottom:6}}>📄</div><div style={{fontSize:13,color:'#4a5568',fontWeight:500}}>Click to upload PDF or image</div><div style={{fontSize:11,color:'#718096',marginTop:4}}>PDF, JPG, PNG up to 20MB</div></>}
+            : <><div style={{fontSize:24,marginBottom:6}}>📄</div><div style={{fontSize:13,color:'#4a5568',fontWeight:500}}>Click to upload a PDF</div><div style={{fontSize:11,color:'#718096',marginTop:4}}>PDF up to 20MB</div></>}
         </label>
       </div>
       <div><label style={lbl}>Or paste a direct URL</label><input value={fields.pdfUrl} onChange={e=>setField('pdfUrl',e.target.value)} type="url" placeholder="https://example.com/document.pdf" style={inp} /></div>
@@ -495,7 +495,9 @@ export default function QRGenerator() {
 
   async function handlePDFUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0]
+    e.target.value = ''
     if (!f) return
+    if (f.type !== 'application/pdf') { alert('Only PDF files are supported'); return }
     if (f.size > 20*1024*1024) { alert('File must be under 20MB'); return }
     setPdfUploading(true)
     try {
@@ -504,6 +506,7 @@ export default function QRGenerator() {
       const res = await fetch('/api/upload-pdf', { method:'POST', body:formData })
       const data = await res.json()
       if (data.url) setField('pdfUrl', data.url)
+      else alert('Upload failed. Try again.')
     } catch { alert('Upload failed. Try again.') }
     finally { setPdfUploading(false) }
   }
