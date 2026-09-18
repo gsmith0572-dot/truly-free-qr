@@ -1,0 +1,36 @@
+name: Fact-check self-test
+
+# Prueba manual del fact-check gate en el runner real: copia un articulo ya
+# publicado a un slug temporal y corre scripts/review_article.py con el token
+# de la suscripcion. No commitea ni publica nada.
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Articulo existente a revisar"
+        required: true
+        default: "qr-codes-for-home-services-plumbers-electricians-and-contrac"
+
+permissions:
+  contents: read
+
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Review a copy of the article
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          SRC_SLUG: ${{ inputs.slug }}
+        run: |
+          mkdir -p src/app/blog/zz-selftest
+          cp "src/app/blog/$SRC_SLUG/page.tsx" src/app/blog/zz-selftest/page.tsx
+          npm install -g @anthropic-ai/claude-code
+          SLUG=zz-selftest python3 scripts/review_article.py
+          git diff --no-index --stat "src/app/blog/$SRC_SLUG/page.tsx" src/app/blog/zz-selftest/page.tsx || true
