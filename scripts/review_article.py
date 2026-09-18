@@ -4,77 +4,78 @@
 Runs in the Friday workflow between "Generate + validate" and "Build gate".
 The Groq drafts invent things every week (author credentials, case studies
 with made-up numbers, competitor limits, features this site does not have,
-menus that do not exist, unsafe advice). Claude reviews the draft against
-scripts/site_facts.md plus the real pages of the site, the fixes are applied
-as exact text replacements, and the result is reviewed again. If anything is
-still flagged after MAX_ROUNDS reviews, this exits 1 and the workflow stops
-before the commit: nothing gets published.
+menus that do not exist, unsafe advice). Claude Code reviews the draft
+against scripts/site_facts.md plus the real pages of the site and fixes it in
+place; it is only allowed to edit the article file. The pass repeats until a
+pass finds nothing wrong. If problems remain after MAX_PASSES, or anything
+else in the repo changed, this exits 1 and the workflow stops before the
+commit: nothing gets published.
 
-Uso: SLUG=... ANTHROPIC_API_KEY=... python3 scripts/review_article.py
+Uses the Claude subscription through Claude Code (CLAUDE_CODE_OAUTH_TOKEN from
+`claude setup-token`), never the pay-per-token Anthropic API: the business
+rule since 2026-07-01 is that no script calls the Anthropic API.
+
+Uso: SLUG=... CLAUDE_CODE_OAUTH_TOKEN=... python3 scripts/review_article.py
 """
+import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
 import urllib.request
 from pathlib import Path
-
-import anthropic
 
 ROOT = Path(__file__).resolve().parent.parent
 CFG = json.loads((ROOT / "scripts" / "article_config.json").read_text())
 APP = ROOT / CFG["app_dir"]
 SLUG = os.environ["SLUG"]
 ARTICLE = APP / "blog" / SLUG / "page.tsx"
-FACTS = (ROOT / "scripts" / "site_facts.md").read_text()
-MODEL = "claude-opus-5"
-MAX_ROUNDS = 3
-
-CATEGORIES = ["invented_author_detail", "invented_example_or_statistic", "competitor_claim",
-              "wrong_claim_about_this_site", "factual_error", "unsafe_advice", "other"]
+REL = str(ARTICLE.relative_to(ROOT))
+FACTS = ROOT / "scripts" / "site_facts.md"
+MAX_PASSES = 3
 
 SCHEMA = {
     "type": "object",
     "properties": {
-        "issues": {
+        "problems_found": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "quote": {"type": "string"},
-                    "category": {"type": "string", "enum": CATEGORIES},
+                    "category": {"type": "string"},
                     "problem": {"type": "string"},
-                    "replacement": {"type": "string"},
+                    "fixed": {"type": "boolean"},
                 },
-                "required": ["quote", "category", "problem", "replacement"],
-                "additionalProperties": False,
+                "required": ["category", "problem", "fixed"],
             },
         },
         "unfixable": {"type": "boolean"},
         "unfixable_reason": {"type": "string"},
     },
-    "required": ["issues", "unfixable", "unfixable_reason"],
-    "additionalProperties": False,
+    "required": ["problems_found", "unfixable", "unfixable_reason"],
 }
 
-SYSTEM = """You fact-check blog articles before they are published on a small ad-supported website. The draft was written by a weaker model that routinely invents things. Anything false or unsupported that reaches the site hurts real readers and the site's standing with Google, so be strict.
+PROMPT = """You are the fact-checker for a blog article that is about to be published on a small ad-supported website. The draft was written by a weaker model that routinely invents things. Anything false or unsupported that reaches the site hurts real readers and the site's standing with Google, so be strict.
 
-Flag every span that contains any of these:
-- invented_author_detail: any experience, credential, job, years in a field, or personal anecdote for the author beyond the name and title given in SITE FACTS.
-- invented_example_or_statistic: named people or businesses presented as real, case studies, percentages, survey results or other numbers without a named, checkable source. A clearly hypothetical example ("picture a small bakery...") with no invented results is fine.
-- competitor_claim: any specific statement about another company's limits, prices, features, or technology, unless SITE FACTS states it.
-- wrong_claim_about_this_site: anything about this site's tools, pages, or policies that contradicts SITE FACTS or the page list, or that SITE FACTS and the page list don't support.
-- factual_error: wrong technical steps (menus, settings, apps or features that do not exist or do not work that way), wrong facts, wrong terminology.
+Read these files first:
+- {facts}: what is true about this site and its author. It is the source of truth.
+- {article}: the article to check (Next.js TSX).
+
+Pages that really exist on the site:
+{pages}
+
+Find every span in {article} (metadata, JSON-LD, FAQ and body alike) that contains any of these:
+- invented_author_detail: any experience, credential, job, years in a field, or personal anecdote for the author beyond the name and title in the facts file.
+- invented_example_or_statistic: named people or businesses presented as real, case studies, percentages, survey results or other numbers without a named, checkable source. A clearly hypothetical example with no invented results is fine.
+- competitor_claim: any specific statement about another company's limits, prices, features or technology that the facts file does not state.
+- wrong_claim_about_this_site: anything about this site's tools, pages or policies that contradicts the facts file or the page list, or that they don't support.
+- factual_error: wrong technical steps (menus, settings, apps or features that don't exist or don't work that way), wrong facts, wrong terminology.
 - unsafe_advice: advice that could expose private data (medical, financial, identity), or financial, legal or medical guidance stated with more certainty than a general article can support.
 
-For each problem return:
-- quote: an exact substring copied from the TSX source, character for character (including HTML entities such as &apos; and curly quotes). It must appear exactly once in the source. Keep it as short as possible while covering the whole problematic claim.
-- replacement: the corrected text for exactly that span, keeping the article's voice. Use an empty string to delete the span. Inside JSX text, never write a bare < or >, curly braces, or backticks. If the quote sits inside a JavaScript string literal (metadata, JSON-LD), the replacement must not contain the quote character that delimits that string.
-- A replacement must itself be true and supported. When unsure, remove the claim or make it general rather than inventing a new specific.
+Fix each problem directly in {article} with the Edit tool, keeping the article's voice: rewrite the span so it is true, or remove the claim. A fix must itself be true and supported; when unsure, make it general rather than inventing a new specific. Keep the file valid TSX: no bare < or > inside JSX text, keep JavaScript string quoting intact, do not add imports or links to pages that don't exist. Do not edit any other file. Do not change style, tone or length for its own sake.
 
-Check the metadata, the JSON-LD and the FAQ as carefully as the body. Do not flag style, tone or length. If the article is correct, return an empty issues list.
-
-Set unfixable to true only if the article cannot be corrected span by span (for example, its whole premise is false or it duplicates a competitor comparison the site facts rule out). Explain why in unfixable_reason; otherwise leave it empty."""
+Report every problem you found in problems_found, with fixed=true when you corrected it. If the article is already correct, return an empty problems_found list. Set unfixable to true only if the article cannot be corrected by editing spans (for example, its whole premise is false); explain why in unfixable_reason, otherwise leave it empty."""
 
 
 def site_pages():
@@ -103,34 +104,35 @@ def site_pages():
     return text
 
 
-def review(client, source):
-    content = (f"SITE FACTS\n{FACTS}\n\nPAGES THAT EXIST ON THIS SITE\n{site_pages()}\n\n"
-               f"ARTICLE SOURCE ({ARTICLE.relative_to(ROOT)})\n{source}")
-    response = client.beta.messages.create(
-        model=MODEL,
-        max_tokens=16000,
-        betas=["server-side-fallback-2026-07-01"],
-        system=SYSTEM,
-        messages=[{"role": "user", "content": content}],
-        output_config={"format": {"type": "json_schema", "schema": SCHEMA}},
-        extra_body={"fallbacks": "default"},
-    )
-    if response.stop_reason in ("refusal", "max_tokens"):
-        sys.exit(f"[FALLO] la revision termino con stop_reason={response.stop_reason}")
-    text = "".join(b.text for b in response.content if b.type == "text")
-    return json.loads(text)
+def review_pass(pages):
+    env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}  # nunca la API paga
+    cmd = ["claude", "-p", PROMPT.format(facts=FACTS.relative_to(ROOT), article=REL, pages=pages),
+           "--output-format", "json", "--json-schema", json.dumps(SCHEMA),
+           "--allowedTools", "Read", f"Edit({REL})", "--permission-mode", "acceptEdits",
+           "--max-turns", "40"]
+    run = subprocess.run(cmd, cwd=ROOT, env=env, capture_output=True, text=True, timeout=1500)
+    if run.returncode != 0:
+        sys.exit(f"[FALLO] claude termino con codigo {run.returncode}: {(run.stderr or run.stdout)[-800:]}")
+    out = json.loads(run.stdout)
+    if out.get("is_error"):
+        sys.exit(f"[FALLO] claude devolvio error: {str(out.get('result'))[:800]}")
+    result = out.get("structured_output")
+    if result is None:
+        result = json.loads(re.search(r"\{.*\}", out.get("result", ""), re.S).group(0))
+    return result
 
 
-def apply(source, issues):
-    applied, missed = [], []
-    for it in issues:
-        n = source.count(it["quote"])
-        if n == 1:
-            source = source.replace(it["quote"], it["replacement"])
-            applied.append(it)
-        else:
-            missed.append((it, n))
-    return source, applied, missed
+def snapshot():
+    """Hash de cada archivo que git ve cambiado (el generador ya toco sitemap
+    e indice): permite detectar cualquier edicion de la revision fuera del articulo."""
+    st = subprocess.run(["git", "status", "--porcelain", "-uall"], cwd=ROOT, capture_output=True, text=True).stdout
+    paths = [line[3:].strip().strip('"') for line in st.splitlines()]
+    return {p: hashlib.sha1((ROOT / p).read_bytes()).hexdigest() if (ROOT / p).is_file() else None for p in paths}
+
+
+def other_changes(before):
+    after = snapshot()
+    return sorted(p for p, h in after.items() if p != REL and before.get(p, "nuevo") != h)
 
 
 def report(lines):
@@ -141,26 +143,27 @@ def report(lines):
 
 
 def main():
-    client = anthropic.Anthropic()
-    source = ARTICLE.read_text()
+    if not ARTICLE.exists():
+        sys.exit(f"[FALLO] no existe {REL}")
+    pages = site_pages()
+    before = snapshot()
     log = [f"## Fact-check: {SLUG}"]
-    for rnd in range(1, MAX_ROUNDS + 1):
-        result = review(client, source)
-        issues = result["issues"]
-        if result["unfixable"]:
-            report(log + [f"RECHAZADO (ronda {rnd}): {result['unfixable_reason']}"])
+    for n in range(1, MAX_PASSES + 1):
+        result = review_pass(pages)
+        extra = other_changes(before)
+        if extra:
+            report(log + [f"RECHAZADO: la revision toco archivos fuera del articulo: {extra}"])
             sys.exit(1)
-        if not issues:
-            ARTICLE.write_text(source)
-            report(log + [f"OK: ronda {rnd} sin problemas. Se publica."])
+        if result["unfixable"]:
+            report(log + [f"RECHAZADO (pasada {n}): {result['unfixable_reason']}"])
+            sys.exit(1)
+        problems = result["problems_found"]
+        if not problems:
+            report(log + [f"OK: la pasada {n} no encontro problemas. Se publica."])
             return
-        source, applied, missed = apply(source, issues)
-        log.append(f"### Ronda {rnd}: {len(issues)} problemas, {len(applied)} corregidos")
-        for it in applied:
-            log.append(f"- [{it['category']}] {it['problem']}\n  - antes: {it['quote'][:200]}\n  - despues: {it['replacement'][:200] or '(borrado)'}")
-        for it, n in missed:
-            log.append(f"- NO APLICADO ({n} coincidencias) [{it['category']}] {it['problem']}: {it['quote'][:150]}")
-    report(log + [f"RECHAZADO: siguen apareciendo problemas despues de {MAX_ROUNDS} revisiones. No se publica."])
+        log.append(f"### Pasada {n}: {len(problems)} problemas")
+        log += [f"- [{p['category']}] {'corregido' if p['fixed'] else 'SIN CORREGIR'}: {p['problem']}" for p in problems]
+    report(log + [f"RECHAZADO: siguen apareciendo problemas despues de {MAX_PASSES} pasadas. No se publica."])
     sys.exit(1)
 
 

@@ -120,17 +120,22 @@ jobs:
 
       # Groq inventa datos todas las semanas (credenciales del autor, casos con
       # porcentajes, limites de competidores, funciones que el sitio no tiene).
-      # Claude revisa el borrador contra scripts/site_facts.md y lo corrige; si
-      # despues de 3 rondas sigue habiendo problemas, falla y NO se publica.
+      # Claude Code revisa el borrador contra scripts/site_facts.md y lo corrige;
+      # si despues de 3 pasadas sigue habiendo problemas, falla y NO se publica.
+      # Usa la suscripcion Claude (token de `claude setup-token`), NUNCA la API
+      # paga de Anthropic: por eso no hay ANTHROPIC_API_KEY en este paso.
       - name: Fact-check gate
         if: steps.topic.outputs.source == 'generated' && steps.gen.outputs.skip != 'true'
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           SLUG: ${{ steps.topic.outputs.slug }}
         run: |
-          python3 -m venv /tmp/review-venv
-          /tmp/review-venv/bin/pip install --quiet "anthropic>=1.7,<2"
-          /tmp/review-venv/bin/python scripts/review_article.py
+          if [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ]; then
+            echo "::error::falta el secret CLAUDE_CODE_OAUTH_TOKEN (claude setup-token)"
+            exit 1
+          fi
+          npm install -g @anthropic-ai/claude-code
+          python3 scripts/review_article.py
 
       # El gate que faltaba. Antes se commiteaba sin compilar nunca, y el
       # articulo roto llegaba a main. Si esto falla, no se pushea nada.
