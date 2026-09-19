@@ -33,7 +33,7 @@ SLUG = os.environ["SLUG"]
 ARTICLE = APP / "blog" / SLUG / "page.tsx"
 REL = str(ARTICLE.relative_to(ROOT))
 FACTS = ROOT / "scripts" / "site_facts.md"
-MAX_PASSES = 3
+MAX_PASSES = 4
 
 SCHEMA = {
     "type": "object",
@@ -108,6 +108,9 @@ def review_pass(pages):
     env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}  # nunca la API paga
     cmd = ["claude", "-p", PROMPT.format(facts=FACTS.relative_to(ROOT), article=REL, pages=pages),
            "--output-format", "json", "--json-schema", json.dumps(SCHEMA),
+           # Sin --model el runner usa Sonnet, que encuentra 1-3 problemas por
+           # pasada y nunca converge en 3 pasadas; Opus los encuentra en una.
+           "--model", "opus", "--fallback-model", "sonnet", "--effort", "high",
            "--tools", "Read,Edit,Grep,Glob",
            "--allowedTools", "Read", "Grep", "Glob", f"Edit({REL})", "--permission-mode", "acceptEdits",
            "--max-turns", "40"]
