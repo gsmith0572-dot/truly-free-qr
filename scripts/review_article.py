@@ -108,14 +108,19 @@ def review_pass(pages):
     env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}  # nunca la API paga
     cmd = ["claude", "-p", PROMPT.format(facts=FACTS.relative_to(ROOT), article=REL, pages=pages),
            "--output-format", "json", "--json-schema", json.dumps(SCHEMA),
-           "--allowedTools", "Read", f"Edit({REL})", "--permission-mode", "acceptEdits",
+           "--tools", "Read,Edit,Grep,Glob",
+           "--allowedTools", "Read", "Grep", "Glob", f"Edit({REL})", "--permission-mode", "acceptEdits",
            "--max-turns", "40"]
-    run = subprocess.run(cmd, cwd=ROOT, env=env, capture_output=True, text=True, timeout=1500)
-    if run.returncode != 0:
+    run = subprocess.run(cmd, cwd=ROOT, env=env, stdin=subprocess.DEVNULL,
+                         capture_output=True, text=True, timeout=1500)
+    try:
+        out = json.loads(run.stdout)
+    except ValueError:
         sys.exit(f"[FALLO] claude termino con codigo {run.returncode}: {(run.stderr or run.stdout)[-800:]}")
-    out = json.loads(run.stdout)
-    if out.get("is_error"):
-        sys.exit(f"[FALLO] claude devolvio error: {str(out.get('result'))[:800]}")
+    if run.returncode != 0 or out.get("is_error"):
+        sys.exit(f"[FALLO] claude codigo {run.returncode} subtype={out.get('subtype')} "
+                 f"turns={out.get('num_turns')} denials={len(out.get('permission_denials') or [])}: "
+                 f"{str(out.get('result'))[:800]} {run.stderr[-400:]}")
     result = out.get("structured_output")
     if result is None:
         result = json.loads(re.search(r"\{.*\}", out.get("result", ""), re.S).group(0))
