@@ -5,7 +5,7 @@ const DEFAULT_DESCRIPTION = 'Generate dynamic QR codes that never expire — fre
 const DEFAULT_OG_IMAGE = { url: `${BASE_URL}/og/default.png`, width: 1200, height: 630, alt: 'Truly Free QR — Dynamic QR codes, free forever. No expiration.', type: 'image/png' }
 export const rootMetadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: { default: 'Free QR Code Generator — Dynamic Codes That Never Expire | Truly Free QR', template: '%s | Truly Free QR' },
+  title: { default: 'Truly Free QR Code Generator — Dynamic Codes That Never Expire', template: '%s | Truly Free QR' },
   description: DEFAULT_DESCRIPTION,
   keywords: ['qr code generator','free qr code generator','dynamic qr code','qr code no expiration','qr code no subscription','permanent qr code free','truly free dynamic qr code','safe qr code generator','qr code generator without login','free dynamic qr code no expiry'],
   authors: [{ name: 'Truly Free QR Precision Instruments', url: BASE_URL }],
