@@ -2,7 +2,7 @@ name: Publish Friday Article
 
 on:
   schedule:
-    - cron: '0 14 * * 5'  # Every Friday 2pm UTC (9am CDT)
+    - cron: '15 14 * * 5'  # Friday 14:15 UTC. Tools :00, QR :15, Mortgage :30 - they share one Groq key (TPM limit)
   workflow_dispatch:
 
 permissions:
