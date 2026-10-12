@@ -75,7 +75,8 @@ STRUCTURE
 - datePublished: "{TODAY}".
 - export default function Page() returning the full JSX.
 - 5-7 practical sections with step-by-step instructions, then a FAQ with 4 questions.
-- 1,200-1,800 words of real content.
+- 1,400-1,900 words of real content: every one of the 5-7 sections needs at least 180 words of prose
+  (concrete steps, numbers, examples). An article under 1,100 words is rejected.
 
 HARD RULES — breaking any of these makes the article unusable
 1. INTERNAL LINKS: you may only link to these paths, copied exactly. Do not invent any other
@@ -208,6 +209,18 @@ FALSE_CLAIMS = [
 ]
 
 
+MIN_PROSE_WORDS = 1100
+
+
+def prose_words(src):
+    s = re.sub(r"<script.*?</script>", " ", src, flags=re.S)
+    s = re.sub(r"\n(?:export\s+)?const\s+\w*[Ss]chema\w*\s*=\s*\{.*?\n\}\n", "\n", s, flags=re.S)
+    s = re.sub(r"\n(?:export\s+)?const\s+\w*[Ss]chema\w*\s*=\s*\[.*?\n\]\n", "\n", s, flags=re.S)
+    parts = re.findall(r">([^<>{}]+)<", s)
+    parts += re.findall(r"""(?:'|")((?:[^'"\\\n]|\\.){80,})(?:'|")""", s)
+    return len(re.findall(r"[A-Za-z0-9']+", " ".join(parts)))
+
+
 def validate(src, routes):
     errs = []
     src_n = normalize(src)
@@ -257,10 +270,12 @@ def validate(src, routes):
         if m.group(1) not in allowed:
             errs.append(f"import no permitido: {m.group(1)}")
 
-    # 9. largo minimo — un articulo trunco no sirve
-    words = len(re.findall(r"\b\w+\b", re.sub(r"<[^>]+>", " ", src_n)))
-    if words < 700:
-        errs.append(f"articulo demasiado corto: ~{words} palabras")
+    # 9. largo minimo. Contar todo el archivo dejaba pasar posts de ~600 palabras
+    # visibles (el JSX, los estilos y el JSON-LD cuentan como "palabras"), asi que se
+    # cuenta solo prosa: texto de nodos JSX + strings largos, sin los *Schema.
+    words = prose_words(src_n)
+    if words < MIN_PROSE_WORDS:
+        errs.append(f"articulo demasiado corto: ~{words} palabras de texto (minimo {MIN_PROSE_WORDS})")
 
     return errs
 
@@ -309,7 +324,12 @@ def register(title, description, read_time):
                      f'labelColor: "{d.get("categoryColor", "#16a34a")}", '
                      f'title: {json.dumps(title)}, excerpt: {json.dumps(description)}, '
                      f'readTime: "{read_time}", date: {json.dumps(month_year)} }},')
-        b = b[:m.end()] + entry + b[m.end():]
+        if "const POSTS" in b[: m.end()]:
+            # trulyfreeqr: the index is curated, strongest guides first; new posts go last
+            end = b.index("\n]\n", m.end())
+            b = b[:end] + entry + b[end:]
+        else:
+            b = b[:m.end()] + entry + b[m.end():]
         bi.write_text(b)
         done.append("blog/page.tsx")
 
