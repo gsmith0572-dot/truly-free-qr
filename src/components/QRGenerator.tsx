@@ -14,6 +14,12 @@ const FRAMES = ['No Frame','Simple Border','Rounded','Scan Me']
 const BODY_TYPES = ['Square','Dots','Rounded','Extra Round']
 const EDGE_STYLES = ['Square','Round Out','Round In','Round Both','Circle','Diamond']
 
+// The preview is drawn in 220-unit coordinates on a canvas with a 5x backing store,
+// so the downloaded PNG is sharp enough to print instead of a 220 px thumbnail.
+const CANVAS_SIZE = 220
+const CANVAS_SCALE = 5
+const CANVAS_PX = CANVAS_SIZE * CANVAS_SCALE
+
 const inp = { width: '100%', background: '#fff', border: '1px solid rgba(74,85,104,0.15)', borderRadius: 4, padding: '10px 12px', fontFamily: 'Inter, system-ui, sans-serif', fontSize: 13, color: '#181c1e', outline: 'none', boxSizing: 'border-box' as const }
 const lbl = { fontSize: 10, fontWeight: 600 as const, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: '#718096', marginBottom: 5, display: 'block' as const }
 
@@ -304,26 +310,33 @@ interface PreviewPanelProps {
   qrContent: string
   shortId: string
   saving: boolean
+  saveError: string
+  dynamicSupported: boolean
   onSave: () => void
   onDownloadPNG: () => void
   onDownloadSVG: () => void
 }
 
-function PreviewPanel({ canvasRef, qrContent, shortId, saving, onSave, onDownloadPNG, onDownloadSVG }: PreviewPanelProps) {
+function PreviewPanel({ canvasRef, qrContent, shortId, saving, saveError, dynamicSupported, onSave, onDownloadPNG, onDownloadSVG }: PreviewPanelProps) {
   return (
     <div style={{background:'#fff',borderRadius:8,padding:16,display:'flex',flexDirection:'column',alignItems:'center',gap:12,boxShadow:'0px 8px 24px rgba(24,28,30,0.06)'}}>
-      <canvas ref={canvasRef} width={220} height={220} style={{borderRadius:8,maxWidth:'100%'}} />
-      {qrContent.length > 2 && !shortId && (
+      <canvas ref={canvasRef} width={CANVAS_PX} height={CANVAS_PX} style={{width:'100%',maxWidth:CANVAS_SIZE,height:'auto',borderRadius:8}} />
+      {qrContent.length > 2 && !shortId && dynamicSupported && (
         <button onClick={onSave} disabled={saving} style={{width:'100%',background:saving?'#718096':'rgba(0,88,195,0.08)',color:saving?'#fff':'#0058c3',border:'1px solid rgba(0,88,195,0.2)',borderRadius:4,padding:'11px',fontFamily:'inherit',fontSize:13,fontWeight:600,cursor:'pointer'}}>
           {saving ? 'Saving...' : 'Make Dynamic (Free)'}
         </button>
       )}
+      {qrContent.length > 2 && !dynamicSupported && (
+        <div style={{fontSize:11,color:'#718096',textAlign:'center',lineHeight:1.5}}>WiFi, contact, email and text codes hold their data inside the code itself, so they stay static.</div>
+      )}
+      {saveError && (
+        <div role="alert" style={{fontSize:12,color:'#c53030',textAlign:'center',lineHeight:1.5}}>{saveError}</div>
+      )}
       <button onClick={onDownloadPNG} disabled={qrContent.length < 3} style={{width:'100%',background:qrContent.length>2?'linear-gradient(135deg,#0058c3,#0070f3)':'#e5e9eb',color:qrContent.length>2?'#fff':'#a0aec0',border:'none',borderRadius:4,padding:'12px',fontFamily:'inherit',fontSize:14,fontWeight:700,cursor:qrContent.length>2?'pointer':'not-allowed',display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>Download PNG</button>
-      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,width:'100%'}}>
+      <div style={{display:'grid',gridTemplateColumns:'1fr',gap:8,width:'100%'}}>
         <button onClick={onDownloadSVG} style={{background:'#f1f4f6',border:'1px solid rgba(74,85,104,0.15)',borderRadius:4,padding:'9px',fontFamily:'inherit',fontSize:11,fontWeight:600,color:'#4a5568',cursor:'pointer'}}>SVG Vector</button>
-        <button style={{background:'#f1f4f6',border:'1px solid rgba(74,85,104,0.15)',borderRadius:4,padding:'9px',fontFamily:'inherit',fontSize:11,fontWeight:600,color:'#4a5568',cursor:'pointer'}}>Print PDF</button>
       </div>
-      <div style={{fontSize:10,color:'#718096',textAlign:'center'}}>3000x3000px Transparent Free</div>
+      <div style={{fontSize:10,color:'#718096',textAlign:'center'}}>PNG 1100 x 1100 px, or SVG for any print size</div>
     </div>
   )
 }
@@ -334,7 +347,7 @@ export default function QRGenerator() {
   const [fields, setFields] = useState<Record<string,string>>({ url:'', ssid:'', password:'', security:'WPA', firstName:'', lastName:'', company:'', phone:'', email:'', website:'', address:'', emailTo:'', subject:'', body:'', text:'', pdfUrl:'' })
   const [projectName, setProjectName] = useState('')
   const [category, setCategory] = useState('Marketing')
-  const [dynamic, setDynamic] = useState(true)
+  const [saveError, setSaveError] = useState('')
   const [shortId, setShortId] = useState('')
   const [redirectUrl, setRedirectUrl] = useState('')
   const [safeScanUrl, setSafeScanUrl] = useState('')
@@ -349,7 +362,11 @@ export default function QRGenerator() {
   const [pdfUploading, setPdfUploading] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const qrContent = buildQRContent(activeTab, fields)
-  const CANVAS_SIZE = 220
+  // A URL or PDF code that was made dynamic must carry the short redirect link in the image;
+  // otherwise the downloaded PNG/SVG points straight at the destination and later edits never reach it.
+  // WiFi, vCard, email and text codes hold their data in the code itself and stay static.
+  const dynamicSupported = activeTab === 'URL' || activeTab === 'PDF'
+  const qrEncoded = shortId && redirectUrl && dynamicSupported ? redirectUrl : qrContent
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -368,6 +385,7 @@ export default function QRGenerator() {
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
+    ctx.setTransform(CANVAS_SCALE, 0, 0, CANVAS_SCALE, 0, 0)
     ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE)
 
     if (qrContent.length <= 2) {
@@ -383,7 +401,7 @@ export default function QRGenerator() {
     }
 
     try {
-      const qrMatrix = QRCode.create(qrContent, { errorCorrectionLevel: 'M' })
+      const qrMatrix = QRCode.create(qrEncoded, { errorCorrectionLevel: 'M' })
       const modules = qrMatrix.modules
       const count = modules.size
       const margin = activeFrame === 'No Frame' ? 10 : 14
@@ -423,9 +441,9 @@ export default function QRGenerator() {
 
       drawFrame(ctx, activeFrame, CANVAS_SIZE, qrColor)
     } catch {
-      QRCode.toCanvas(canvas, qrContent, { width: CANVAS_SIZE, margin: 2, color: { dark: qrColor, light: bgColor } }).catch(() => {})
+      QRCode.toCanvas(canvas, qrEncoded, { width: CANVAS_PX, margin: 2, color: { dark: qrColor, light: bgColor } }).catch(() => {})
     }
-  }, [qrContent, qrColor, bgColor, activeFrame, activeBody, activeEdge])
+  }, [qrContent, qrEncoded, qrColor, bgColor, activeFrame, activeBody, activeEdge])
 
   useEffect(() => { drawQR() }, [drawQR])
 
@@ -433,11 +451,13 @@ export default function QRGenerator() {
     setFields(prev => ({ ...prev, [key]: value }))
     setShortId('')
     setRedirectUrl('')
+    setSaveError('')
   }, [])
 
   async function saveQR() {
     if (!qrContent || saving) return
     setSaving(true)
+    setSaveError('')
     try {
       const sessionToken = localStorage.getItem('tfqr_session') || crypto.randomUUID()
       localStorage.setItem('tfqr_session', sessionToken)
@@ -452,7 +472,15 @@ export default function QRGenerator() {
         const updated = [{ short_id:data.short_id, redirect_url:data.redirect_url, destination_url:destination, project_name:projectName||qrContent.slice(0,40), category, created_at:new Date().toISOString() }, ...existing]
         localStorage.setItem('tfqr_codes', JSON.stringify(updated))
         setQrCount(updated.length)
+      } else {
+        setSaveError(res.status === 429
+          ? 'Too many codes created in a short time. Wait a minute and try again.'
+          : typeof data.error === 'string' && data.error.startsWith('URL failed Safe-Scan')
+            ? 'Safe-Scan blocked this link (' + data.error.replace('URL failed Safe-Scan: ', '') + '). Use a direct https:// link.'
+            : 'Could not create the dynamic link. Please try again.')
       }
+    } catch {
+      setSaveError('Network problem. Check your connection and try again.')
     } finally { setSaving(false) }
   }
 
@@ -466,7 +494,7 @@ export default function QRGenerator() {
 
   async function downloadSVG() {
     if (!qrContent) return
-    const svg = await QRCode.toString(qrContent, { type:'svg', color:{ dark:qrColor, light:bgColor } })
+    const svg = await QRCode.toString(qrEncoded, { type:'svg', color:{ dark:qrColor, light:bgColor } })
     const blob = new Blob([svg], { type:'image/svg+xml' })
     const link = document.createElement('a')
     link.download = 'trulyfreeqr.svg'
@@ -483,6 +511,7 @@ export default function QRGenerator() {
       img.onload = () => {
         const ctx = canvasRef.current!.getContext('2d')
         if (!ctx) return
+        ctx.setTransform(CANVAS_SCALE, 0, 0, CANVAS_SCALE, 0, 0)
         const s = 44, x = (CANVAS_SIZE - s) / 2, y = (CANVAS_SIZE - s) / 2
         ctx.fillStyle = bgColor
         ctx.fillRect(x - 3, y - 3, s + 6, s + 6)
@@ -536,7 +565,7 @@ export default function QRGenerator() {
             </div>
           </aside>
         )}
-        <main style={{padding:isMobile?'0':'0 12px',minWidth:0}}>
+        <div style={{padding:isMobile?'0':'0 12px',minWidth:0}}>
           {isMobile && (
             <div style={{marginBottom:12,marginTop:4,display:'flex',gap:6,overflowX:'auto',paddingBottom:4}}>
               {SIDEBAR_TOOLS.map(tool => (
@@ -599,7 +628,7 @@ export default function QRGenerator() {
           )}
           <div className="tab-scroll" style={{display:'flex',borderBottom:'1px solid rgba(74,85,104,0.15)',marginBottom:16}}>
             {TABS.map(tab=>(
-              <button key={tab} onClick={()=>{setActiveTab(tab);setShortId('');setRedirectUrl('')}} style={{padding:'10px 16px',fontSize:13,fontWeight:500,color:tab===activeTab?'#0058c3':'#718096',border:'none',background:'none',cursor:'pointer',borderBottom:tab===activeTab?'2px solid #0058c3':'2px solid transparent',whiteSpace:'nowrap',flexShrink:0}}>{tab}</button>
+              <button key={tab} onClick={()=>{setActiveTab(tab);setShortId('');setRedirectUrl('');setSaveError('')}} style={{padding:'10px 16px',fontSize:13,fontWeight:500,color:tab===activeTab?'#0058c3':'#718096',border:'none',background:'none',cursor:'pointer',borderBottom:tab===activeTab?'2px solid #0058c3':'2px solid transparent',whiteSpace:'nowrap',flexShrink:0}}>{tab}</button>
             ))}
           </div>
           <TabForm activeTab={activeTab} fields={fields} setField={setField} pdfUploading={pdfUploading} onPDFUpload={handlePDFUpload} />
@@ -613,11 +642,6 @@ export default function QRGenerator() {
               </div>
               <div style={{fontSize:12,color:'#4a5568',lineHeight:1.5}}>Edit destination anytime. Your code never expires.</div>
             </div>
-            <div onClick={()=>setDynamic(!dynamic)} style={{position:'relative',width:40,height:22,flexShrink:0,marginTop:2,cursor:'pointer'}}>
-              <div style={{position:'absolute',inset:0,background:dynamic?'#0058c3':'rgba(74,85,104,0.3)',borderRadius:11,transition:'background 0.2s'}}>
-                <div style={{position:'absolute',left:dynamic?21:3,top:3,width:16,height:16,borderRadius:'50%',background:'#fff',transition:'left 0.2s',boxShadow:'0 1px 3px rgba(0,0,0,0.18)'}} />
-              </div>
-            </div>
           </div>
           <div style={{display:'grid',gridTemplateColumns:isMobile?'1fr':'1fr 1fr',gap:10,marginBottom:12}}>
             <div><label style={lbl}>Project Name</label><input value={projectName} onChange={e=>setProjectName(e.target.value)} placeholder="Optional" style={inp} /></div>
@@ -627,7 +651,7 @@ export default function QRGenerator() {
               </select>
             </div>
           </div>
-          {isMobile && <div style={{marginBottom:12}}><PreviewPanel canvasRef={canvasRef} qrContent={qrContent} shortId={shortId} saving={saving} onSave={saveQR} onDownloadPNG={downloadPNG} onDownloadSVG={downloadSVG} /></div>}
+          {isMobile && <div style={{marginBottom:12}}><PreviewPanel canvasRef={canvasRef} qrContent={qrContent} shortId={shortId} saving={saving} saveError={saveError} dynamicSupported={dynamicSupported} onSave={saveQR} onDownloadPNG={downloadPNG} onDownloadSVG={downloadSVG} /></div>}
           {shortId && (
             <div style={{background:'rgba(0,88,195,0.06)',border:'1px solid rgba(0,88,195,0.2)',borderRadius:8,padding:'12px 14px',marginBottom:12}}>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:8,flexWrap:'wrap',marginBottom:10}}>
@@ -702,8 +726,8 @@ export default function QRGenerator() {
               </div>
             </div>
           </div>
-        </main>
-        {!isMobile && <aside style={{paddingLeft:12}}><PreviewPanel canvasRef={canvasRef} qrContent={qrContent} shortId={shortId} saving={saving} onSave={saveQR} onDownloadPNG={downloadPNG} onDownloadSVG={downloadSVG} /></aside>}
+        </div>
+        {!isMobile && <aside style={{paddingLeft:12}}><PreviewPanel canvasRef={canvasRef} qrContent={qrContent} shortId={shortId} saving={saving} saveError={saveError} dynamicSupported={dynamicSupported} onSave={saveQR} onDownloadPNG={downloadPNG} onDownloadSVG={downloadSVG} /></aside>}
       </div>
     </div>
   )
