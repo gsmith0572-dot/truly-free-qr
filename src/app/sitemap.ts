@@ -9,6 +9,7 @@ const STATIC_SLUGS = new Set([
 ])
 
 const BLOG_POSTS: { slug: string; date: string }[] = [
+  { slug: 'qr-code-scan-test-logo-size-blur-contrast', date: '2026-10-12' },
   { slug: 'qr-codes-for-home-services-plumbers-electricians-and-contrac', date: '2026-09-18' },
   { slug: 'qr-code-statistics', date: '2026-05-04' },
   { slug: 'qr-code-market-size', date: '2026-05-04' },

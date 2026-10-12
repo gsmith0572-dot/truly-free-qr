@@ -38,6 +38,7 @@ https://trulyfreeqr.com/blog/qr-code-product-packaging-free — Why dynamic QR c
 https://trulyfreeqr.com/blog/qr-code-real-estate-flyer-free — Using dynamic QR codes on real estate flyers so listings never go stale
 https://trulyfreeqr.com/blog/qr-code-restaurant-menu-free — Setting up a restaurant menu QR code that works forever
 https://trulyfreeqr.com/blog/qr-code-statistics — QR code statistics for 2026: market size, scan volume, and adoption data
+https://trulyfreeqr.com/blog/qr-code-scan-test-logo-size-blur-contrast — Decoder test results: how big a logo can be, the smallest readable size, and what blur and contrast do
 https://trulyfreeqr.com/blog/qr-code-stopped-working — Why QR codes stop working after a free trial ends, and how to avoid it
 https://trulyfreeqr.com/blog/qr-code-wifi-password-free — Creating a QR code that encodes a WiFi network name and password
 https://trulyfreeqr.com/blog/why-do-qr-codes-expire — Why QR codes only "expire" when the hosting platform deactivates the redirect
