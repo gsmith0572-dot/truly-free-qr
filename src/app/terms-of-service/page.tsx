@@ -59,7 +59,7 @@ export default function TermsOfService() {
           },
           {
             label: '9. Service Availability',
-            content: `We target 99.9% uptime for our redirect infrastructure. Planned maintenance will be announced with reasonable notice. We are not liable for damages resulting from service interruptions beyond our control, including infrastructure failures at our hosting provider, distributed denial of service attacks, or force majeure events. Our redirect infrastructure at trulyfreeqr.link uses Redis caching to maintain sub-5ms redirect performance under normal operating conditions.`
+            content: `We target 99.9% uptime for our redirect infrastructure. Planned maintenance will be announced with reasonable notice. We are not liable for damages resulting from service interruptions beyond our control, including infrastructure failures at our hosting provider, distributed denial of service attacks, or force majeure events. Our redirect infrastructure at trulyfreeqr.link uses Redis caching to keep redirects fast.`
           },
           {
             label: '10. Advertising',

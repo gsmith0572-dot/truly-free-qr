@@ -2,6 +2,21 @@
 
 Verified against the code and the live service on 2026-10-12. Update this file when the product changes.
 
+## Money, ads and scale (real numbers, measured 2026-10-12)
+- The site is DESIGNED to be funded by Google AdSense, but AdSense has not approved it yet: no ad is shown today and there is no ad revenue. Never write that ads "appear" or "are shown" now, that "ad revenue covers" costs or "leaves a surplus", or any revenue figure. Allowed: the site is designed to be funded by advertising rather than subscriptions, and ads never go on the scan redirect (the redirect has no page at all).
+- Never state costs or margins: hosting, storage, per-scan or per-code cost, domain cost, profit, "I come out ahead". None of these figures were ever published by George.
+- Never claim scale. Real numbers: about 870 scans in total since launch, about 280 in the last 30 days, about 240 printed codes in the field. Forbidden: "millions of scans/redirects", "my server handles millions", "clients/customers with tens of thousands of scans", "thousands of businesses use it". "No scan limit" is fine; do not claim "unlimited codes" (creating codes is limited to 10 per minute per visitor).
+- Speed: the server-side lookup was measured on the VPS (2026-10-12): about 2.6 to 4.1 ms in 10 of 12 requests, two outliers at 85 to 93 ms. Network time to the visitor is on top. Never claim "zero latency", "instantaneous" or "under 5 ms" for the whole scan. At most: redirects are served from a Redis cache on our own server and take a few milliseconds there, plus network time.
+
+## Voice
+- George is the author but this file lists every fact about him. Forbidden first-person experience: "I lived through...", "I built this for my own business", "my clients", "customers told me", "I tested...", "when I ran a...". Opinions and instructions in first person are fine; invented experiences are not.
+
+## Competitors and review sites
+- Verified 2026-10-12 on their own pages: QR Code Generator PRO (qr-code-generator.com) advertises a 14-day free trial of its plans (its page does not state what happens to dynamic codes after the trial). Bitly: Free plan includes 2 QR codes per month and no destination redirects (changing where a code points starts on the paid Core plan); Core $10/month billed annually ($120/yr), Growth $29/month ($348/yr), Premium $199/month ($2,388/yr).
+- George's positioning, which may stay in general terms: many generators give dynamic codes a free trial (often about 14 days) and then ask for a paid plan (often over $100 a year), which hurts whoever already printed the code. Do not add other competitor prices, trial lengths, caps or support policies, and do not turn "often" into "all" or "most".
+- Never state what Trustpilot, G2 or any review site says (review counts, quoted words like "blackmail" or "extortion", ratings). Never quote Domain Rating, traffic value, referring domains, organic share or search-volume numbers for any site.
+
+
 ## Author
 - George Smith, Founder, Klickify Agency. No other credentials, years of experience, clients or anecdotes may be attributed to him.
 

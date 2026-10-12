@@ -52,7 +52,7 @@ const COMPARISON_DEFAULT = [
   { feature: 'Scan analytics', us: 'Included free', them: 'Premium only' },
   { feature: 'SVG export', us: 'Free', them: '$8+/month' },
   { feature: 'Link checks (Safe-Scan)', us: 'On every dynamic code', them: 'Varies by service' },
-  { feature: 'Redirect speed', us: '<5ms via Redis', them: 'Unspecified' },
+  { feature: 'Redirect speed', us: 'Redis cache, a few ms server-side', them: 'Unspecified' },
 ]
 
 const PAGE_DATA: Record<string, Omit<NichePageProps, 'slug'>> = {
@@ -66,7 +66,7 @@ const PAGE_DATA: Record<string, Omit<NichePageProps, 'slug'>> = {
     showSavingsCalc: true,
     steps: [
       { icon: '🔗', title: 'Paste your menu URL', desc: 'Link to your PDF menu, Google Drive, Toast, or any online menu. Any URL works.' },
-      { icon: '⚡', title: 'Enable Dynamic Tracking', desc: 'Toggle Dynamic ON. Your QR now uses our VPS+Redis redirect engine — editable and trackable forever at $0.' },
+      { icon: '⚡', title: 'Click Make Dynamic (Free)', desc: 'Your QR now encodes a short link served by our VPS and Redis redirect engine, so you can edit the destination and see scans at $0.' },
       { icon: '🖨️', title: 'Print on tables permanently', desc: 'Download SVG for professional printing. This code never expires — print on table cards, windows, receipts, and stands with full confidence.' },
     ],
     useCases: [
@@ -84,7 +84,7 @@ const PAGE_DATA: Record<string, Omit<NichePageProps, 'slug'>> = {
       },
       {
         q: 'How do I create a free dynamic QR code menu that never expires?',
-        a: 'Paste your menu URL into the generator at trulyfreeqr.com, toggle Dynamic Tracking ON, and download. Your QR code encodes a short URL hosted on our VPS server. The destination — your menu — can be changed at any time from your dashboard without generating a new QR or reprinting materials. This is permanently free with no trial limit.',
+        a: 'Paste your menu URL into the generator at trulyfreeqr.com, click Make Dynamic (Free), and download. Your QR code encodes a short URL hosted on our VPS server. The destination — your menu — can be changed at any time from your dashboard without generating a new QR or reprinting materials. This is permanently free with no trial limit.',
       },
       {
         q: 'Is it safe for my restaurant customers to scan a QR code?',
@@ -92,7 +92,7 @@ const PAGE_DATA: Record<string, Omit<NichePageProps, 'slug'>> = {
       },
       {
         q: 'How fast does the restaurant menu QR redirect work?',
-        a: 'Under 5 milliseconds. Our redirect engine uses Redis in-memory caching on a dedicated VPS server — not shared cloud functions that throttle under load. In a busy restaurant where dozens of guests scan simultaneously during service, the redirect is instantaneous. Customers see your menu without perceivable delay.',
+        a: 'A few milliseconds on the server, plus your network time. Our redirect engine uses Redis in-memory caching on our own VPS server, not shared cloud functions that can throttle under load. In a busy restaurant where many guests scan during service, customers should reach your menu without a noticeable wait.',
       },
       {
         q: 'Can I update my menu without printing new QR codes?',
@@ -120,7 +120,7 @@ const PAGE_DATA: Record<string, Omit<NichePageProps, 'slug'>> = {
     showSavingsCalc: false,
     steps: [
       { icon: '🏠', title: 'Paste your listing URL', desc: 'Link to MLS, Zillow, Realtor.com, your agency site, or a virtual tour.' },
-      { icon: '⚡', title: 'Generate with Dynamic Tracking', desc: 'Enable dynamic mode. Update the destination when listings change — zero reprinting cost.' },
+      { icon: '⚡', title: 'Make the code dynamic', desc: 'Click Make Dynamic (Free). Update the destination when listings change, with no reprinting cost.' },
       { icon: '🪧', title: 'Print on signage permanently', desc: 'Download SVG for yard signs, flyers, and brochures. One QR code serves the entire listing lifecycle.' },
     ],
     useCases: [
@@ -136,7 +136,7 @@ const PAGE_DATA: Record<string, Omit<NichePageProps, 'slug'>> = {
       { q: 'Can I reuse one QR code across multiple listings over time?', a: 'Yes. Dynamic QR codes let you change the destination URL at any time. A QR on your business card can always point to your current featured listing. A yard sign QR can be redirected to a new property when the current one sells.' },
       { q: 'How do I get analytics on how many buyers scanned my property sign?', a: 'Every dynamic QR code on Truly Free QR includes a real-time analytics dashboard: total scans, daily scan volume, geographic location, and device type. Access it at trulyfreeqr.com/dashboard. No account required — your session token provides access.' },
       { q: 'What QR code size should I print on a yard sign?', a: 'Minimum 3x3 inches for standard scanning distance of 2–3 feet. For yard signs viewed from a passing car, 4x4 to 6x6 inches is recommended. Always use SVG format for scaling without quality loss — free on Truly Free QR.' },
-      { q: 'Is a free QR code reliable enough for professional real estate use?', a: '"Free" does not mean unreliable. Truly Free QR runs on dedicated VPS infrastructure with Redis caching, serving redirects in under 5ms. The service is free because it is ad-supported — not because it is built on inferior infrastructure. The same redirect speed and uptime applies to all codes regardless of cost.' },
+      { q: 'Is a free QR code reliable enough for professional real estate use?', a: '"Free" does not mean unreliable. Truly Free QR runs on its own VPS with Redis caching, so redirects take a few milliseconds on the server. The service is free because it is designed to be ad-supported, not because it is built on inferior infrastructure. The same redirect path serves every code.' },
       { q: 'Is the QR safe from phishing for my property buyers?', a: 'Safe-Scan checks the listing link when you create or edit the code: https only, no URL shorteners, and a Google Safe Browsing lookup. It does not re-check on every scan, so open your own code before an open house to confirm it still leads to your listing.' },
     ],
     comparisonRows: COMPARISON_DEFAULT,
@@ -224,7 +224,7 @@ const PAGE_DATA: Record<string, Omit<NichePageProps, 'slug'>> = {
     showSavingsCalc: true,
     steps: [
       { icon: '🔗', title: 'Paste your destination URL', desc: 'Any URL — website, PDF, social profile, menu, landing page, or file.' },
-      { icon: '⚡', title: 'Enable Dynamic Tracking', desc: 'Toggle Dynamic ON. Your QR encodes a short URL on our VPS+Redis infrastructure — permanently editable and trackable.' },
+      { icon: '⚡', title: 'Click Make Dynamic (Free)', desc: 'Your QR encodes a short URL served by our VPS and Redis infrastructure, so the destination stays editable and every scan is tracked.' },
       { icon: '📊', title: 'Track, edit, repeat forever', desc: 'Change the destination anytime. View scan analytics. Manage all codes from your dashboard. All free, all permanent.' },
     ],
     useCases: [
@@ -236,10 +236,10 @@ const PAGE_DATA: Record<string, Omit<NichePageProps, 'slug'>> = {
       { icon: '📊', title: 'A/B testing', desc: 'Switch the destination between two landing pages and compare scan-to-conversion rates.' },
     ],
     faqs: [
-      { q: 'Why did my dynamic QR code stop working after 14 days?', a: 'This is the QR bait-and-switch: most generators create a free dynamic QR on trial infrastructure that deactivates automatically after 14 days unless you pay $111–$180 per year. Businesses that already printed the code on packaging, signage, or materials are effectively forced to pay — users on Trustpilot call it "blackmail." Truly Free QR never deactivates codes. Revenue comes from advertising, not from expiration threats.' },
+      { q: 'Why did my dynamic QR code stop working after 14 days?', a: 'This is the QR bait-and-switch: many generators create a free dynamic QR on trial infrastructure that deactivates automatically after about 14 days unless you pay, often over $100 per year. Businesses that already printed the code on packaging, signage, or materials are effectively forced to pay or reprint. Truly Free QR dynamic codes do not expire. The service is designed to be funded by advertising, not by expiration threats.' },
       { q: 'What is the difference between a static and dynamic QR code?', a: 'Static QR codes encode the destination URL directly in the pixel pattern — they cannot be changed after generation, and they do not support analytics. Dynamic QR codes encode a short URL that redirects to your destination. You can change that destination at any time from a dashboard. Both types are free on Truly Free QR; dynamic codes additionally provide real-time scan tracking.' },
-      { q: 'How fast does the dynamic QR redirect work?', a: 'Under 5 milliseconds. Our redirect engine uses Redis in-memory caching on a dedicated VPS server. Short URL resolution happens before the user\'s phone finishes processing the camera frame. In high-traffic environments — trade shows, restaurant service, retail — the redirect is imperceptibly fast.' },
-      { q: 'Is there a scan limit on free dynamic QR codes?', a: 'No scan limit, ever. Unlimited scans, unlimited codes, unlimited analytics history. There is no "upgrade for more scans" paywall. Truly Free QR processes millions of redirects per month on its dedicated infrastructure at no cost to users.' },
+      { q: 'How fast does the dynamic QR redirect work?', a: 'A few milliseconds on the server, plus your network time. Our redirect engine uses Redis in-memory caching on our own VPS server. In busy environments such as trade shows, restaurant service or retail, the redirect step itself adds very little delay.' },
+      { q: 'Is there a scan limit on free dynamic QR codes?', a: 'There is no scan limit and no "upgrade for more scans" paywall. Every scan is recorded in the analytics for that code. Redirects run on our own server with a Redis cache, at no cost to users.' },
       { q: 'Do I need an account to create a dynamic QR code?', a: 'No account, no email, no password. Dynamic QR codes are associated with a browser session token stored locally. Your dashboard at trulyfreeqr.com/dashboard shows all codes from your current browser session. For cross-device management, save the dashboard URL with your session token.' },
       { q: 'Can I track who scans my dynamic QR code?', a: 'Real-time analytics are included on every dynamic code: total scans, scans by country, device type breakdown (mobile vs desktop), operating system distribution, and hourly scan frequency over 24 hours. All free, all permanent, no account required.' },
       { q: 'What happens to my dynamic QR codes if I never pay anything?', a: 'They stay active permanently. There is no degradation from free to paid tier, no expiration timer, no renewal reminder that deactivates on non-payment. The service is funded by advertising displayed on trulyfreeqr.com — your codes are protected by that business model, not threatened by it.' },
@@ -270,10 +270,10 @@ const PAGE_DATA: Record<string, Omit<NichePageProps, 'slug'>> = {
     ],
     faqs: [
       { q: 'What makes a QR code truly permanent?', a: 'Static QR codes are permanent by design — the destination is encoded in the pattern and cannot be changed or deactivated. Dynamic QR codes are only as permanent as the provider\'s commitment to keep the redirect server running. Truly Free QR commits to permanent infrastructure because revenue comes from advertising — there is no subscription cliff that could cause mass deactivation.' },
-      { q: 'Will my QR code still work in 5 or 10 years?', a: 'Static QR codes will function as long as the destination URL exists — no dependency on any service. Dynamic QR codes will function as long as Truly Free QR operates. Because the service is ad-supported rather than subscription-dependent, there is no scenario where a billing failure causes sudden deactivation of all codes.' },
+      { q: 'Will my QR code still work in 5 or 10 years?', a: 'Static QR codes will function as long as the destination URL exists — no dependency on any service. Dynamic QR codes will function as long as Truly Free QR operates. Because the service is designed to be ad-supported rather than subscription-dependent, your codes do not depend on a payment from you.' },
       { q: 'What is the difference between a permanent and a free trial QR code?', a: 'A free trial QR is created on infrastructure that the provider plans to deactivate after 14 days unless payment is received. A permanent QR code is either static (destination encoded in pattern) or hosted on infrastructure with a long-term operational commitment. Truly Free QR provides both permanently.' },
       { q: 'Can I get a permanent dynamic QR code at no cost?', a: 'Yes. Dynamic QR codes with edit capability, real-time analytics, and permanent activation are the baseline product on Truly Free QR — not a premium tier. Permanently free because the business is funded by advertising, not subscriptions.' },
-      { q: 'Is there any catch or hidden cost I should know about?', a: 'None. The service is ad-supported. Users are never charged, never enrolled in subscriptions, and codes are never threatened with deactivation. Your codes are the product we protect, not the product we charge for.' },
+      { q: 'Is there any catch or hidden cost I should know about?', a: 'None. The service is designed to be ad-supported. Users are never charged, never enrolled in subscriptions, and codes are never threatened with deactivation. Your codes are the product we protect, not the product we charge for.' },
       { q: 'What format should I use for permanent print applications?', a: 'SVG (Scalable Vector Graphics) for all permanent print applications. SVG scales to any physical size — from 1-inch product labels to 6-foot wall installations — without any pixelation. For permanent applications specifically, avoid PNG at low resolutions. SVG export is free on Truly Free QR.' },
     ],
     comparisonRows: COMPARISON_DEFAULT,
@@ -301,11 +301,11 @@ const PAGE_DATA: Record<string, Omit<NichePageProps, 'slug'>> = {
       { icon: '🌍', title: 'Global users', desc: 'Users in markets where $150/year subscriptions represent prohibitive cost.' },
     ],
     faqs: [
-      { q: 'Why do most QR generators require a subscription?', a: 'Dynamic QR codes require server infrastructure: a database to store redirect mappings, a server to process incoming scan requests, and bandwidth to handle traffic. Most companies monetize this infrastructure through annual subscriptions. Truly Free QR uses an ad-supported model instead — the same infrastructure funded by display advertising, eliminating the need to charge users.' },
+      { q: 'Why do most QR generators require a subscription?', a: 'Dynamic QR codes require server infrastructure: a database to store redirect mappings, a server to process incoming scan requests, and bandwidth to handle traffic. Many companies monetize this infrastructure through annual subscriptions. Truly Free QR is designed around an ad-supported model instead: the same infrastructure funded by display advertising, so there is no need to charge users.' },
       { q: 'What happens to my QR codes if I never pay anything?', a: 'Nothing — they remain active permanently. There is no free tier that degrades after a trial period. There is no "basic" plan where dynamic features are eventually removed. The complete feature set — dynamic codes, analytics, SVG export — is permanently free because the business model does not depend on subscription revenue.' },
       { q: 'Is the free version limited compared to paid generators?', a: 'No artificial limits have been applied. Dynamic codes, real-time scan analytics, SVG vector export, logo upload, and Safe-Scan link checks are all included at zero cost. The only thing present on Truly Free QR that paid generators lack is advertising on the website — your end users scanning your QR codes see nothing.' },
       { q: 'Can I migrate my QR codes from my current paid subscription?', a: 'You cannot transfer existing short URLs from other providers. However, generating replacement dynamic QR codes on Truly Free QR takes under 30 seconds per code. Update your physical materials at next print run or immediately for digital placements.' },
-      { q: 'Are there any hidden fees at any point?', a: 'None. No premium upgrade prompts, no feature paywalls, no credit card required at any step. The revenue model is advertising. The economics are straightforward: more users generate more ad impressions, which generates more revenue. Charging subscriptions would reduce users — the opposite of what the business requires.' },
+      { q: 'Are there any hidden fees at any point?', a: 'None. No premium upgrade prompts, no feature paywalls, no credit card required at any step. The revenue model is advertising: the site is designed so that more visitors mean more ad impressions, which is why there is no reason to charge subscriptions or restrict features.' },
       { q: 'What if Truly Free QR discontinues the service?', a: 'Static QR codes generated here are completely independent — they encode destinations in the pattern and work permanently without any server. For dynamic codes, if the service were ever discontinued, we would provide advance notice and a tool to convert dynamic codes to static. The ad-supported model means there is no subscription cliff trigger for sudden shutdown.' },
     ],
     comparisonRows: COMPARISON_DEFAULT,
@@ -379,7 +379,7 @@ const PAGE_DATA: Record<string, Omit<NichePageProps, 'slug'>> = {
       { feature: 'Dynamic QR codes', us: 'Free forever', them: 'Trial then paid' },
       { feature: 'Account required', us: 'Never', them: 'Mandatory' },
       { feature: 'SVG export', us: 'Free', them: '$8+/month' },
-      { feature: 'Redirect speed', us: '<5ms Redis cache', them: 'Unspecified' },
+      { feature: 'Redirect speed', us: 'Redis cache, a few ms server-side', them: 'Unspecified' },
     ],
   },
 }

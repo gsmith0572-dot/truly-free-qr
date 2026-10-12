@@ -51,7 +51,7 @@ const schema = {
         {
           '@type': 'Question',
           name: 'Do free dynamic QR codes without subscription actually work long-term?',
-          acceptedAnswer: { '@type': 'Answer', text: 'On Truly Free QR, yes. Our dynamic codes use a redirect infrastructure built on a dedicated VPS with Redis caching, delivering sub-5ms redirect speeds. The service is sustainable through advertising revenue, not subscriptions. Your codes will remain active indefinitely without any payment.' },
+          acceptedAnswer: { '@type': 'Answer', text: 'On Truly Free QR, yes. Our dynamic codes use a redirect service on our own VPS with Redis caching for fast redirects. The service is designed to be funded by advertising, not subscriptions. Your codes remain active without any payment.' },
         },
         {
           '@type': 'Question',
@@ -80,8 +80,8 @@ export default function NoSubscriptionPage() {
         <div style={{ background: '#fff', borderRadius: 8, padding: 32, marginBottom: 32, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)' }}>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 16px' }}>The Subscription Trap — How It Works and How We Ended It</h2>
           <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>Every major QR code generator uses the same playbook: offer dynamic codes free for 14 days, wait until businesses print them on menus, business cards, product packaging, and trade show materials — then send a payment demand. Pay $111–$180 per year or watch your codes go dark.</p>
-          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>Trustpilot reviews of the market leader use words like "blackmail" and "hostage." Small businesses report losing hundreds of dollars in wasted print materials because of this model.</p>
-          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>Truly Free QR is ad-supported. You see a non-intrusive display ad. Your codes stay active forever. That is the entire business model — transparent, ethical, permanent.</p>
+          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>For a business that already printed menus, packaging or signage, the choice is to pay up or write off the money spent on print. That is the model Truly Free QR was built to avoid.</p>
+          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>Truly Free QR is designed to be ad-supported: you may see an ad on the generator page, and your codes stay active. That is the entire business model, in plain terms.</p>
         </div>
 
         <div style={{ background: '#f1f4f6', borderRadius: 8, padding: 32, marginBottom: 32 }}>
@@ -93,7 +93,7 @@ export default function NoSubscriptionPage() {
               ['SVG Vector Export', 'Infinitely scalable for professional print. No watermark.'],
               ['Safe-Scan link checks', 'Every dynamic code is checked when you create or edit it: https only, no URL shorteners, Google Safe Browsing lookup.'],
               ['Anonymous Dashboard', 'All your QR codes saved in your browser. No account needed.'],
-              ['Sub-5ms Redirects', 'Redis-cached infrastructure on dedicated VPS. Zero latency.'],
+              ['Fast Redirects', 'Redis-cached lookups on our own VPS server.'],
             ].map(([title, desc]) => (
               <div key={title} style={{ background: '#fff', borderRadius: 8, padding: 16 }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: '#0058c3', marginBottom: 4 }}>✓ {title}</div>
@@ -108,8 +108,8 @@ export default function NoSubscriptionPage() {
           {[
             ['Is there a QR code generator with no subscription?', 'Yes. Truly Free QR provides dynamic QR codes with zero subscription model. No trial period, no credit card, no hidden fees. The service is ad-supported.'],
             ['Why do QR code generators charge subscriptions?', 'Dynamic QR codes require server infrastructure. Most generators charge $100–$180 per year after a free trial, deliberately waiting until users print codes before deactivating them. Truly Free QR uses an ad-supported model instead.'],
-            ['Do free dynamic QR codes without subscription work long-term?', 'On Truly Free QR, yes. Our infrastructure runs on a dedicated VPS with Redis caching for sub-5ms redirects. Sustainable through advertising revenue, not subscriptions. Your codes remain active indefinitely.'],
-            ['What is the catch with a free QR code generator with no subscription?', 'No catch. Truly Free QR displays non-intrusive ads on the generator page — the same model used by Google and YouTube. You see ads, your codes stay active forever. No data selling, no hidden fees, no subscription traps.'],
+            ['Do free dynamic QR codes without subscription work long-term?', 'On Truly Free QR, yes. Our redirects run on our own VPS with Redis caching. The service is designed to be funded by advertising, not subscriptions, and your codes remain active.'],
+            ['What is the catch with a free QR code generator with no subscription?', 'No catch. Truly Free QR is designed to show ads on the generator page, a model many free sites use. You may see ads, and your codes stay active. No data selling, no hidden fees, no subscription traps.'],
           ].map(([q, a], i) => (
             <div key={i} style={{ borderTop: i === 0 ? 'none' : '1px solid rgba(74,85,104,0.1)', paddingTop: i === 0 ? 0 : 20, marginTop: i === 0 ? 0 : 20 }}>
               <div style={{ fontSize: 15, fontWeight: 700, color: '#181c1e', marginBottom: 8, letterSpacing: '-0.01em' }}>{q}</div>

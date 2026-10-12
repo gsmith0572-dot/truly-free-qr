@@ -61,7 +61,7 @@ export default function BlogIndex() {
       <div style={{ background: "linear-gradient(160deg,#08122a 0%,#0c1e45 55%,#08122a 100%)", color: "#fff", padding: "56px 20px 44px" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <h1 style={{ fontSize: "clamp(26px,4vw,40px)", fontWeight: 800, letterSpacing: "-0.03em", margin: "0 0 16px" }}>QR Code Guides &amp; Industry Analysis</h1>
-          <p style={{ fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.65, margin: 0 }}>Technical breakdowns of QR code architecture, security vulnerabilities, and the predatory subscription models that have left millions of businesses with broken codes.</p>
+          <p style={{ fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.65, margin: 0 }}>Technical breakdowns of QR code architecture, security vulnerabilities, and the subscription models that can leave businesses with broken codes.</p>
         </div>
       </div>
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "48px 20px 64px" }}>

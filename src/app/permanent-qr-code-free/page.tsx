@@ -45,13 +45,13 @@ const schema = {
         },
         {
           '@type': 'Question',
-          name: 'Why do most free QR codes expire after 14 days?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Most QR code generators use a "bait-and-switch" model: they offer free dynamic codes to attract users, wait until those codes are printed on physical materials, then deactivate them after a 14-day trial to force subscription payments of $100–$180 per year. This practice has generated thousands of negative reviews on Trustpilot from businesses whose printed materials became worthless overnight. Truly Free QR was built specifically to end this practice.' },
+          name: 'Why do many free QR codes expire after a trial?',
+          acceptedAnswer: { '@type': 'Answer', text: 'Many QR code generators offer free dynamic codes on a trial, often around 14 days, and then ask for a paid plan, commonly over $100 per year, to keep those codes working. A business that already printed the code has to pay or reprint. Truly Free QR was built so that the dynamic codes you create do not expire.' },
         },
         {
           '@type': 'Question',
           name: 'How do I create a permanent dynamic QR code for free?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Paste your URL into Truly Free QR, enable Dynamic Tracking, and click Make Dynamic. Your code is stored on our high-performance VPS with Redis caching for sub-5ms redirect resolution. The code is saved to your browser dashboard — no account needed. It remains active permanently with no recurring cost.' },
+          acceptedAnswer: { '@type': 'Answer', text: 'Paste your URL into Truly Free QR and click Make Dynamic (Free). Your code is stored on our own VPS with Redis caching for fast redirects. The code is saved to your browser dashboard, with no account needed. It stays active with no recurring cost.' },
         },
         {
           '@type': 'Question',
@@ -79,9 +79,9 @@ export default function PermanentQRPage() {
 
         <div style={{ background: '#fff', borderRadius: 8, padding: 32, marginBottom: 32, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)' }}>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 16px' }}>Why Most Free QR Codes Are Not Actually Free</h2>
-          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>The QR code generator industry runs on a well-documented deception: offer free dynamic codes, allow users to print them on business cards, menus, and packaging, then deactivate the codes after 14 days unless an annual subscription of $100–$180 is paid.</p>
-          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>User reviews on Trustpilot describe this as "blackmail" — businesses trapped paying recurring fees because their printed materials are already deployed in the field. Thousands of small businesses have lost money to this model.</p>
-          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>Truly Free QR eliminates this entirely. The service is ad-supported — you never pay, and your codes never expire.</p>
+          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>Many QR code generators offer free dynamic codes, let users print them on business cards, menus, and packaging, then deactivate the codes after a trial of about 14 days unless a paid plan, commonly over $100 a year, is bought.</p>
+          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>The result is a trap for the business: the printed materials are already in the field, so the choice is to keep paying recurring fees or to reprint everything.</p>
+          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>Truly Free QR works differently. The service is designed to be ad-supported, so you never pay, and the dynamic codes you create do not expire.</p>
         </div>
 
         <div style={{ background: '#f1f4f6', borderRadius: 8, padding: 32, marginBottom: 32 }}>
@@ -89,7 +89,7 @@ export default function PermanentQRPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 16 }}>
             {[
               { title: 'Static QR Code', features: ['Encodes URL directly in pattern', 'No server required to scan', 'Cannot be edited after creation', 'Zero tracking capabilities', 'Never expires — by design', 'Best for: business cards, simple links'] },
-              { title: 'Dynamic QR Code', features: ['Encodes short redirect URL', 'Sub-5ms redirect via Redis cache', 'Edit destination URL anytime', 'Full scan analytics included', 'Permanently active — guaranteed', 'Best for: menus, packaging, signage'] },
+              { title: 'Dynamic QR Code', features: ['Encodes short redirect URL', 'Fast redirect via Redis cache', 'Edit destination URL anytime', 'Full scan analytics included', 'Permanently active — guaranteed', 'Best for: menus, packaging, signage'] },
             ].map(({ title, features }) => (
               <div key={title} style={{ background: '#fff', borderRadius: 8, padding: 20 }}>
                 <div style={{ fontSize: 14, fontWeight: 700, color: '#181c1e', marginBottom: 12 }}>{title}</div>
@@ -107,8 +107,8 @@ export default function PermanentQRPage() {
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 24px' }}>Frequently Asked Questions</h2>
           {[
             ['Are there truly free QR codes that never expire?', 'Yes. Truly Free QR provides both static and dynamic QR codes permanently active at no cost. Static codes never expire by design. Dynamic codes use a redirect URL on our dedicated infrastructure — active indefinitely, no payment required.'],
-            ['Why do most free QR codes expire after 14 days?', 'Most generators use a bait-and-switch model: free dynamic codes to attract users, deactivated after 14 days to force subscriptions of $100–$180 per year. Truly Free QR was built to end this practice.'],
-            ['How do I create a permanent dynamic QR code for free?', 'Paste your URL into Truly Free QR, enable Dynamic Tracking, click Make Dynamic. Your code is stored on our VPS with Redis caching for sub-5ms resolution. Saved to your browser dashboard — no account needed. Active permanently.'],
+            ['Why do many free QR codes expire after a trial?', 'Many generators offer free dynamic codes on a trial of about 14 days, then ask for a paid plan, commonly over $100 per year, to keep them working. Truly Free QR was built so the dynamic codes you create do not expire.'],
+            ['How do I create a permanent dynamic QR code for free?', 'Paste your URL into Truly Free QR and click Make Dynamic (Free). Your code is stored on our VPS with Redis caching for fast redirects. It is saved to your browser dashboard, with no account needed, and stays active.'],
             ['What is the difference between static and dynamic permanent QR codes?', 'Static codes encode the URL directly — no server needed, never expire. Dynamic codes encode a short redirect — editable destination, scan analytics included. Both are permanently free on Truly Free QR.'],
           ].map(([q, a], i) => (
             <div key={i} style={{ borderTop: i === 0 ? 'none' : '1px solid rgba(74,85,104,0.1)', paddingTop: i === 0 ? 0 : 20, marginTop: i === 0 ? 0 : 20 }}>

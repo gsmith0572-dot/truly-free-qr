@@ -33,7 +33,7 @@ const schema = {
       operatingSystem: 'Web',
       url: 'https://trulyfreeqr.com/dynamic-qr-code-generator',
       offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD', availability: 'https://schema.org/InStock', priceValidUntil: '2099-12-31' },
-      featureList: ['Dynamic QR codes that never expire', 'Edit destination URL anytime', 'Real-time scan analytics', 'Sub-5ms redirect performance', 'SVG vector export free', 'No account or subscription required'],
+      featureList: ['Dynamic QR codes that never expire', 'Edit destination URL anytime', 'Real-time scan analytics', 'Redis-cached redirects', 'SVG vector export free', 'No account or subscription required'],
     },
     {
       '@type': 'FAQPage',
@@ -46,12 +46,12 @@ const schema = {
         {
           '@type': 'Question',
           name: 'Are dynamic QR codes really free forever on Truly Free QR?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Yes. Truly Free QR provides unlimited dynamic QR codes permanently free. There is no trial period, no subscription, and no credit card required. The service is ad-supported. Your codes remain active indefinitely on our dedicated VPS infrastructure with Redis caching for sub-5ms redirect performance.' },
+          acceptedAnswer: { '@type': 'Answer', text: 'Yes. Truly Free QR provides unlimited dynamic QR codes permanently free. There is no trial period, no subscription, and no credit card required. The service is designed to be ad-supported. Your codes remain active on our own VPS with Redis caching for fast redirects.' },
         },
         {
           '@type': 'Question',
           name: 'How do dynamic QR codes work technically?',
-          acceptedAnswer: { '@type': 'Answer', text: 'When you create a dynamic QR code on Truly Free QR, we generate a short redirect URL (e.g., trulyfreeqr.link/r/ab3k9). This short URL is encoded in the QR pattern. When someone scans the code, our redirect server — running on a dedicated VPS with Redis caching — resolves the short ID to your destination URL in under 5 milliseconds and executes a 302 redirect. Scan events are logged asynchronously for analytics.' },
+          acceptedAnswer: { '@type': 'Answer', text: 'When you create a dynamic QR code on Truly Free QR, we generate a short redirect URL (e.g., trulyfreeqr.link/r/ab3k9). This short URL is encoded in the QR pattern. When someone scans the code, our redirect server — running on a dedicated VPS with Redis caching — resolves the short ID to your destination URL within a few milliseconds and executes a 302 redirect. Scan events are logged asynchronously for analytics.' },
         },
         {
           '@type': 'Question',
@@ -97,7 +97,7 @@ export default function DynamicQRPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 16 }}>
             {[
               { title: 'Static QR Code', color: '#718096', features: ['URL encoded directly in pattern', 'Cannot be edited after creation', 'No server required to scan', 'No analytics', 'Never expires', 'Best for: fixed content, simple links'] },
-              { title: 'Dynamic QR Code', color: '#0058c3', features: ['Short redirect URL encoded', 'Edit destination anytime', 'Sub-5ms redirect via Redis', 'Full real-time analytics', 'Permanently active — free', 'Best for: menus, campaigns, packaging'] },
+              { title: 'Dynamic QR Code', color: '#0058c3', features: ['Short redirect URL encoded', 'Edit destination anytime', 'Fast redirect via Redis', 'Full real-time analytics', 'Permanently active — free', 'Best for: menus, campaigns, packaging'] },
             ].map(({ title, color, features }) => (
               <div key={title} style={{ background: '#f1f4f6', borderRadius: 8, padding: 20, borderTop: `3px solid ${color}` }}>
                 <div style={{ fontSize: 14, fontWeight: 700, color, marginBottom: 12 }}>{title}</div>
@@ -117,10 +117,10 @@ export default function DynamicQRPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {[
               ['Scan', 'User scans QR code — code contains trulyfreeqr.link/r/[shortId]'],
-              ['Cache Check', 'Redis checks for cached destination — typical hit in <1ms'],
-              ['DB Fallback', 'Cache miss triggers PostgreSQL lookup — resolved in <10ms'],
-              ['Cache Write', 'Result cached in Redis for 24 hours — subsequent scans <1ms'],
-              ['Redirect', '302 redirect to destination — total time under 5ms'],
+              ['Cache Check', 'Redis checks for a cached destination'],
+              ['DB Fallback', 'On a cache miss, a PostgreSQL lookup finds the destination'],
+              ['Cache Write', 'The result is cached in Redis for 24 hours, so later scans skip the database'],
+              ['Redirect', '302 redirect to the destination, usually within a few milliseconds on the server'],
               ['Analytics', 'Scan event queued asynchronously — zero impact on redirect speed'],
             ].map(([step, desc]) => (
               <div key={step} style={{ display: 'flex', gap: 12, background: '#fff', borderRadius: 6, padding: '10px 14px', alignItems: 'flex-start' }}>
@@ -135,8 +135,8 @@ export default function DynamicQRPage() {
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 24px' }}>Frequently Asked Questions</h2>
           {[
             ['What is a dynamic QR code?', 'A dynamic QR code encodes a short redirect URL. When scanned, the server looks up the current destination and redirects instantly. This allows you to change the destination anytime without reprinting, and enables real-time analytics.'],
-            ['Are dynamic QR codes really free forever on Truly Free QR?', 'Yes. Unlimited dynamic QR codes permanently free. No trial, no subscription, no credit card. Funded by non-intrusive advertising. Active indefinitely on our dedicated VPS with Redis caching for sub-5ms redirects.'],
-            ['How do dynamic QR codes work technically?', 'We generate a short redirect URL (trulyfreeqr.link/r/[id]) encoded in the QR pattern. When scanned, our Redis-cached VPS resolves the ID to your destination in under 5ms and executes a 302 redirect. Scan events are logged asynchronously for analytics.'],
+            ['Are dynamic QR codes really free forever on Truly Free QR?', 'Yes. Unlimited dynamic QR codes permanently free. No trial, no subscription, no credit card. Designed to be funded by advertising. Active on our own VPS with Redis caching for fast redirects.'],
+            ['How do dynamic QR codes work technically?', 'We generate a short redirect URL (trulyfreeqr.link/r/[id]) encoded in the QR pattern. When scanned, our Redis-cached VPS resolves the ID to your destination within a few milliseconds and executes a 302 redirect. Scan events are logged asynchronously for analytics.'],
             ['Can I edit a dynamic QR code after printing?', 'Yes. Update the destination URL from your dashboard anytime — without generating a new code or reprinting. The physical QR code stays identical; only the server-side destination changes.'],
           ].map(([q, a], i) => (
             <div key={i} style={{ borderTop: i === 0 ? 'none' : '1px solid rgba(74,85,104,0.1)', paddingTop: i === 0 ? 0 : 20, marginTop: i === 0 ? 0 : 20 }}>

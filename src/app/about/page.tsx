@@ -71,13 +71,13 @@ export default function AboutPage() {
           <div style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", color: "#718096", textTransform: "uppercase", marginBottom: "20px" }}>THE PROBLEM WE SOLVE</div>
           <h2 style={{ fontSize: "clamp(22px, 3vw, 32px)", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 20px" }}>How QR code providers trap small businesses</h2>
           <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
-            The dominant QR code platforms — with Domain Ratings above 70 and millions of monthly visitors — all share the same business model. They offer a free trial, typically 14 days, for dynamic QR codes. During the trial, users generate codes and deploy them on printed materials: restaurant table cards, product packaging, real estate signs, event flyers.
+            Many QR code platforms follow the same pattern. They offer a free trial, often around 14 days, for dynamic QR codes. During the trial, users generate codes and put them on printed materials: restaurant table cards, product packaging, real estate signs, event flyers.
           </p>
           <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
-            When the trial ends, the platform deactivates the codes. The redirect engine stops resolving. Any code already printed on physical materials becomes a dead link. The cost to reprint is often higher than the annual subscription — which creates leverage. Users pay not because the product delivers value proportional to the price, but because they have no other option once they have committed to printed materials.
+            When the trial ends without a paid plan, the codes can stop working. The redirect stops resolving, and any code already printed on physical materials becomes a dead link. Reprinting often costs more than a subscription, so the real choice is to pay or to reprint.
           </p>
           <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.75, marginBottom: "0" }}>
-            Sentiment analysis across Trustpilot and G2 reviews for the top QR platforms shows users repeatedly using the words "blackmail" and "extortion." The industry has a user satisfaction problem it has chosen to monetize rather than solve. Truly Free QR exists to solve it.
+            A printed code is a promise to whoever scans it. Truly Free QR is built on the opposite assumption: a dynamic code you create stays active, and you can change where it points whenever you need to. The service is designed to be funded by advertising rather than subscriptions, so there is no plan to lapse.
           </p>
         </div>
       </section>
@@ -87,10 +87,10 @@ export default function AboutPage() {
           <div style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.08em", color: "#718096", textTransform: "uppercase", marginBottom: "20px" }}>TECHNICAL ARCHITECTURE</div>
           <h2 style={{ fontSize: "clamp(22px, 3vw, 32px)", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 20px" }}>How the platform stays free and fast</h2>
           <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
-            Truly Free QR runs on a decoupled architecture designed for low latency and high availability. The frontend is a Next.js application deployed on Vercel, handling the QR generator interface, the analytics dashboard, and all content pages. The redirect engine runs separately on a dedicated VPS with Redis caching, achieving redirect resolution times under 5 milliseconds.
+            Truly Free QR is split into two services. The website is a Next.js application that handles the QR generator interface, the analytics dashboard, and all content pages. The redirect engine runs separately on our own VPS with Redis caching, so a scan resolves with a quick cache lookup on the server.
           </p>
           <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
-            The separation is intentional and critical. It means that even if the frontend application were taken offline for maintenance, all existing dynamic QR codes would continue to resolve correctly. The redirect infrastructure is operationally independent, and its uptime is monitored in real time.
+            The separation is intentional. If the website is restarted or updated, existing dynamic QR codes keep resolving, because the redirect engine is a separate service.
           </p>
           <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.75, marginBottom: "0" }}>
             Safe-Scan — the anti-phishing layer — checks every destination when you create or edit a code. It only accepts https links, rejects URL shorteners and high-risk address patterns, and looks the address up on Google Safe Browsing. Each code also gets a Safe-Scan page that shows where it leads and what the checks found. QR phishing (quishing) keeps growing: the Anti-Phishing Working Group counted 716,306 malicious QR codes in the third quarter of 2025 alone. Safe-Scan is our contribution to that problem, and it has limits: the check runs at creation and edit time, not on every scan.
@@ -104,7 +104,7 @@ export default function AboutPage() {
           <div style={{ display: "grid", gap: "32px" }}>
             <div>
               <h3 style={{ fontSize: "18px", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 8px" }}>No expiration. Ever.</h3>
-              <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: 0 }}>Every dynamic QR code created on Truly Free QR stays active permanently. We make money through advertising, not by holding your codes hostage. The business model funds the infrastructure; the infrastructure does not depend on your continued payment.</p>
+              <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: 0 }}>Every dynamic QR code created on Truly Free QR stays active permanently. The service is designed to be funded by advertising, not by holding your codes hostage. Your codes do not depend on a payment from you.</p>
             </div>
             <div>
               <h3 style={{ fontSize: "18px", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 8px" }}>No account required.</h3>
@@ -116,7 +116,7 @@ export default function AboutPage() {
             </div>
             <div>
               <h3 style={{ fontSize: "18px", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 8px" }}>Transparent monetization.</h3>
-              <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: 0 }}>The platform is ad-supported. Display ads appear on non-critical pages: the dashboard, success pages, and content pages. The generation flow and the redirect engine are ad-free. The service earns through advertising, not subscriptions.</p>
+              <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: 0 }}>The platform is designed to be ad-supported. Ads are limited to the generator page, the dashboard and content pages. The redirect that runs when someone scans a code never shows an ad. The goal is a service funded by advertising, not subscriptions.</p>
             </div>
           </div>
         </div>

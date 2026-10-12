@@ -83,7 +83,7 @@ export default function NichePageTemplate({
             <Link href="/" style={{ padding: '14px 22px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.14)', color: 'rgba(255,255,255,0.85)', borderRadius: 4, fontSize: 14, fontWeight: 500, textDecoration: 'none' }}>See All Features</Link>
           </div>
           <div style={{ display: 'flex', gap: 24, justifyContent: 'center', flexWrap: 'wrap', fontSize: 12, color: 'rgba(255,255,255,0.48)' }}>
-            {['$0 forever','No credit card','No account required','Codes never expire','<5ms redirect speed','Safe-Scan link checks'].map(t => (
+            {['$0 forever','No credit card','No account required','Codes never expire','Fast Redis-cached redirects','Safe-Scan link checks'].map(t => (
               <span key={t} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                 <span style={{ color: '#22c55e' }}>✓</span>{t}
               </span>
@@ -103,10 +103,10 @@ export default function NichePageTemplate({
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#dc2626', marginBottom: 10 }}>THE INDUSTRY PROBLEM</div>
             <h2 style={{ fontSize: 'clamp(18px,2.5vw,24px)', fontWeight: 700, letterSpacing: '-0.02em', margin: '0 0 14px', color: '#181c1e' }}>Why did my {industry} QR code stop working?</h2>
             <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>
-              Most QR generators offer a "free" dynamic QR code — then deactivate it after 14 days unless you pay $111–$180 per year. This practice, known as the QR bait-and-switch, has left thousands of {industry.toLowerCase()} professionals with broken codes on printed materials they cannot replace overnight. Users on Trustpilot describe feeling "blackmailed" after codes printed on menus, signage, and product packaging suddenly stopped working.
+              Many QR generators offer a &quot;free&quot; dynamic QR code, then deactivate it after about 14 days unless you pay for a plan, often over $100 per year. This practice, known as the QR bait-and-switch, can leave {industry.toLowerCase()} professionals with broken codes on printed materials they cannot replace overnight: a code printed on menus, signage, or product packaging that stops working means paying or reprinting.
             </p>
             <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>
-              <strong style={{ color: '#181c1e' }}>Truly Free QR is built on a different model.</strong> Our revenue comes from advertising — not from threatening to deactivate your codes. Dynamic QR codes with no expiration, no trial limit, and no subscription are not a premium feature here. They are the baseline.
+              <strong style={{ color: '#181c1e' }}>Truly Free QR is built on a different model.</strong> The service is designed to be funded by advertising, not by threatening to deactivate your codes. Dynamic QR codes with no expiration, no trial limit, and no subscription are not a premium feature here. They are the baseline.
             </p>
           </div>
         </section>
@@ -137,7 +137,7 @@ export default function NichePageTemplate({
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 16 }}>
             {[
-              { icon: '⚡', title: '<5ms Redirect Speed', desc: 'Redis in-memory cache serves redirects in under 5 milliseconds. Zero perceptible delay for users scanning in real environments.' },
+              { icon: '⚡', title: 'Fast Redirects', desc: 'A Redis in-memory cache on our own server handles the redirect lookup in a few milliseconds, so scanning feels immediate in real environments.' },
               { icon: '🛡️', title: 'Safe-Scan Protection', desc: 'Every dynamic code is checked when you create or edit it: https only, no URL shorteners, Google Safe Browsing lookup. Phishing QR codes keep growing.' },
               { icon: '♾️', title: 'No Expiration Architecture', desc: 'Ad-supported revenue model means zero financial incentive to deactivate your codes. Infrastructure funded by ads, not subscription threats.' },
               { icon: '📐', title: 'SVG Vector Export', desc: 'Download as SVG for infinite-resolution printing. Critical for professional materials where pixelation destroys credibility.' },

@@ -46,12 +46,12 @@ const schema = {
         {
           '@type': 'Question',
           name: 'How do I create a free dynamic QR code for my restaurant menu?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Paste your menu URL into Truly Free QR, click Make Dynamic, and download your code in PNG or SVG format. The QR code points to a short redirect URL hosted on our high-performance VPS infrastructure with sub-5ms response time. When your menu changes, update the destination URL in your dashboard — no reprinting required. The process takes under 60 seconds and requires no account or email.' },
+          acceptedAnswer: { '@type': 'Answer', text: 'Paste your menu URL into Truly Free QR, click Make Dynamic, and download your code in PNG or SVG format. The QR code points to a short redirect URL hosted on our own VPS with Redis caching. When your menu changes, update the destination URL in your dashboard — no reprinting required. The process takes under 60 seconds and requires no account or email.' },
         },
         {
           '@type': 'Question',
           name: 'Why did my restaurant QR code stop working?',
-          acceptedAnswer: { '@type': 'Answer', text: 'If your QR code stopped working, your previous provider likely deactivated it after a free trial period ended. This is a common practice among paid QR generators that use dynamic codes as bait to force subscriptions. On Truly Free QR, codes are permanently active. Our infrastructure runs on a dedicated VPS with Redis caching, meaning your codes resolve in under 5 milliseconds — and they never expire.' },
+          acceptedAnswer: { '@type': 'Answer', text: 'If your QR code stopped working, your previous provider likely deactivated it after a free trial period ended. This is a common practice among paid QR generators that use dynamic codes as bait to force subscriptions. On Truly Free QR, codes are permanently active. Our redirects run on a dedicated VPS with Redis caching, and the dynamic codes you create do not expire.' },
         },
         {
           '@type': 'Question',
@@ -85,7 +85,7 @@ export default function RestaurantQRPage() {
         <div style={{ background: '#fff', borderRadius: 8, padding: 32, marginBottom: 32, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)' }}>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 16px' }}>The Industry Problem — And Why We Built This</h2>
           <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>The restaurant industry lost millions in wasted print materials because of a predatory industry practice: QR code generators offer "free" dynamic codes, wait until restaurants print them on menus, table cards, and signage — then deactivate the codes unless a subscription of $100–$180 per year is paid.</p>
-          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>Truly Free QR was built to end this. Our infrastructure runs on a dedicated high-performance server with Redis caching — your QR code resolves in under 5 milliseconds and remains active permanently. No trial. No expiration. No hostage codes.</p>
+          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>Truly Free QR was built to end this. Our redirects run on our own server with Redis caching, and your dynamic QR code remains active. No trial. No expiration. No hostage codes.</p>
         </div>
 
         <div style={{ background: '#f1f4f6', borderRadius: 8, padding: 32, marginBottom: 32 }}>
@@ -115,7 +115,7 @@ export default function RestaurantQRPage() {
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 16px' }}>How It Works — 3 Steps</h2>
           {[
             ['1. Paste Your Menu URL', 'Enter the URL of your online menu — Google Drive PDF, website, or any link. The generator creates a QR code instantly, no account needed.'],
-            ['2. Click Make Dynamic (Free)', 'Your code is saved to our high-performance infrastructure. The redirect resolves in under 5ms via Redis caching on a dedicated server.'],
+            ['2. Click Make Dynamic (Free)', 'Your code is saved to our server. The redirect is looked up in a Redis cache on a dedicated server, so it takes only a few milliseconds there.'],
             ['3. Download and Print', 'Download in PNG (3000×3000px) or SVG vector for unlimited print scaling. When your menu changes, update the destination from your dashboard — no reprinting.'],
           ].map(([title, desc]) => (
             <div key={String(title)} style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
@@ -132,8 +132,8 @@ export default function RestaurantQRPage() {
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 24px' }}>Frequently Asked Questions</h2>
           {[
             ['Do dynamic QR codes for restaurants expire?', 'On Truly Free QR, never. Most competitors deactivate dynamic QR codes after a 14-day free trial and demand annual subscriptions of $100–$180. We guarantee permanent activation at zero cost. Your printed menus will never become obsolete due to an expired subscription.'],
-            ['How do I create a free dynamic QR code for my restaurant menu?', 'Paste your menu URL into Truly Free QR, click Make Dynamic, and download in PNG or SVG. The code points to a short redirect URL on our VPS infrastructure with sub-5ms response time. When your menu changes, update the destination from your dashboard — no reprinting required. The entire process takes under 60 seconds with no account or email needed.'],
-            ['Why did my restaurant QR code stop working?', 'Your previous provider deactivated it after a free trial ended. This is standard practice: dynamic codes are used as bait to force subscriptions. On Truly Free QR, codes are permanently active. Our dedicated server with Redis caching ensures your codes resolve in under 5 milliseconds — and they never expire.'],
+            ['How do I create a free dynamic QR code for my restaurant menu?', 'Paste your menu URL into Truly Free QR, click Make Dynamic, and download in PNG or SVG. The code points to a short redirect URL on our own VPS with Redis caching. When your menu changes, update the destination from your dashboard — no reprinting required. The entire process takes under 60 seconds with no account or email needed.'],
+            ['Why did my restaurant QR code stop working?', 'Your previous provider deactivated it after a free trial ended. This is standard practice: dynamic codes are used as bait to force subscriptions. On Truly Free QR, codes are permanently active. Our dedicated server with Redis caching handles the redirects, and the dynamic codes you create do not expire.'],
             ['Is it safe for customers to scan QR codes at my restaurant?', 'Yes, when the code is made with care. Safe-Scan checks the destination when you create or edit a dynamic code (https only, no URL shorteners, Google Safe Browsing lookup). It does not re-check on every scan, so look at your table codes from time to time for stickers placed over them.'],
             ['Can I track how many customers scan my restaurant QR code?', 'Yes. Every dynamic QR code includes real-time analytics: total scan count, country of origin, device type, and hourly activity — all free, no account required.'],
           ].map(([q, a], i) => (
