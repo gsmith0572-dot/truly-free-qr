@@ -43,7 +43,7 @@ const STEPS = [
   { t: "8. Download and print", d: "Download as SVG for best quality. Print at any size – at least 1 inch for tabletop, 2 inches for wall mounting. Laminate if it will be exposed to moisture or sunlight." },
 ]
 
-const pStyle = { fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" } as const
+const pStyle = { fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px", overflowWrap: "anywhere" } as const
 const h2Style = { fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" } as const
 
 export default function ArticleQRWifiPasswordFree() {
@@ -85,7 +85,7 @@ export default function ArticleQRWifiPasswordFree() {
           {STEPS.map((s) => (
             <div key={s.t} style={{ background: "#fff", borderRadius: 8, border: "1px solid rgba(74,85,104,0.09)", padding: "18px 22px", marginBottom: 10 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#181c1e", marginBottom: 8 }}>{s.t}</div>
-              <div style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65 }}>{s.d}</div>
+              <div style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.65, overflowWrap: "anywhere" }}>{s.d}</div>
             </div>
           ))}
         </section>

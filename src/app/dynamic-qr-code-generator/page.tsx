@@ -94,7 +94,7 @@ export default function DynamicQRPage() {
 
         <div style={{ background: '#fff', borderRadius: 8, padding: 32, marginBottom: 32, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)' }}>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 16px' }}>Static vs Dynamic — Which One Do You Need?</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 16 }}>
             {[
               { title: 'Static QR Code', color: '#718096', features: ['URL encoded directly in pattern', 'Cannot be edited after creation', 'No server required to scan', 'No analytics', 'Never expires', 'Best for: fixed content, simple links'] },
               { title: 'Dynamic QR Code', color: '#0058c3', features: ['Short redirect URL encoded', 'Edit destination anytime', 'Sub-5ms redirect via Redis', 'Full real-time analytics', 'Permanently active — free', 'Best for: menus, campaigns, packaging'] },

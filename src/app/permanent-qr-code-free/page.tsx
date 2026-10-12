@@ -86,7 +86,7 @@ export default function PermanentQRPage() {
 
         <div style={{ background: '#f1f4f6', borderRadius: 8, padding: 32, marginBottom: 32 }}>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 20px' }}>Static vs Dynamic — Both Permanent, Both Free</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 16 }}>
             {[
               { title: 'Static QR Code', features: ['Encodes URL directly in pattern', 'No server required to scan', 'Cannot be edited after creation', 'Zero tracking capabilities', 'Never expires — by design', 'Best for: business cards, simple links'] },
               { title: 'Dynamic QR Code', features: ['Encodes short redirect URL', 'Sub-5ms redirect via Redis cache', 'Edit destination URL anytime', 'Full scan analytics included', 'Permanently active — guaranteed', 'Best for: menus, packaging, signage'] },
