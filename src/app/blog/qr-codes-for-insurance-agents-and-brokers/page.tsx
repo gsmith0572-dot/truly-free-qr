@@ -447,8 +447,8 @@ export default function Page() {
             </Link>
           </li>
           <li>
-            <Link href="/blog/qr-codes-for-pharmacies-and-medical-supply-companies" style={{ color: '#0b1d2e' }}>
-              QR Codes for Pharmacies and Medical Supply Companies
+            <Link href="/blog/qr-code-industry-usage" style={{ color: '#0b1d2e' }}>
+              QR Code Usage by Industry 2026: Restaurants, Retail, Healthcare &amp; More
             </Link>
           </li>
           <li>

@@ -9,10 +9,7 @@ const STATIC_SLUGS = new Set([
 ])
 
 const BLOG_POSTS: { slug: string; date: string }[] = [
-  { slug: 'qr-codes-for-personal-trainers-and-health-coaches', date: '2026-10-02' },
-  { slug: 'qr-codes-for-childcare-centers-and-preschools', date: '2026-09-25' },
   { slug: 'qr-codes-for-home-services-plumbers-electricians-and-contrac', date: '2026-09-18' },
-  { slug: 'how-small-businesses-use-qr-codes-to-compete-with-larger-cha', date: '2026-09-04' },
   { slug: 'qr-code-statistics', date: '2026-05-04' },
   { slug: 'qr-code-market-size', date: '2026-05-04' },
   { slug: 'qr-code-industry-usage', date: '2026-05-04' },
@@ -39,11 +36,9 @@ const BLOG_POSTS: { slug: string; date: string }[] = [
   { slug: 'how-to-update-qr-code-without-reprinting', date: '2026-06-10' },
   { slug: 'qr-code-wifi-password-free', date: '2026-06-10' },
   { slug: 'qr-code-for-churches-nonprofits', date: '2026-08-29' },
-  { slug: 'qr-codes-for-spas-and-salons-booking-links-and-loyalty-progr', date: '2026-08-29' },
   { slug: 'qr-code-size-guide-minimum-size-for-print-fabric-and-outdoor', date: '2026-08-29' },
   { slug: 'how-to-use-qr-codes-in-email-campaigns', date: '2026-08-29' },
   { slug: 'qr-codes-for-insurance-agents-and-brokers', date: '2026-08-29' },
-  { slug: 'qr-codes-for-pharmacies-and-medical-supply-companies', date: '2026-08-29' },
   { slug: 'qr-codes-for-accountants-and-financial-advisors', date: '2026-08-29' },
 ]
 
