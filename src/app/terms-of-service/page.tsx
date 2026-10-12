@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Terms of Service | Truly Free QR',
-  description: 'Truly Free QR terms of service. Dynamic QR codes never expire. No subscription traps. Safe-Scan protection on all codes. Read our ethical service commitment.',
+  description: 'Truly Free QR terms of service. Dynamic QR codes never expire. No subscription traps. Safe-Scan link checks on dynamic codes. Read our ethical service commitment.',
   alternates: { canonical: 'https://trulyfreeqr.com/terms-of-service' },
   robots: { index: true, follow: true },
 }
@@ -43,7 +43,7 @@ export default function TermsOfService() {
           },
           {
             label: '5. Safe-Scan Security Commitment',
-            content: `Truly Free QR includes Safe-Scan protection on all dynamic codes. Before executing a redirect, our system verifies the destination URL against threat intelligence databases. Users are provided the ability to preview the destination URL before being redirected. We reserve the right to deactivate any dynamic QR code whose destination URL is confirmed as a phishing site, malware distributor, or other security threat — without prior notice. This is the only circumstance under which we may deactivate a code without user consent. Deactivated codes due to security threats will display a Safe-Scan warning page rather than executing the redirect.`
+            content: `Truly Free QR includes Safe-Scan link checks on dynamic codes. When a dynamic code is created or edited, our system checks the destination URL: only https destinations are accepted, URL shorteners and high-risk address patterns are rejected, and the address is looked up on Google Safe Browsing. Each dynamic code also has a Safe-Scan page that shows the destination and the results of the checks. These checks run at creation and edit time and are not a guarantee about what a destination does later. We reserve the right to deactivate any dynamic QR code whose destination URL is confirmed as a phishing site, malware distributor, or other security threat — without prior notice. This is the only circumstance under which we may deactivate a code without user consent. A deactivated code stops redirecting.`
           },
           {
             label: '6. Acceptable Use Policy',
@@ -79,7 +79,7 @@ export default function TermsOfService() {
           },
           {
             label: '14. Contact',
-            content: `For questions about these Terms of Service, contact us at legal@trulyfreeqr.com. For privacy-related requests, use privacy@trulyfreeqr.com.`
+            content: `For questions about these Terms of Service, contact us at info@klickifyagency.com. For privacy-related requests, use info@klickifyagency.com.`
           },
         ].map(({ label, content }) => (
           <div key={label} style={{ marginBottom: 32 }}>

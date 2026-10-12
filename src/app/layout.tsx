@@ -20,6 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="manifest" href="/manifest.json" />
+        {/* AdSense site connection. Ads stay off until ADSENSE_ENABLED is flipped in AdSlot.tsx. */}
+        <meta name="google-adsense-account" content="ca-pub-8680464039127093" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8680464039127093" crossOrigin="anonymous" />
       </head>
       <body className={inter.className}>
         <Header />

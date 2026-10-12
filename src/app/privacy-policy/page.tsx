@@ -27,7 +27,7 @@ export default function PrivacyPolicy() {
         {[
           {
             label: '1. Who We Are',
-            content: `Truly Free QR ("we," "our," or "us") is a free QR code generation service operated by Klickify Agency. Our registered domain is trulyfreeqr.com. Our redirect infrastructure operates at trulyfreeqr.link. We can be contacted at privacy@trulyfreeqr.com.`
+            content: `Truly Free QR ("we," "our," or "us") is a free QR code generation service operated by Klickify Agency. Our registered domain is trulyfreeqr.com. Our redirect infrastructure operates at trulyfreeqr.link. We can be contacted at info@klickifyagency.com.`
           },
           {
             label: '2. Data We Do Not Collect',
@@ -63,7 +63,7 @@ export default function PrivacyPolicy() {
           },
           {
             label: '10. Your Rights',
-            content: `You have the right to request deletion of any dynamic QR code and its associated anonymized analytics data by contacting us at privacy@trulyfreeqr.com with the short ID of the code. Because we do not store email addresses, deletion requests must include the short ID. You have the right to know what data is associated with a specific short ID. If you are located in the European Economic Area, United Kingdom, or California, you may have additional rights under GDPR, UK GDPR, or CCPA respectively.`
+            content: `You have the right to request deletion of any dynamic QR code and its associated anonymized analytics data by contacting us at info@klickifyagency.com with the short ID of the code. Because we do not store email addresses, deletion requests must include the short ID. You have the right to know what data is associated with a specific short ID. If you are located in the European Economic Area, United Kingdom, or California, you may have additional rights under GDPR, UK GDPR, or CCPA respectively.`
           },
           {
             label: '11. Security',
@@ -71,7 +71,7 @@ export default function PrivacyPolicy() {
           },
           {
             label: '12. Children',
-            content: `Truly Free QR is not directed at children under the age of 13. We do not knowingly collect any information from children. If you believe a child has provided information through our service, contact us at privacy@trulyfreeqr.com.`
+            content: `Truly Free QR is not directed at children under the age of 13. We do not knowingly collect any information from children. If you believe a child has provided information through our service, contact us at info@klickifyagency.com.`
           },
           {
             label: '13. Changes to This Policy',
@@ -79,7 +79,7 @@ export default function PrivacyPolicy() {
           },
           {
             label: '14. Contact',
-            content: `For privacy-related questions or data deletion requests, contact us at privacy@trulyfreeqr.com. We respond to all requests within 30 days.`
+            content: `For privacy-related questions or data deletion requests, contact us at info@klickifyagency.com. We respond to all requests within 30 days.`
           },
         ].map(({ label, content }) => (
           <div key={label} style={{ marginBottom: 32 }}>

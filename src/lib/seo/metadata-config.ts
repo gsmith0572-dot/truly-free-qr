@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { BASE_URL } from './schema'
 const SITE_NAME = 'Truly Free QR'
-const DEFAULT_DESCRIPTION = 'Generate dynamic QR codes that never expire — free forever. No account, no subscription, no credit card. Real-time analytics, SVG export, and Safe-Scan protection included.'
+const DEFAULT_DESCRIPTION = 'Free dynamic QR code generator: codes never expire, no account or credit card needed. Scan analytics, PNG and SVG downloads, and Safe-Scan link checks.'
 const DEFAULT_OG_IMAGE = { url: `${BASE_URL}/og/default.png`, width: 1200, height: 630, alt: 'Truly Free QR — Dynamic QR codes, free forever. No expiration.', type: 'image/png' }
 export const rootMetadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -15,14 +15,13 @@ export const rootMetadata: Metadata = {
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
   openGraph: { type: 'website', locale: 'en_US', url: BASE_URL, siteName: SITE_NAME, title: 'Free QR Code Generator — Dynamic Codes That Never Expire', description: 'The only QR generator where free means free forever. Dynamic codes, real-time analytics, SVG export — zero subscriptions, zero account required.', images: [DEFAULT_OG_IMAGE] },
   twitter: { card: 'summary_large_image', site: '@trulyfreeqr', creator: '@trulyfreeqr', title: 'Free QR Code Generator — No Expiration, No Account', description: 'Dynamic QR codes that never expire. Real-time analytics. SVG export. 100% free forever.', images: [`${BASE_URL}/og/default.png`] },
-  verification: { google: 'REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN' },
   manifest: `${BASE_URL}/manifest.json`,
   icons: { icon: [{ url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' }, { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' }], apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }] },
 }
 export interface NichePageConfig { slug: string; industry: string; title: string; description: string; ogImageSlug?: string; canonical?: string; noIndex?: boolean }
 export function generateNicheMetadata(config: NichePageConfig): Metadata {
   const url = `${BASE_URL}/${config.slug}`
-  const ogImage = config.ogImageSlug ? `${BASE_URL}/og/${config.ogImageSlug}` : `${BASE_URL}/og/default.png`
+  const ogImage = `${BASE_URL}/og/default.png`
   return { title: config.title, description: config.description, alternates: { canonical: config.canonical ?? url }, robots: config.noIndex ? { index: false, follow: false } : { index: true, follow: true }, openGraph: { type: 'website', url, siteName: SITE_NAME, title: config.title, description: config.description, images: [{ url: ogImage, width: 1200, height: 630, alt: config.title }] }, twitter: { card: 'summary_large_image', title: config.title, description: config.description, images: [ogImage] } }
 }
 export const nichePages: Record<string, NichePageConfig> = {
@@ -34,6 +33,6 @@ export const nichePages: Record<string, NichePageConfig> = {
   vcard: { slug: 'vcard-qr-code-generator', industry: 'vCard', title: 'Free vCard QR Code Generator — Digital Business Card', description: 'Turn your contact info into a scannable QR business card. Free, permanent, no account required.', ogImageSlug: 'vcard.png' },
   restaurant: { slug: 'qr-code-for-restaurants', industry: 'Restaurants', title: 'QR Code Menu for Restaurants — Free, Contactless, Never Expires', description: 'Create a contactless menu QR code for your restaurant. Update your menu anytime without reprinting.', ogImageSlug: 'restaurant.png' },
   realEstate: { slug: 'qr-code-for-real-estate', industry: 'Real Estate', title: 'Real Estate QR Codes — Free Generator for Property Listings', description: 'Generate QR codes for property listings, virtual tours, and open house signage.', ogImageSlug: 'real-estate.png' },
-  safeScan: { slug: 'safe-qr-code-generator', industry: 'Security', title: 'Safe QR Code Generator — Built-in Phishing Protection', description: 'The only QR generator with Safe-Scan: verify destinations before redirecting. Protect your users from QR phishing attacks.', ogImageSlug: 'safe-scan.png' },
+  safeScan: { slug: 'safe-qr-code-generator', industry: 'Security', title: 'Safe QR Code Generator — Safe-Scan Link Checks', description: 'Free QR generator with Safe-Scan link checks: https-only destinations, no URL shorteners, Google Safe Browsing lookup. No account needed.', ogImageSlug: 'safe-scan.png' },
   dashboard: { slug: 'dashboard', industry: 'Dashboard', title: 'My QR Codes — Dashboard', description: 'Manage your QR codes and view real-time analytics.', noIndex: true, canonical: `${BASE_URL}/dashboard` },
 }

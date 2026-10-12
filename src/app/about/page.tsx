@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About Truly Free QR | Built by George Smith, Klickify Agency",
-  description: "Truly Free QR was built by George Smith, founder of Klickify Agency, to end the 14-day QR bait-and-switch. Learn how the platform works, why it is permanently free, and what Safe-Scan protection means for your business.",
+  description: "Truly Free QR was built by George Smith, founder of Klickify Agency, to end the 14-day QR bait-and-switch. How it works, why it is free, and what Safe-Scan link checks do.",
   alternates: { canonical: "https://trulyfreeqr.com/about" },
 };
 
@@ -23,14 +23,14 @@ const organizationSchema = {
       name: "Klickify Agency",
     },
   },
-  description: "Free dynamic QR code generator with no expiration, no account required, and Safe-Scan anti-phishing protection built in.",
-  foundingDate: "2025",
+  description: "Free dynamic QR code generator with no expiration, no account required, and Safe-Scan link checks built in.",
+  foundingDate: "2026",
   sameAs: ["https://www.linkedin.com/in/george-smith-832113217/"],
 };
 
 export default function AboutPage() {
   return (
-    <main style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "-0.02em", color: "#0a0f1e", overflowX: "hidden" }}>
+    <div style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "-0.02em", color: "#0a0f1e", overflowX: "hidden" }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
@@ -93,7 +93,7 @@ export default function AboutPage() {
             The separation is intentional and critical. It means that even if the frontend application were taken offline for maintenance, all existing dynamic QR codes would continue to resolve correctly. The redirect infrastructure is operationally independent, and its uptime is monitored in real time.
           </p>
           <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.75, marginBottom: "0" }}>
-            Safe-Scan — the anti-phishing layer — runs inline with every redirect. Before the redirect completes, the system performs three checks: SSL certificate validity, domain reputation against a threat intelligence database, and a lookup against the Google Safe Browsing API. QR phishing attacks (quishing) increased 400% between 2023 and 2025. Safe-Scan is our answer to that threat.
+            Safe-Scan — the anti-phishing layer — checks every destination when you create or edit a code. It only accepts https links, rejects URL shorteners and high-risk address patterns, and looks the address up on Google Safe Browsing. Each code also gets a Safe-Scan page that shows where it leads and what the checks found. QR phishing (quishing) keeps growing: the Anti-Phishing Working Group counted 716,306 malicious QR codes in the third quarter of 2025 alone. Safe-Scan is our contribution to that problem, and it has limits: the check runs at creation and edit time, not on every scan.
           </p>
         </div>
       </section>
@@ -111,8 +111,8 @@ export default function AboutPage() {
               <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: 0 }}>Generate, customize, and download QR codes instantly. We do not ask for your email address, your credit card, or your personal information. The tool works from the moment you land on the page. No registration wall, no onboarding sequence.</p>
             </div>
             <div>
-              <h3 style={{ fontSize: "18px", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 8px" }}>Safe-Scan protection.</h3>
-              <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: 0 }}>Every redirect is screened against Google Safe Browsing. Users see a destination preview before the redirect completes — protection against QR phishing that most generators ignore entirely.</p>
+              <h3 style={{ fontSize: "18px", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 8px" }}>Safe-Scan link checks.</h3>
+              <p style={{ fontSize: "15px", color: "#4a5568", lineHeight: 1.7, letterSpacing: "-0.01em", margin: 0 }}>Every destination is checked against Google Safe Browsing when you create or edit a code, and each code has a Safe-Scan page that shows where it leads.</p>
             </div>
             <div>
               <h3 style={{ fontSize: "18px", fontWeight: 700, letterSpacing: "-0.02em", color: "#181c1e", margin: "0 0 8px" }}>Transparent monetization.</h3>
@@ -130,6 +130,6 @@ export default function AboutPage() {
           <p style={{ fontSize: "13px", color: "#718096", marginTop: "8px" }}>Typical response time: 24–48 hours.</p>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
