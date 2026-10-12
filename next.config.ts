@@ -47,6 +47,11 @@ const nextConfig: NextConfig = {
         destination: "/blog/how-to-create-qr-code-free",
         permanent: true,
       },
+      {
+        source: "/blog/how-to-use-qr-codes-in-email-campaigns",
+        destination: "/blog/how-to-create-qr-code-free",
+        permanent: true,
+      },
     ]
   },
 }
