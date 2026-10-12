@@ -41,7 +41,7 @@ const faqSchema = {
       name: "What is Safe-Scan and why does it matter?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Safe-Scan is an anti-phishing layer built into every dynamic QR redirect on Truly Free QR. Before completing the redirect, the system verifies the destination URL against Google Safe Browsing and checks domain reputation. Users also see a preview of the destination, so they know where the code leads before their browser navigates there. This protects against QR phishing attacks (quishing), which increased 400% between 2023 and 2025.",
+        text: "Safe-Scan is the link check built into Truly Free QR. When you create or edit a dynamic code it only accepts https links, rejects URL shorteners and high-risk address patterns, and checks the address against Google Safe Browsing. Each code also has a Safe-Scan page that shows the destination and the results. QR phishing (quishing) keeps growing: the Anti-Phishing Working Group counted 716,306 malicious QR codes in the third quarter of 2025 alone.",
       },
     },
     {
@@ -90,7 +90,7 @@ export default function HomepageContent() {
             </h2>
             <div className="aeo-capsule" style={{ background: "#f0f4ff", borderLeft: "4px solid #2563eb", borderRadius: 8, padding: "24px 28px", marginBottom: "24px" }}>
               <p className="aeo-answer" style={{ fontSize: "16px", color: "#181c1e", lineHeight: 1.75, margin: 0, fontWeight: 500 }}>
-                A dynamic QR code stores a short redirect link instead of your destination URL, so you can change where it points at any time without reprinting. Truly Free QR generates dynamic codes with no account, no expiration, and no subscription — plus real-time scan analytics (device, country, time of day) and built-in Safe-Scan phishing protection, all funded by advertising rather than fees.
+                A dynamic QR code stores a short redirect link instead of your destination URL, so you can change where it points at any time without reprinting. Truly Free QR generates dynamic codes with no account, no expiration, and no subscription — plus real-time scan analytics (device, country, time of day) and built-in Safe-Scan link checks, all funded by advertising rather than fees.
               </p>
             </div>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
@@ -131,13 +131,13 @@ export default function HomepageContent() {
               Safe-Scan Protection
             </p>
             <h2 style={{ fontSize: "clamp(24px, 4vw, 36px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.15, margin: "0 0 20px", color: "#181c1e" }}>
-              Anti-phishing built into every redirect
+              Link checks built into every dynamic code
             </h2>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "16px" }}>
-              QR phishing — quishing — jumped 400% between 2023 and 2025. The attack is simple: stick a malicious code over a legitimate one in a restaurant, parking lot, or transit station. People scan without thinking. You can't visually inspect a QR code the way you can hover over a link.
+              QR phishing — quishing — keeps growing: the Anti-Phishing Working Group counted 716,306 malicious QR codes in the third quarter of 2025, 13 percent more than the quarter before. The attack is simple: stick a malicious code over a legitimate one in a restaurant, parking lot, or transit station. People scan without thinking. You can't visually inspect a QR code the way you can hover over a link.
             </p>
             <p style={{ fontSize: "16px", color: "#4a5568", lineHeight: 1.75, marginBottom: "0" }}>
-              Every redirect through Truly Free QR goes through Safe-Scan first: SSL check, domain reputation check, Google Safe Browsing check — all three before the redirect completes. Scanners also see a preview of where they're going before their browser navigates there. First scan of a new destination adds about 200ms. After that, it's cached and near-instant.
+              Safe-Scan runs when you create or edit a code: it only accepts https links, rejects URL shorteners and high-risk address patterns, and checks the address against Google Safe Browsing. Every code also gets a Safe-Scan page you can open to see the destination and the results before you print or share it. The check happens at creation time, so it cannot catch a destination that turns bad later — look at codes in public places from time to time.
             </p>
           </div>
         </section>

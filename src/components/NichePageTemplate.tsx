@@ -83,7 +83,7 @@ export default function NichePageTemplate({
             <Link href="/" style={{ padding: '14px 22px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.14)', color: 'rgba(255,255,255,0.85)', borderRadius: 4, fontSize: 14, fontWeight: 500, textDecoration: 'none' }}>See All Features</Link>
           </div>
           <div style={{ display: 'flex', gap: 24, justifyContent: 'center', flexWrap: 'wrap', fontSize: 12, color: 'rgba(255,255,255,0.48)' }}>
-            {['$0 forever','No credit card','No account required','Codes never expire','<5ms redirect speed','Safe-Scan protection'].map(t => (
+            {['$0 forever','No credit card','No account required','Codes never expire','<5ms redirect speed','Safe-Scan link checks'].map(t => (
               <span key={t} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                 <span style={{ color: '#22c55e' }}>✓</span>{t}
               </span>
@@ -138,7 +138,7 @@ export default function NichePageTemplate({
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 16 }}>
             {[
               { icon: '⚡', title: '<5ms Redirect Speed', desc: 'Redis in-memory cache serves redirects in under 5 milliseconds. Zero perceptible delay for users scanning in real environments.' },
-              { icon: '🛡️', title: 'Safe-Scan Protection', desc: 'Every code includes destination preview before redirect. Protects users from QR phishing (quishing) attacks, up 400% since 2023.' },
+              { icon: '🛡️', title: 'Safe-Scan Protection', desc: 'Every dynamic code is checked when you create or edit it: https only, no URL shorteners, Google Safe Browsing lookup. Phishing QR codes keep growing.' },
               { icon: '♾️', title: 'No Expiration Architecture', desc: 'Ad-supported revenue model means zero financial incentive to deactivate your codes. Infrastructure funded by ads, not subscription threats.' },
               { icon: '📐', title: 'SVG Vector Export', desc: 'Download as SVG for infinite-resolution printing. Critical for professional materials where pixelation destroys credibility.' },
             ].map((f, i) => (

@@ -91,7 +91,7 @@ export default function NoSubscriptionPage() {
               ['Dynamic QR Codes', 'Edit destination URL anytime without reprinting. Active forever.'],
               ['Real-time Analytics', 'Scan count, country, device type, hourly activity. All free.'],
               ['SVG Vector Export', 'Infinitely scalable for professional print. No watermark.'],
-              ['Safe-Scan Protection', 'Destination URL verified before every redirect. Anti-phishing built-in.'],
+              ['Safe-Scan link checks', 'Every dynamic code is checked when you create or edit it: https only, no URL shorteners, Google Safe Browsing lookup.'],
               ['Anonymous Dashboard', 'All your QR codes saved in your browser. No account needed.'],
               ['Sub-5ms Redirects', 'Redis-cached infrastructure on dedicated VPS. Zero latency.'],
             ].map(([title, desc]) => (

@@ -29,7 +29,7 @@ const faqSchema = {
     { '@type': 'Question', name: 'Can churches use QR codes for free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Truly Free QR generates unlimited dynamic QR codes at no cost, permanently. There is no trial period and no subscription. This makes it ideal for churches and nonprofits with limited budgets.' } },
     { '@type': 'Question', name: 'What can a church use a QR code for?', acceptedAnswer: { '@type': 'Answer', text: 'Churches use QR codes for donation links, sermon recordings, event registrations, prayer request forms, bulletin supplements, livestream links, and volunteer sign-ups. Dynamic QR codes let you update the destination without reprinting bulletins.' } },
     { '@type': 'Question', name: 'Can I update the QR code link without reprinting?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Dynamic QR codes store a short redirect URL. You can change the destination — from a Christmas service link to Easter, for example — without reprinting any materials. The code on your bulletin stays the same.' } },
-    { '@type': 'Question', name: 'Are QR code donations safe for church members?', acceptedAnswer: { '@type': 'Answer', text: 'Every dynamic QR code on Truly Free QR includes Safe-Scan protection, which checks the destination against Google Safe Browsing before redirecting. This protects your congregation from QR phishing attacks.' } },
+    { '@type': 'Question', name: 'Are QR code donations safe for church members?', acceptedAnswer: { '@type': 'Answer', text: 'Every dynamic QR code on Truly Free QR is checked with Safe-Scan when you create or edit it: https only, no URL shorteners, and a Google Safe Browsing lookup. That catches a flagged donation link before you print it. The check does not repeat on every scan, so test your codes from time to time.' } },
   ],
 }
 
@@ -73,7 +73,7 @@ export default function QRCodeChurchesNonprofits() {
           <div className="aeo-capsule" style={{ background: '#f0f4ff', borderLeft: '4px solid #2563eb', borderRadius: 8, padding: '24px 28px', marginBottom: 32 }}>
             <h2 style={{ fontSize: 18, fontWeight: 700, color: '#181c1e', margin: '0 0 12px' }}>Can churches and nonprofits get free QR codes?</h2>
             <p className="aeo-answer" style={{ fontSize: 15, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>
-              Yes. Truly Free QR generates unlimited dynamic QR codes at no cost, permanently, with no trial period or subscription. Churches use them for donation links, sermon recordings, event registration, and bulletin supplements — updating the destination anytime without reprinting, with Safe-Scan phishing protection built in.
+              Yes. Truly Free QR generates unlimited dynamic QR codes at no cost, permanently, with no trial period or subscription. Churches use them for donation links, sermon recordings, event registration, and bulletin supplements — updating the destination anytime without reprinting, with Safe-Scan link checks built in.
             </p>
           </div>
 
@@ -114,8 +114,8 @@ export default function QRCodeChurchesNonprofits() {
 
           <section style={{ marginBottom: 40 }}>
             <h2 style={h2Style}>Safe-Scan: Why It Matters for Congregation Members</h2>
-            <p style={pStyle}>QR phishing — where attackers replace legitimate QR codes with malicious ones — increased 400% between 2023 and 2025. Churches are a target because QR codes in bulletins carry inherent trust. A congregation member will scan a bulletin QR code without hesitation.</p>
-            <p style={pStyle}>Every dynamic QR code on Truly Free QR includes Safe-Scan protection. Before the redirect completes, the system checks the destination against Google Safe Browsing. If the link has been flagged, scanners see a warning. This protects your congregation even if your donation page were ever compromised.</p>
+            <p style={pStyle}>QR phishing — where attackers replace legitimate QR codes with malicious ones — keeps growing: the Anti-Phishing Working Group counted 716,306 malicious QR codes in the third quarter of 2025 alone. Churches are a target because QR codes in bulletins carry inherent trust. A congregation member will scan a bulletin QR code without hesitation.</p>
+            <p style={pStyle}>Every dynamic QR code on Truly Free QR is checked with Safe-Scan when you create or edit it: https only, no URL shorteners, and a Google Safe Browsing lookup. If the link has been flagged, the code is not created. The check does not repeat on every scan, so keep an eye on the page behind your donation code and test it from time to time.</p>
           </section>
 
           <section style={{ marginBottom: 40 }}>
@@ -147,7 +147,7 @@ export default function QRCodeChurchesNonprofits() {
               { q: 'Can churches use QR codes for free?', a: 'Yes. Truly Free QR generates unlimited dynamic QR codes at no cost, permanently. No trial period, no subscription, no expiration.' },
               { q: 'Can I update the QR code link without reprinting?', a: 'Yes. Dynamic QR codes let you change the destination URL at any time from your dashboard. The printed code never changes.' },
               { q: 'What should a church QR code link to?', a: 'Donation pages, sermon recordings, event registrations, prayer request forms, livestreams, and volunteer sign-ups are the most common uses.' },
-              { q: 'Are the QR codes safe for congregation members to scan?', a: 'Yes. Every code includes Safe-Scan protection — a pre-redirect check against Google Safe Browsing that warns users if the destination has been flagged.' },
+              { q: 'Are the QR codes safe for congregation members to scan?', a: 'Safe-Scan checks every destination when the code is created or edited (https only, no URL shorteners, Google Safe Browsing lookup). It does not re-check on every scan, so test your codes from time to time.' },
             ].map(faq => (
               <div key={faq.q} style={{ marginBottom: 24, paddingBottom: 24, borderBottom: '1px solid rgba(74,85,104,0.08)' }}>
                 <div style={{ fontSize: 15, fontWeight: 700, color: '#181c1e', marginBottom: 8 }}>{faq.q}</div>

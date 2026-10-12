@@ -107,7 +107,7 @@ export default function ArticleQRGeneratorEventsFree() {
           <h2 style={h2Style}>Why Truly Free QR Never Expires (And How We Pay for It)</h2>
           <p style={pStyle}>Events are temporary, but your QR codes don&apos;t have to be. With Truly Free QR, your codes stay active forever. Even if your event ends, you can keep the codes as a portfolio of past events. Link them to photo galleries or recaps. That&apos;s not possible with providers that expire codes after 14 days.</p>
           <p style={pStyle}>My business model (display advertising) works because event organizers create many codes. More codes = more dashboard visits = more ad views. I don&apos;t need to charge you. I just need you to use the tool. It&apos;s a virtuous cycle: you get free codes, I get ad revenue. No one holds anyone hostage.</p>
-          <p style={{ ...pStyle, margin: 0 }}>Safe-Scan protects your attendees. Before redirecting, I check the destination against Google Safe Browsing. If your schedule Google Doc gets hacked (unlikely, but possible), Safe-Scan will warn scanners. For events with thousands of attendees, that&apos;s a valuable safety net. No other free QR tool offers this.</p>
+          <p style={{ ...pStyle, margin: 0 }}>Safe-Scan checks your event link when you create or edit the code: https only, no URL shorteners, and a Google Safe Browsing lookup. That catches a bad link before it reaches your attendees. It does not re-check on every scan, so test your codes before the event and again on the morning.</p>
         </section>
 
         <section style={{ marginBottom: 40 }}>

@@ -135,7 +135,7 @@ export default function ArticleHowToUpdateQRCodeWithoutReprinting() {
           <h2 style={h2Style}>Why Truly Free QR Makes Updating Easy (No Subscription Required)</h2>
           <p style={pStyle}>Competitors like QR Code Generator and Bitly also allow editing, but they charge monthly fees. QR Code Generator&apos;s $9/month plan includes editing. Bitly&apos;s $35/month plan includes editing. If you stop paying, your edit link stops working, and your QR code either stops redirecting or goes to a dead page.</p>
           <p style={pStyle}>Truly Free QR gives you editing for free, forever. Your edit link never expires. You can update your destination ten years from now, and it will still work. Why? Because my revenue comes from ads, not from subscriptions. I don&apos;t need to disable your edit link to force you to pay.</p>
-          <p style={{ ...pStyle, margin: 0 }}>Safe-Scan still applies after updates. Every time someone scans, my server checks the current destination against Google Safe Browsing. If you update to a malicious URL (why would you?), Safe-Scan warns scanners. If your new destination gets hacked later, Safe-Scan protects your customers. The update process doesn&apos;t disable security.</p>
+          <p style={{ ...pStyle, margin: 0 }}>Safe-Scan still applies after updates. Every time you save a new destination, my system runs the same checks again: https only, no URL shorteners, and a Google Safe Browsing lookup. If the new destination fails, the update is refused and your old destination stays in place. The checks run when you save an edit, not on every scan.</p>
         </section>
 
         <section style={{ marginBottom: 40 }}>

@@ -633,7 +633,7 @@ export default function QRGenerator() {
           </div>
           <TabForm activeTab={activeTab} fields={fields} setField={setField} pdfUploading={pdfUploading} onPDFUpload={handlePDFUpload} />
           <div style={{marginTop:12,marginBottom:12}}>
-            <div style={{display:'inline-flex',alignItems:'center',gap:4,background:'rgba(0,88,195,0.08)',color:'#0058c3',padding:'4px 10px',borderRadius:2,fontSize:10,fontWeight:700}}>SAFE-SCAN PROTECTION ACTIVE</div>
+            <div style={{display:'inline-flex',alignItems:'center',gap:4,background:'rgba(0,88,195,0.08)',color:'#0058c3',padding:'4px 10px',borderRadius:2,fontSize:10,fontWeight:700}}>SAFE-SCAN LINK CHECKS ON DYNAMIC CODES</div>
           </div>
           <div style={{background:'#f1f4f6',borderRadius:8,padding:'12px 14px',display:'flex',alignItems:'flex-start',gap:12,marginBottom:12}}>
             <div style={{flex:1}}>

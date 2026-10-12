@@ -187,9 +187,9 @@ export default function ArticleQRCodeStatistics() {
           <h2 style={{ fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" }}>QR Code Security Statistics: The Quishing Threat</h2>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>As QR code adoption has grown, so has their use as a vector for phishing attacks. "Quishing" — QR code phishing — involves replacing legitimate QR codes with malicious ones that redirect users to credential-harvesting pages. The <a href="https://www.ic3.gov/PSA/2022/PSA220118" target="_blank" rel="noopener noreferrer">FBI issued a public warning about this attack vector in 2022</a>, and the threat has grown significantly since.</p>
           {[
-            { stat: "400%", label: "Increase in QR phishing attacks between 2023 and 2025", bg: "rgba(220,38,38,0.04)", border: "rgba(220,38,38,0.12)", color: "#dc2626" },
-            { stat: "51%", label: "Year-over-year increase in quishing attempts in 2023 alone", bg: "rgba(220,38,38,0.04)", border: "rgba(220,38,38,0.12)", color: "#dc2626" },
-            { stat: "89.3%", label: "Of quishing attacks target credential theft specifically", bg: "rgba(220,38,38,0.04)", border: "rgba(220,38,38,0.12)", color: "#dc2626" },
+            { stat: "716,306", label: "Unique malicious QR codes Mimecast detected in Q3 2025 (APWG)", bg: "rgba(220,38,38,0.04)", border: "rgba(220,38,38,0.12)", color: "#dc2626" },
+            { stat: "5x", label: "Kaspersky: phishing emails with malicious QR codes blocked, August to November 2025 (46,969 to 249,723)", bg: "rgba(220,38,38,0.04)", border: "rgba(220,38,38,0.12)", color: "#dc2626" },
+            { stat: "3M+", label: "Unique malicious QR codes Mimecast detected from Q2 2024 through Q3 2025 (APWG)", bg: "rgba(220,38,38,0.04)", border: "rgba(220,38,38,0.12)", color: "#dc2626" },
             { stat: "22%", label: "Of employees click malicious QR codes in simulated phishing tests", bg: "rgba(220,38,38,0.04)", border: "rgba(220,38,38,0.12)", color: "#dc2626" },
           ].map(({ stat, label, bg, border, color }) => (
             <div key={stat} style={{ background: bg, border: `1px solid ${border}`, borderRadius: 8, padding: "14px 18px", marginBottom: 10, display: "flex", alignItems: "center", gap: 16 }}>
@@ -197,7 +197,7 @@ export default function ArticleQRCodeStatistics() {
               <span style={{ fontSize: 13, color: "#4a5568", lineHeight: 1.5 }}>{label}</span>
             </div>
           ))}
-          <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "16px 0 0" }}>Truly Free QR addresses this threat through its Safe-Scan system, which provides users with a destination preview page before the final redirect occurs. The preview checks the destination against the Google Safe Browsing API and allows users to verify the URL before proceeding.</p>
+          <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "16px 0 0" }}>Truly Free QR addresses part of this threat with Safe-Scan, which checks a destination when a code is created or edited (https only, no URL shorteners, Google Safe Browsing lookup) and gives every code a Safe-Scan page that shows where it leads. It is a check at creation time, not a guarantee about what a link does later. The figures above come from the <a href="https://docs.apwg.org/reports/apwg_trends_report_q3_2025.pdf" target="_blank" rel="noopener noreferrer">APWG Phishing Activity Trends Report for Q3 2025</a> (Mimecast data) and a <a href="https://me-en.kaspersky.com/about/press-releases/kaspersky-detected-a-fivefold-surge-in-qr-code-phishing-attacks-in-the-second-half-of-2025" target="_blank" rel="noopener noreferrer">Kaspersky press release</a> from December 2025.</p>
         </section>
 
         <section style={{ marginBottom: 40 }}>

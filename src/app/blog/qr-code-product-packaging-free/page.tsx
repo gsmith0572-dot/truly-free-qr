@@ -94,7 +94,7 @@ export default function ArticleQRProductPackagingFree() {
           <h2 style={h2Style}>Why Truly Free QR Never Expires</h2>
           <p style={pStyle}>Truly Free QR is free because it is ad-supported, not subscription-based. Display ads appear on the generator dashboard — never on the scan redirect, which would look unprofessional on your packaging materials.</p>
           <p style={pStyle}>My costs are minimal. Each dynamic QR code is a tiny database record – a few bytes. Even a million codes cost me less than $10 per month in storage. Scans cost about $0.00001 each. Ad revenue easily covers this. There&apos;s no need to charge you a subscription. The only reason competitors charge is because they have investors and sales teams. I don&apos;t.</p>
-          <p style={{ ...pStyle, margin: 0 }}>Safe-Scan protects your customers. Before redirecting, I check the destination against Google Safe Browsing. If your product landing page ever gets hacked and starts serving malware, Safe-Scan will warn scanners. This protects your brand reputation. If a customer scans your soap box and gets a malware warning, they&apos;ll think your product is compromised. Safe-Scan prevents that.</p>
+          <p style={{ ...pStyle, margin: 0 }}>Safe-Scan checks your product page link when you create or edit the code: https only, no URL shorteners, and a Google Safe Browsing lookup. Packaging stays in circulation for a long time, so the page behind the code matters for years. The check runs at creation and edit time, not on every scan, so review the page behind each code now and then.</p>
         </section>
 
         <section style={{ marginBottom: 40 }}>

@@ -94,7 +94,7 @@ export default function ArticleQRRealEstateFlyerFree() {
           <h2 style={h2Style}>Why Truly Free QR Never Expires</h2>
           <p style={pStyle}>Truly Free QR is free because it is ad-supported, not subscription-based. Display ads appear on the generator and blog pages — never on the scan redirect, which would be unprofessional. The advertising revenue covers hosting costs with no need to charge users.</p>
           <p style={pStyle}>My server costs are low. Each dynamic QR code is a tiny database record. Even with thousands of real estate agents generating hundreds of codes each, my costs are under $100 a month. Ad revenue covers that. There&apos;s no need for a $108 annual fee. Competitors charge that because they have investors and marketing budgets. I don&apos;t.</p>
-          <p style={{ ...pStyle, margin: 0 }}>Safe-Scan protects your potential buyers. Before redirecting, I check the destination against Google Safe Browsing. If your landing page gets hacked (it happens), Safe-Scan will warn scanners. This protects your professional reputation. If a home buyer scans your flyer and gets a malware warning, they&apos;ll think you&apos;re careless. Safe-Scan prevents that.</p>
+          <p style={{ ...pStyle, margin: 0 }}>Safe-Scan checks your listing link. When you create or edit the code, it only accepts https links, rejects URL shorteners and high-risk addresses, and asks Google Safe Browsing whether the page is known for malware or phishing. That catches a bad link before you print a stack of flyers. It does not re-check on every scan, so open your own flyer code now and then, especially before an open house.</p>
         </section>
 
         <section style={{ marginBottom: 40 }}>

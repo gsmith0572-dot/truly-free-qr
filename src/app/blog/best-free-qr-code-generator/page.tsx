@@ -54,7 +54,7 @@ const TOOLS = [
     svgFree: true,
     watermark: false,
     monthlyCost: "$0 forever",
-    notes: "The only generator offering unlimited dynamic QR codes with no expiration and no account required. Monetized by ads, not subscriptions. Safe-Scan phishing protection included.",
+    notes: "The only generator offering unlimited dynamic QR codes with no expiration and no account required. Monetized by ads, not subscriptions. Safe-Scan link checks included.",
   },
   {
     name: "TQRCG",

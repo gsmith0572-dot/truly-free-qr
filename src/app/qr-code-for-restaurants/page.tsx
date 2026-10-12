@@ -56,7 +56,7 @@ const schema = {
         {
           '@type': 'Question',
           name: 'Is it safe for restaurant customers to scan QR codes?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Yes, when generated through Truly Free QR. Every dynamic code includes Safe-Scan protection: the destination URL is verified before redirection to prevent QR phishing (quishing) attacks, which grew 400% between 2023 and 2025. Customers can preview the destination before being redirected.' },
+          acceptedAnswer: { '@type': 'Answer', text: 'Yes, when the code is made with care. Safe-Scan checks the destination when you create or edit a dynamic code (https only, no URL shorteners, Google Safe Browsing lookup). It does not re-check on every scan, so look at your table codes from time to time for stickers placed over them.' },
         },
         {
           '@type': 'Question',
@@ -99,7 +99,7 @@ export default function RestaurantQRPage() {
               ['Account Required', 'No', 'Mandatory'],
               ['Scan Analytics', '✓ Included Free', 'Paid plans only'],
               ['SVG Export', '✓ Free', 'Premium tier'],
-              ['Safe-Scan Protection', '✓ Built-in', 'Not available'],
+              ['Link checks (Safe-Scan)', '✓ Built-in', 'Varies by service'],
               ['Menu Updates', 'Unlimited, Free', 'Subscription required'],
             ].map(([feat, ours, theirs], i) => (
               <div key={i} style={{ display: 'contents' }}>
@@ -134,7 +134,7 @@ export default function RestaurantQRPage() {
             ['Do dynamic QR codes for restaurants expire?', 'On Truly Free QR, never. Most competitors deactivate dynamic QR codes after a 14-day free trial and demand annual subscriptions of $100–$180. We guarantee permanent activation at zero cost. Your printed menus will never become obsolete due to an expired subscription.'],
             ['How do I create a free dynamic QR code for my restaurant menu?', 'Paste your menu URL into Truly Free QR, click Make Dynamic, and download in PNG or SVG. The code points to a short redirect URL on our VPS infrastructure with sub-5ms response time. When your menu changes, update the destination from your dashboard — no reprinting required. The entire process takes under 60 seconds with no account or email needed.'],
             ['Why did my restaurant QR code stop working?', 'Your previous provider deactivated it after a free trial ended. This is standard practice: dynamic codes are used as bait to force subscriptions. On Truly Free QR, codes are permanently active. Our dedicated server with Redis caching ensures your codes resolve in under 5 milliseconds — and they never expire.'],
-            ['Is it safe for customers to scan QR codes at my restaurant?', 'Yes, when generated through Truly Free QR. Every dynamic code includes Safe-Scan protection: the destination URL is verified before redirection to prevent QR phishing (quishing) attacks, which grew 400% between 2023 and 2025.'],
+            ['Is it safe for customers to scan QR codes at my restaurant?', 'Yes, when the code is made with care. Safe-Scan checks the destination when you create or edit a dynamic code (https only, no URL shorteners, Google Safe Browsing lookup). It does not re-check on every scan, so look at your table codes from time to time for stickers placed over them.'],
             ['Can I track how many customers scan my restaurant QR code?', 'Yes. Every dynamic QR code includes real-time analytics: total scan count, country of origin, device type, and hourly activity — all free, no account required.'],
           ].map(([q, a], i) => (
             <div key={i} style={{ borderTop: i === 0 ? 'none' : '1px solid rgba(74,85,104,0.1)', paddingTop: i === 0 ? 0 : 20, marginTop: i === 0 ? 0 : 20 }}>

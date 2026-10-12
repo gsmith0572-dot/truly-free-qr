@@ -31,7 +31,7 @@ export const softwareAppSchema = {
     'Dynamic QR Codes — Never Expire',
     'Real-time Scan Analytics',
     'SVG Vector Export — Print Ready',
-    'Safe-Scan Security — Phishing Protection',
+    'Safe-Scan link checks',
     'No Account Required',
     'No Subscription, Ever',
     'WiFi QR Code Generator',
@@ -88,10 +88,10 @@ export const faqSchema = {
     },
     {
       '@type': 'Question',
-      name: 'What is Safe-Scan and how does it protect users?',
+      name: 'What is Safe-Scan and what does it check?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Safe-Scan is our built-in phishing protection layer. Before redirecting, we verify the destination URL against a threat database. Users can preview the destination before proceeding.',
+        text: 'Safe-Scan is our built-in link check. When you create or edit a dynamic code, we only accept https links, reject URL shorteners and high-risk address patterns, and look the address up on Google Safe Browsing. Every code also has a Safe-Scan page that shows the destination and the results.',
       },
     },
     {
