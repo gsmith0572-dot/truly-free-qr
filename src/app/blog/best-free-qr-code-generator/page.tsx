@@ -179,7 +179,7 @@ export default function ArticleBestFreeQRGenerator() {
                   <span style={{ fontSize: 13, fontWeight: 700, color: "#181c1e" }}>{tool.monthlyCost}</span>
                 </div>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 14 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 8, marginBottom: 14 }}>
                 {[
                   ["Dynamic free", tool.dynamicFree],
                   ["No expiration", tool.noExpiration],

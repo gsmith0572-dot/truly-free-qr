@@ -96,7 +96,7 @@ export default function WiFiQRPage() {
 
         <div style={{ background: '#f1f4f6', borderRadius: 8, padding: 32, marginBottom: 32 }}>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 20px' }}>Compatible With All Devices</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12 }}>
             {[
               ['iPhone (iOS 11+)', 'Native camera app. Point and tap notification. No app download.'],
               ['Android (9+)', 'Default camera app. Instant connection prompt.'],

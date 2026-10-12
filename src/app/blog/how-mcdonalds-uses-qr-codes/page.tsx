@@ -57,7 +57,7 @@ export default function ArticleHowMcDonaldsUsesQRCodes() {
 
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 40 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 40 }}>
           {[
             { stat: "14,000", label: "US locations in first rollout", color: "#ea580c" },
             { stat: "18", label: "Languages supported", color: "#0058c3" },

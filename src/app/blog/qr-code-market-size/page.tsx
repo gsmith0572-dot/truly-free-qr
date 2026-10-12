@@ -78,7 +78,7 @@ export default function ArticleQRCodeMarketSize() {
 
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 40 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 40 }}>
           {[
             { stat: "$16.4B", label: "Market size 2026", color: "#0058c3" },
             { stat: "16.82%", label: "CAGR 2026–2031", color: "#16a34a" },

@@ -32,7 +32,7 @@ const faqSchema = {
 
 const APPLICATIONS = [
   { title: "Mobile Payment QR System", icon: "💳", color: "#16a34a", desc: "Starbucks' in-app QR payment code is one of the most used mobile payment systems in the US, processing millions of transactions daily. The code rotates every 60 seconds for security. Payment and Rewards points apply in a single scan — eliminating the two-step friction of paying then scanning a loyalty card that most competing loyalty programs require." },
-  { title: "Starbucks Rewards Loyalty", icon: "⭐", color: "#ea580c", desc: "The Starbucks Rewards QR code in the app serves dual purpose: payment and loyalty point accumulation. Members scan once and both actions complete simultaneously. Starbucks Rewards has over 34 million active members in the US, with QR-enabled members ordering 3x more frequently than non-members according to Starbucks investor reports." },
+  { title: "Starbucks Rewards Loyalty", icon: "⭐", color: "#ea580c", desc: "The Starbucks Rewards QR code in the app serves dual purpose: payment and loyalty point accumulation. Members scan once and both actions complete simultaneously. Starbucks reported 34.6 million 90-day active Rewards members in the US for the quarter ended December 29, 2024." },
   { title: "AR Kindness Campaign (2023)", icon: "✨", color: "#7c3aed", desc: "Starbucks deployed QR codes across all 16,000 US company-operated stores simultaneously, linking to an AR experience where customers could view and share animated kindness messages overlaid on their environment. One of the largest synchronized retail AR activations ever executed. The campaign generated significant organic social sharing as customers photographed and posted their AR experiences." },
   { title: "Digital Gifting System", icon: "🎁", color: "#0058c3", desc: "Starbucks gift cards are distributed as QR codes through the app and via text or email. Recipients scan the QR at any register for redemption. The system processes millions of gift transactions annually. The digital-first gift model has made Starbucks gift cards among the most purchased gift cards in the US." },
   { title: "Seasonal Cup QR Activations", icon: "☕", color: "#dc2626", desc: "Starbucks' iconic seasonal cups — Holiday Red Cup, Spring cups — carry QR codes linking to seasonal content, limited-time offers, and app download promotions. The seasonal QR activation strategy creates cultural moments where scanning becomes part of the Starbucks holiday ritual for millions of customers." },
@@ -58,11 +58,11 @@ export default function ArticleHowStarbucksUsesQRCodes() {
 
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 40 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 40 }}>
           {[
-            { stat: "34M+", label: "Active Starbucks Rewards members using QR", color: "#16a34a" },
-            { stat: "16,000", label: "Locations in 2023 AR QR campaign", color: "#7c3aed" },
-            { stat: "3x", label: "More frequent orders from QR loyalty members", color: "#ea580c" },
+            { stat: "34.6M", label: "90-day active Starbucks Rewards members in the US, quarter ended Dec 2024", color: "#16a34a" },
+            { stat: "16,000+", label: "US stores in the 2023 AR kindness campaign (as reported)", color: "#7c3aed" },
+            { stat: "2023", label: "Year the in-store AR campaign launched (July 25)", color: "#ea580c" },
           ].map(({ stat, label, color }) => (
             <div key={stat} style={{ background: "#fff", borderRadius: 8, padding: "20px 16px", border: "1px solid rgba(74,85,104,0.09)", textAlign: "center" }}>
               <div style={{ fontSize: 24, fontWeight: 800, color, marginBottom: 6 }}>{stat}</div>
@@ -76,7 +76,7 @@ export default function ArticleHowStarbucksUsesQRCodes() {
           <h2 style={{ fontSize: "clamp(19px,2.5vw,24px)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 16px", color: "#181c1e" }}>Starbucks' QR Strategy: The Loyalty-Payment Flywheel</h2>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>Starbucks' QR code deployment is built around a single flywheel: every scan simultaneously completes a payment and deepens a loyalty relationship. This design decision — combining payment and loyalty into one QR gesture — is the core innovation that makes the Starbucks mobile system one of the most used QR payment platforms in the United States, surpassing Apple Pay and Google Pay in Starbucks locations by transaction volume.</p>
           <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: "0 0 16px" }}>The mechanism is straightforward but strategically profound. A customer who pays with the Starbucks app scans once. That single scan processes payment, awards Stars to their Rewards account, and records the transaction in Starbucks' analytics database. The data from that scan informs personalized offers delivered through the app before the next visit — completing a closed-loop customer intelligence system that begins and ends with a QR code.</p>
-          <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: 0 }}>Starbucks Rewards members order 3 times more frequently than non-members according to company investor reports. The QR code is the mechanism that makes Rewards membership frictionless enough to achieve that engagement delta.</p>
+          <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.75, margin: 0 }}>Starbucks reported 34.6 million 90-day active Rewards members in the US for the quarter ended December 29, 2024, in its <a href="https://www.sec.gov/Archives/edgar/data/829224/000082922425000013/sbux-12292024xexhibit991.htm" target="_blank" rel="noopener noreferrer">first-quarter fiscal 2025 results</a>. The QR code in the app is the mechanism that makes paying and earning points a single step.</p>
         </section>
 
         <section style={{ marginBottom: 40 }}>

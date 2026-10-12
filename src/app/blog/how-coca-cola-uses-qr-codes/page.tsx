@@ -57,7 +57,7 @@ export default function ArticleHowCocaColaUsesQRCodes() {
 
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 40 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 40 }}>
           {[
             { stat: "200", label: "Markets in World Cup QR campaign", color: "#dc2626" },
             { stat: "5+", label: "Creations releases with QR AR experiences", color: "#7c3aed" },

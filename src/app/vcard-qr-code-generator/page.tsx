@@ -79,7 +79,7 @@ export default function VCardQRPage() {
 
         <div style={{ background: '#fff', borderRadius: 8, padding: 32, marginBottom: 32, boxShadow: '0px 8px 24px rgba(24,28,30,0.06)' }}>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 16px' }}>What Information Can a vCard QR Code Store?</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10 }}>
             {['Full Name','Job Title','Company Name','Phone Number','Email Address','Website URL','Physical Address','LinkedIn Profile','WhatsApp Number'].map(field => (
               <div key={field} style={{ background: '#f1f4f6', borderRadius: 4, padding: '8px 12px', fontSize: 12, fontWeight: 500, color: '#4a5568', display: 'flex', alignItems: 'center', gap: 6 }}>
                 <span style={{ color: '#0058c3', fontWeight: 700 }}>✓</span>{field}

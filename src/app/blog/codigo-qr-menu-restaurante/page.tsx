@@ -46,7 +46,7 @@ export default function ArticleCodigoQRMenuRestaurante() {
         </div>
       </div>
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 40 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 40 }}>
           {[
             { stat: "52%", label: "Restaurantes con menú QR en 2026", color: "#ea580c" },
             { stat: "58%", label: "Comensales prefieren menú digital", color: "#0058c3" },

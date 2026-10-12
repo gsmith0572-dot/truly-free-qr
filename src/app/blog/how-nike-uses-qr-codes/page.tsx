@@ -58,7 +58,7 @@ export default function ArticleHowNikeUsesQRCodes() {
 
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "48px 20px 64px" }}>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 40 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 40 }}>
           {[
             { stat: "6", label: "Primary QR code applications in Nike's ecosystem", color: "#0058c3" },
             { stat: "SNKRS", label: "App powered partly by QR physical-to-digital bridge", color: "#7c3aed" },

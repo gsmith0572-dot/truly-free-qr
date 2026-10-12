@@ -90,7 +90,7 @@ export default function RestaurantQRPage() {
 
         <div style={{ background: '#f1f4f6', borderRadius: 8, padding: 32, marginBottom: 32 }}>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 20px' }}>Truly Free QR vs. The Competition</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 1, background: 'rgba(74,85,104,0.1)', borderRadius: 6, overflow: 'hidden' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 1, background: 'rgba(74,85,104,0.1)', borderRadius: 6, overflow: 'hidden' }}>
             {[
               ['Feature', 'Truly Free QR', 'Paid Competitors'],
               ['Dynamic QR Codes', '✓ Free Forever', '14-day trial only'],
