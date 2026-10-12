@@ -13,7 +13,7 @@ Verified against the code and the live service on 2026-10-12. Update this file w
 
 ## Competitors and review sites
 - Verified 2026-10-12 on their own pages: QR Code Generator PRO (qr-code-generator.com) advertises a 14-day free trial of its plans (its page does not state what happens to dynamic codes after the trial). Bitly: Free plan includes 2 QR codes per month and no destination redirects (changing where a code points starts on the paid Core plan); Core $10/month billed annually ($120/yr), Growth $29/month ($348/yr), Premium $199/month ($2,388/yr).
-- George's positioning, which may stay in general terms: many generators give dynamic codes a free trial (often about 14 days) and then ask for a paid plan (often over $100 a year), which hurts whoever already printed the code. Do not add other competitor prices, trial lengths, caps or support policies, and do not turn "often" into "all" or "most".
+- George's positioning (decision 2026-10-12: keep as written; not independently verified): many generators give dynamic codes a free trial of about 14 days and then deactivate them unless you pay for a plan, quoted in this site's copy as roughly $111-$180 a year, which hurts whoever already printed the code. Keep that wording and range where it already appears and do not "fix" it; never attach it to a named company. Do not add other competitor prices, trial lengths, caps or support policies, and do not turn "often" into "all" or "most".
 - Never state what Trustpilot, G2 or any review site says (review counts, quoted words like "blackmail" or "extortion", ratings). Never quote Domain Rating, traffic value, referring domains, organic share or search-volume numbers for any site.
 
 
