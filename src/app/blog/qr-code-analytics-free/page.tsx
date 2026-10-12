@@ -43,11 +43,11 @@ const METRICS = [
 const STEPS = [
   { t: "1. Go to trulyfreeqr.com", d: "No account needed. The generator is ready." },
   { t: "2. Create a dynamic QR code as usual", d: "Paste your destination URL. Select \"Dynamic.\" Customize if desired. Generate the code." },
-  { t: "3. Save your edit link and analytics link", d: "After generation, you'll see two links: \"Edit QR Code\" and \"View Analytics.\" Bookmark both. The analytics link is separate because you might want to share analytics with a team member without giving them edit access." },
+  { t: "3. Find your code in My QR Codes", d: "After you click Make Dynamic (Free), the code appears in My QR Codes (trulyfreeqr.com/dashboard) in the same browser. Open it to see its scans, devices, countries and hours. Use the same browser to edit it later." },
   { t: "4. Download and print your QR code", d: "Use the SVG or PNG as usual. Distribute your flyers, posters, or product packaging." },
   { t: "5. Return to the analytics link regularly", d: "Bookmark it. Check it daily after a new campaign. Watch the scan count grow. Notice patterns. Did scans spike on weekends? Did they drop after a price change?" },
   { t: "6. Use the data to improve your marketing", d: "If one flyer design gets 200 scans and another gets 20, stop using the low-performing design. If scans come mostly from iPhones, test your destination on iPhone more thoroughly. If location data shows scans from a city you didn't target, consider expanding there." },
-  { t: "7. Adjust your destination based on analytics", d: "For example, if you see many scans but low conversion (e.g., people aren't clicking through to your product), change your destination to a more compelling page. Your edit link lets you do this instantly. Then monitor analytics to see if behavior improves." },
+  { t: "7. Adjust your destination based on analytics", d: "For example, if you see many scans but low conversion (e.g., people aren't clicking through to your product), change your destination to a more compelling page. You can edit the code in My QR Codes at any time. Then monitor analytics to see if behavior improves." },
   { t: "8. Export your data (coming soon)", d: "I'm working on CSV export for analytics. For now, you can copy/paste the charts. If you need bulk export, email me." },
 ]
 

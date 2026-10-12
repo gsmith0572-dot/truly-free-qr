@@ -33,7 +33,7 @@ const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: [
-    { "@type": "Question", name: "Do I need to create an account to save my QR codes?", acceptedAnswer: { "@type": "Answer", text: "No. There are no accounts. Instead, you get a unique edit link for each dynamic QR code. Save that link. If you lose it, you can't edit the code, but the code still works. For static codes, there's no edit link because there's nothing to edit." } },
+    { "@type": "Question", name: "Do I need to create an account to save my QR codes?", acceptedAnswer: { "@type": "Answer", text: "No. There are no accounts. When you make a code dynamic it is saved in My QR Codes in the browser you used, and that browser holds the key that lets you edit it. Use the same browser and device for edits and avoid clearing site data. If you lose access, the code still works with its last destination. Static codes have nothing to edit because the data is inside the code." } },
     { "@type": "Question", name: "Can I create QR codes in bulk (e.g., 100 different codes for product labels)?", acceptedAnswer: { "@type": "Answer", text: "Not yet. The current generator creates one code at a time. For bulk generation, you would need to use our API (coming soon) or a desktop tool. For now, if you need 100 codes, you'll have to generate them one by one. It's tedious, but it's free." } },
     { "@type": "Question", name: "What's the maximum number of scans my QR code can handle?", acceptedAnswer: { "@type": "Answer", text: "No limit. I've had codes with over 100,000 scans. My server can handle millions. I don't throttle or charge by volume. If you're a large enterprise, email me and we can discuss dedicated resources. But for normal business use, unlimited is fine." } },
     { "@type": "Question", name: "Can I edit a QR code after printing if I used a static code?", acceptedAnswer: { "@type": "Answer", text: "No. With static codes, the URL is baked into the pattern. The only way to change the destination is to set up a redirect on your own server. For example, if your static code points to yourwebsite.com/oldpage, you can configure your server to redirect /oldpage to /newpage. That requires technical knowledge. Dynamic codes avoid this problem entirely." } },
@@ -50,7 +50,7 @@ const HOWTO_STEPS = [
   { name: "Click Generate QR Code", text: "The code appears instantly with a preview of what a scanner will see." },
   { name: "Test the code with your phone", text: "Scan it with your phone's camera before downloading to confirm it opens the right destination." },
   { name: "Download in the right format", text: "Use SVG or PDF for print; use PNG at 500x500px or larger for web, or 200x200px for email signatures." },
-  { name: "Save your edit link (if dynamic)", text: "Bookmark the unique edit link shown after generating a dynamic code — it's the only way to change the destination later." },
+  { name: "Make the code dynamic (URL or PDF)", text: "Click Make Dynamic (Free) after you enter a URL or PDF. The code is saved in My QR Codes in this browser, and the QR image now carries the short link, so you can change the destination later." },
 ]
 
 const STEPS = [
@@ -61,7 +61,7 @@ const STEPS = [
   { t: "5. Click \"Generate QR Code\"", d: "The code appears instantly. Below it, you'll see a preview of what scanners will see. Double-check that the URL is correct. If you made a typo, change the URL and regenerate. No penalty for regenerating." },
   { t: "6. Test the code with your phone", d: "Before you download, scan the code on your screen. Use your phone's camera (no app needed on modern iPhones and Androids). Does it open the right URL? If yes, proceed. If not, fix the URL and regenerate." },
   { t: "7. Download in the right format", d: "For print (flyers, business cards, packaging): download SVG or PDF. These are vector formats – they scale infinitely without losing quality. For web or social media: download PNG at 500x500 pixels or larger. For email signatures: PNG at 200x200 pixels is fine." },
-  { t: "8. Save your edit link (if dynamic)", d: "After generating a dynamic code, you'll see a unique edit link. Bookmark it. Paste it into a document. This link lets you change the destination later. If you lose it, you cannot edit. The code still works, but you lose flexibility." },
+  { t: "8. Make it dynamic (URL or PDF codes)", d: "After you enter a URL or PDF, click Make Dynamic (Free). The code appears in My QR Codes and the QR image carries a short link, which is what lets you change the destination later. If you clear this browser's site data you lose the ability to edit, but the code still works with its last destination." },
 ]
 
 const howToSchema = {

@@ -94,7 +94,7 @@ export default function ArticleQRWifiPasswordFree() {
           <h2 style={h2Style}>Why Truly Free QR Is the Best Choice for WiFi Codes</h2>
           <p style={pStyle}>Most WiFi QR code generators are either ad-ridden, require accounts, or add watermarks. Some even charge $5 per code. That&apos;s absurd. A WiFi QR code is just a text string encoded as squares. The cost to generate is zero.</p>
           <p style={pStyle}>Truly Free QR gives you clean, watermark-free WiFi QR codes. No account. No email. No &quot;pro&quot; version. And because the code is static, it doesn&apos;t rely on my servers. Once you download the image, you can delete it, I can shut down, and your code still works. That&apos;s true ownership.</p>
-          <p style={{ ...pStyle, margin: 0 }}>The only thing you need to remember: if you change your WiFi password, this QR code becomes useless. You&apos;ll need to generate a new one. That&apos;s a limitation of the WiFi QR standard, not my tool. For businesses that rotate passwords frequently, consider a dynamic QR code that points to a webpage with the current password (updated via edit link). But that requires internet access to scan. The static WiFi code works offline.</p>
+          <p style={{ ...pStyle, margin: 0 }}>The only thing you need to remember: if you change your WiFi password, this QR code becomes useless. You&apos;ll need to generate a new one. That&apos;s a limitation of the WiFi QR standard, not my tool. The static WiFi code works offline.</p>
         </section>
 
         <section style={{ marginBottom: 40 }}>

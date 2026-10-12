@@ -38,7 +38,7 @@ const STEPS = [
   { t: "3. Create a new dynamic QR code for each destination", d: "Paste the URL into my generator. Choose dynamic. Customize colors and logo if you want. Click generate. Download the QR code as SVG." },
   { t: "4. Test the new QR code", d: "Scan it with your phone. Make sure it goes to the right place. Compare it to your old Bitly code. If the destination is the same, the user experience is identical." },
   { t: "5. Replace the QR code on your printed materials", d: "If your materials are already printed with Bitly codes, you have two choices: keep paying Bitly, or reprint. This is why the expiration trap is so evil. For future materials, use Truly Free QR from the start." },
-  { t: "6. Save the edit links for each code", d: "Bookmark them. This is how you update destinations later. In Bitly, you log into your account to edit. In my system, you use a unique link. No account needed." },
+  { t: "6. Find your codes in My QR Codes", d: "After you click Make Dynamic (Free), each code appears in My QR Codes in the same browser. That is where you update destinations later, with no account. Use the same browser for edits and avoid clearing its site data." },
   { t: "7. Monitor analytics on my dashboard", d: "Each code has its own analytics page. You'll see scan counts, timestamps, device types, and location. Bitly's analytics are similar but more polished. Mine are functional and free." },
   { t: "8. Cancel your Bitly subscription", d: "Once you've migrated, log into Bitly and cancel. Save that $420 a year. Buy something useful for your business – like inventory or advertising." },
 ]
