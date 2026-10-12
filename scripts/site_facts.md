@@ -18,7 +18,8 @@ Verified against the code and the live service on 2026-10-12. Update this file w
 
 
 ## Author
-- George Smith, Founder, Klickify Agency. No other credentials, years of experience, clients or anecdotes may be attributed to him.
+- George Smith, Founder, Klickify Agency. No other credentials, years of experience, clients or anecdotes may be attributed to him, except the founder story in the next line.
+- Founder story (confirmed true by George on 2026-10-12, published on /about): he built Truly Free QR after watching small business owners get burned by generators that deactivate codes after a trial unless you pay over $100 a year; he had himself printed menus, flyers and packaging, the code stopped working, and the provider wanted an annual subscription to turn it back on. It may be retold in his voice but not embellished: no restaurant of his own, no named clients, no counts, no dates.
 
 ## What the site is
 - A free QR code generator. Free because it is ad-supported (Google AdSense, which uses cookies). No subscription, no account, no signup, no email required.
