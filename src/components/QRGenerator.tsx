@@ -659,7 +659,7 @@ export default function QRGenerator() {
                   <div style={{fontSize:10,fontWeight:700,color:'#0058c3',letterSpacing:'0.06em',textTransform:'uppercase',marginBottom:2}}>Dynamic QR Active — Never Expires</div>
                   <div style={{fontSize:11,color:'#4a5568',fontFamily:'monospace',wordBreak:'break-all'}}>{redirectUrl}</div>
                 </div>
-                <a href="/dashboard" style={{background:'#0058c3',color:'#fff',borderRadius:4,padding:'6px 12px',fontSize:11,fontWeight:600,textDecoration:'none',whiteSpace:'nowrap',flexShrink:0}}>View All</a>
+                <Link href="/dashboard" style={{background:'#0058c3',color:'#fff',borderRadius:4,padding:'6px 12px',fontSize:11,fontWeight:600,textDecoration:'none',whiteSpace:'nowrap',flexShrink:0}}>View All</Link>
               </div>
               {safeScanUrl && (
                 <div style={{background:'rgba(22,163,74,0.06)',border:'1px solid rgba(22,163,74,0.2)',borderRadius:6,padding:'8px 12px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:8,flexWrap:'wrap'}}>
@@ -683,7 +683,7 @@ export default function QRGenerator() {
                 <div style={{fontSize:11,color:'#718096',marginTop:2}}>Sample data create a dynamic QR to see your real analytics.</div>
               </div>
               <div style={{display:'flex',gap:8,alignItems:'center'}}>
-                <a href="/dashboard" style={{fontSize:11,fontWeight:600,color:'#0058c3',textDecoration:'none',background:'rgba(0,88,195,0.07)',padding:'3px 8px',borderRadius:2,border:'1px solid rgba(0,88,195,0.2)'}}>My Dashboard</a>
+                <Link href="/dashboard" style={{fontSize:11,fontWeight:600,color:'#0058c3',textDecoration:'none',background:'rgba(0,88,195,0.07)',padding:'3px 8px',borderRadius:2,border:'1px solid rgba(0,88,195,0.2)'}}>My Dashboard</Link>
                 <div style={{display:'inline-flex',alignItems:'center',gap:5,background:'#f1f4f6',border:'1px solid rgba(74,85,104,0.15)',borderRadius:2,padding:'3px 8px',fontSize:10,fontWeight:700,color:'#718096'}}>
                   <div style={{width:6,height:6,borderRadius:'50%',background:'#22c55e'}} />LIVE
                 </div>
