@@ -1,6 +1,6 @@
 # CONTEXTO PARA NUEVO CHAT — TrulyFreeQR / Google Review Stands (Session 018 cerrada por saturación de contexto 95%, 2026-08-22)
 
-Proyecto: ~/truly-free-qr (repo gsmith0572-dot/truly-free-qr, deploy Vercel → trulyfreeqr.com). VPS: root@187.77.18.151 (ssh -i ~/.ssh/id_ed25519), servicio trulyfreeqr-redirect corre /opt/trulyfreeqr/redirect/index.js vía systemd, Postgres+Redis locales. Admin panel /admin: login MamboVault / Sasha0572!.
+Proyecto: ~/truly-free-qr (repo gsmith0572-dot/truly-free-qr, deploy Vercel → trulyfreeqr.com). VPS: root@187.77.18.151 (ssh -i ~/.ssh/id_ed25519), servicio trulyfreeqr-redirect corre /opt/trulyfreeqr/redirect/index.js vía systemd, Postgres+Redis locales. Admin panel /admin: credenciales en el gestor de contraseñas de George (nunca en el repo).
 
 ## 1) Groq fix — CERRADO, sin acción
 QR/pdf-tools/mortgage-calculator migrados a openai/gpt-oss-120b, probados en vivo, pusheados. Próximo autopost viernes 2026-08-28, 14:00/14:15/14:30 UTC escalonado.
