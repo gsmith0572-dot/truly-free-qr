@@ -10,7 +10,7 @@
     "import Link from 'next/link'",
     "import AuthorBox from '@/components/blog/AuthorBox'"
   ],
-  "prompt_extra": "- Plain JSX, no wrapper component. Include <AuthorBox /> with NO props near the end.\n- AuthorBox accepts no props at all.",
+  "prompt_extra": "- Plain JSX, no wrapper component. Include <AuthorBox /> with NO props near the end.\n- AuthorBox accepts no props at all.\n- Facts about this site (do not contradict): QR codes are NOT all static. URL and PDF codes can be made dynamic for free and their destination is edited later in My QR Codes (/dashboard) without reprinting; dynamic codes do not expire. WiFi, vCard, Email and Text codes are always static.\n- The site has ONE generator. It has no scheduled updates, no API, no accounts and no edit links.",
   "default_card": {
     "category": "HOW-TO GUIDE",
     "categoryColor": "#16a34a",

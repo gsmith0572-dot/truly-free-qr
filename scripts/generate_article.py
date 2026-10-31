@@ -76,7 +76,7 @@ STRUCTURE
 - export default function Page() returning the full JSX.
 - 5-7 practical sections with step-by-step instructions, then a FAQ with 4 questions.
 - 1,400-1,900 words of real content: every one of the 5-7 sections needs at least 180 words of prose
-  (concrete steps, numbers, examples). An article under 1,100 words is rejected.
+  (concrete steps and practical advice). An article under 1,100 words is rejected.
 
 HARD RULES — breaking any of these makes the article unusable
 1. INTERNAL LINKS: you may only link to these paths, copied exactly. Do not invent any other
@@ -97,6 +97,11 @@ HARD RULES — breaking any of these makes the article unusable
 5. JSX SAFETY: never write a bare < or > inside visible text. Write "less than" and
    "greater than" in words. Never use a backtick template literal inside JSX text.
 6. Do not mention "Google AdSense" — say "ad-supported" if needed.
+7. NO INVENTED SPECIFICS: do not state technical specifications (QR versions, module counts,
+   millimetre sizes, DPI, character limits, standards' numeric values), statistics or prices
+   unless you are certain they are exactly correct. When unsure, give general guidance
+   ("test-scan at the real size") instead of a number. Never call a scenario a "real-world
+   example" or "case study": write "for example, imagine..." for hypotheticals.
 {extra}
 Write as {AUTHOR_NAME}, practical and direct, first person."""
 
