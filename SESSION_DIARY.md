@@ -1,5 +1,22 @@
 # SESSION_DIARY — TrulyFreeQR / Google Review Stands
 
+## 2026-10-31 — Sesión nube (claude.ai/code) — artículo del viernes
+
+**VERIFICADO:** run 41246974975 (main, 2fbf6ba) = failure. No fue el token (ya OK) ni las 1100 palabras:
+el fact-check rechazó los 3 temas tras 4 pasadas (NFC vs QR: "QR siempre estático"; QR vs barcode:
+versiones/módulos/mm inventados; printing tips). Groq gpt-oss-20b inventa specs y no recibe site_facts.
+
+**HECHO (rama `fix/friday-article-no-invented-specs`, NO en main):** prompt sin "numbers" + regla 7
+(no specs/estadísticas/"real-world example" inventados) + datos compactos del sitio en prompt_extra
+(site_facts.md completo no cabe: Groq TPM=8000). Dry run 41250956994 lanzado.
+
+**PENDIENTE:**
+1. Resultado dry run 41250956994. Si pasa → pedir "go" a George para merge a main.
+2. Backup sábado 2026-11-01 14:15 UTC corre sobre main SIN el fix → probablemente falla otra vez.
+3. ⚠️ HANDOFF_NEW_CHAT.md (repo público) contiene credenciales del /admin en texto plano → George debe
+   decidir: rotar contraseña + quitar del archivo (no se tocó).
+4. Pendientes del empalme VPS siguen (sync-conflict SOP, memoria token_savers) — requieren VPS/Mac.
+
 ## 2026-08-22 — Session 018 (continuación de Session 017)
 
 **Groq fix:** cerrado (Session 016/017), sin acción pendiente.
