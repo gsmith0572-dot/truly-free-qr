@@ -10,6 +10,11 @@ versiones/módulos/mm inventados; printing tips). Groq gpt-oss-20b inventa specs
 (no specs/estadísticas/"real-world example" inventados) + datos compactos del sitio en prompt_extra
 (site_facts.md completo no cabe: Groq TPM=8000). Dry run 41250956994 lanzado.
 
+**ACTUALIZACIÓN 23:30 UTC:** dry run 41250956994 = success (printing tips pasó, build OK). Falta
+"go" para merge a main. Credenciales /admin quitadas de HANDOFF_NEW_CHAT.md en main (5424e5b); rotar.
+VPS: claude-rc caído desde 22:26 UTC tras cambio a bypassPermissions (hipótesis: root). Ver
+EMPALME_2026-10-31_NUBE.md.
+
 **PENDIENTE:**
 1. Resultado dry run 41250956994. Si pasa → pedir "go" a George para merge a main.
 2. Backup sábado 2026-11-01 14:15 UTC corre sobre main SIN el fix → probablemente falla otra vez.
