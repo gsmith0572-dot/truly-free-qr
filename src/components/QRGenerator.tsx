@@ -680,13 +680,10 @@ export default function QRGenerator() {
             <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',marginBottom:14,flexWrap:'wrap',gap:8}}>
               <div>
                 <div style={{fontSize:15,fontWeight:700,color:'#181c1e',letterSpacing:'-0.02em'}}>Real-time Analytics</div>
-                <div style={{fontSize:11,color:'#718096',marginTop:2}}>Sample data create a dynamic QR to see your real analytics.</div>
+                <div style={{fontSize:11,color:'#718096',marginTop:2}}>Sample data. Create a dynamic QR to see your real analytics.</div>
               </div>
               <div style={{display:'flex',gap:8,alignItems:'center'}}>
                 <Link href="/dashboard" style={{fontSize:11,fontWeight:600,color:'#0058c3',textDecoration:'none',background:'rgba(0,88,195,0.07)',padding:'3px 8px',borderRadius:2,border:'1px solid rgba(0,88,195,0.2)'}}>My Dashboard</Link>
-                <div style={{display:'inline-flex',alignItems:'center',gap:5,background:'#f1f4f6',border:'1px solid rgba(74,85,104,0.15)',borderRadius:2,padding:'3px 8px',fontSize:10,fontWeight:700,color:'#718096'}}>
-                  <div style={{width:6,height:6,borderRadius:'50%',background:'#22c55e'}} />LIVE
-                </div>
               </div>
             </div>
             <div style={{display:'grid',gridTemplateColumns:isMobile?'1fr':'1fr 1fr 1fr',gap:10}}>

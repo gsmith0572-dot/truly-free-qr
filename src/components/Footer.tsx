@@ -21,7 +21,7 @@ export default function Footer() {
         <a href="https://fazier.com/launches/trulyfreeqr.com" target="_blank" rel="noopener noreferrer"><img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=featured&theme=dark" width={150} alt="Featured on Fazier" /></a>
       </div>
       <div style={{ fontSize: 11, color: '#718096' }}>
-        © 2026 Truly Free QR · Built by <a href="https://klickifyagency.com" target="_blank" rel="noopener noreferrer" style={{ color: '#0058c3', fontWeight: 600, textDecoration: 'none' }}>Klickify Agency</a>
+        © 2026 Truly Free QR · Built by <a href="https://klickifyagency.com" target="_blank" rel="noopener noreferrer" style={{ color: '#0058c3', fontWeight: 600, textDecoration: 'none' }}>Klickify Agency</a> · Powered by <a href="https://vacaysmith.com" target="_blank" rel="noopener" style={{ color: '#0058c3', fontWeight: 600, textDecoration: 'none' }}>VacaySmith</a>
       </div>
     </footer>
   )

@@ -51,7 +51,7 @@ const schema = {
         {
           '@type': 'Question',
           name: 'Are my QR codes saved without an account?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Yes. When you create a dynamic QR code on Truly Free QR, it is saved to your browser dashboard automatically using localStorage. Your codes appear every time you return to the site on the same browser. No account, no email, no server-side profile — your data stays in your browser.' },
+          acceptedAnswer: { '@type': 'Answer', text: 'Yes. When you create a dynamic QR code on Truly Free QR, it is saved to your browser dashboard automatically using localStorage. Your codes appear every time you return to the site on the same browser. No account, no email, no server-side profile — your dashboard stays in your browser.' },
         },
         {
           '@type': 'Question',
@@ -73,7 +73,7 @@ export default function NoLoginQRPage() {
         <div style={{ marginBottom: 48 }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(0,88,195,0.07)', border: '1px solid rgba(0,88,195,0.2)', borderRadius: 2, padding: '4px 10px', fontSize: 11, fontWeight: 700, color: '#0058c3', letterSpacing: '0.06em', marginBottom: 16 }}>✦ NO LOGIN — NO EMAIL — NO REGISTRATION</div>
           <h1 style={{ fontSize: 36, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', lineHeight: 1.2, margin: '0 0 16px' }}>QR Code Generator Without Login — Instant Download, No Email Required</h1>
-          <p style={{ fontSize: 16, color: '#4a5568', lineHeight: 1.7, margin: '0 0 24px' }}>Generate and download QR codes in seconds — no account, no email address, no registration of any kind. Static and dynamic codes free forever. Your codes are saved privately in your browser — no server-side profile, no data collection.</p>
+          <p style={{ fontSize: 16, color: '#4a5568', lineHeight: 1.7, margin: '0 0 24px' }}>Generate and download QR codes in seconds — no account, no email address, no registration of any kind. Static and dynamic codes free forever. Your codes are saved privately in your browser — no server-side profile, no email collection.</p>
           <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'linear-gradient(135deg,#0058c3,#0070f3)', color: '#fff', borderRadius: 4, padding: '14px 28px', fontSize: 15, fontWeight: 700, textDecoration: 'none' }}>Generate QR Code — No Login Required →</Link>
         </div>
 
@@ -81,7 +81,7 @@ export default function NoLoginQRPage() {
           <h2 style={{ fontSize: 20, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 16px' }}>Why Most QR Generators Force You to Register</h2>
           <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>Registration requirements in free tools are almost never about technical necessity — they are lead generation mechanisms. Your email address becomes a marketing asset used to send subscription upsells, promotional emails, and retargeting campaigns.</p>
           <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: '0 0 16px' }}>Truly Free QR uses a fundamentally different architecture. Your QR codes are stored in your browser localStorage — a private, client-side database that never leaves your device. Your dashboard is yours, with zero server-side profile and zero email collection.</p>
-          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>The only data we process is anonymous scan event data for your analytics — country, device type, and timestamp. No personally identifiable information, no email, no tracking across sessions.</p>
+          <p style={{ fontSize: 14, color: '#4a5568', lineHeight: 1.7, margin: 0 }}>A dynamic code needs its destination URL on our server to run the redirect. For your scan analytics we record country, device type, and timestamp. For our own site traffic we use Google Analytics, described in our Privacy Policy. No email and no account either way.</p>
         </div>
 
         <div style={{ background: '#f1f4f6', borderRadius: 8, padding: 32, marginBottom: 32 }}>
@@ -91,7 +91,7 @@ export default function NoLoginQRPage() {
               ['Browser localStorage', 'Your QR codes and session data stored locally. No server-side account. No email required.'],
               ['Anonymous Session Token', 'A random token generated in your browser links your codes to your dashboard — privately.'],
               ['Permanent Dynamic Codes', 'Your dynamic codes live on our VPS infrastructure permanently — independent of your browser.'],
-              ['No Cookie Tracking', 'We do not use cross-session tracking cookies. Your usage is private between visits.'],
+              ['No Login Cookies', 'We set no login or account cookies. Site analytics and ads use cookies, as explained in our Privacy Policy.'],
             ].map(([title, desc]) => (
               <div key={title} style={{ background: '#fff', borderRadius: 8, padding: 16 }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: '#0058c3', marginBottom: 6 }}>✓ {title}</div>

@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | Truly Free QR',
-  description: 'Truly Free QR privacy policy. No account required, no email collected, no personal data stored on our servers. Your QR codes are saved privately in your browser.',
+  description: 'Truly Free QR privacy policy. No account required, no email collected. Your QR codes are saved privately in your browser.',
   alternates: { canonical: 'https://trulyfreeqr.com/privacy-policy' },
   robots: { index: true, follow: true },
 }
@@ -16,7 +16,7 @@ export default function PrivacyPolicy() {
         <div style={{ marginBottom: 40 }}>
           <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#718096', marginBottom: 12 }}>Legal Document</div>
           <h1 style={{ fontSize: 32, fontWeight: 700, color: '#181c1e', letterSpacing: '-0.02em', margin: '0 0 12px' }}>Privacy Policy</h1>
-          <p style={{ fontSize: 13, color: '#718096', margin: 0 }}>Truly Free QR — Precision Instruments · Last updated: April 9, 2026</p>
+          <p style={{ fontSize: 13, color: '#718096', margin: 0 }}>Truly Free QR — Precision Instruments · Last updated: November 6, 2026</p>
         </div>
 
         <div style={{ background: 'rgba(0,88,195,0.06)', border: '1px solid rgba(0,88,195,0.2)', borderRadius: 8, padding: '16px 20px', marginBottom: 40 }}>
@@ -31,7 +31,7 @@ export default function PrivacyPolicy() {
           },
           {
             label: '2. Data We Do Not Collect',
-            content: `We do not collect your name, email address, phone number, or any personally identifiable information. We do not require account registration of any kind. We do not store passwords. We do not sell your data to third parties. We do not use your data for advertising targeting beyond what Google AdSense automatically manages through its own systems.`
+            content: `We do not ask for your name, email address, or phone number to create or use QR codes. We do not require account registration of any kind. We do not store passwords. We do not sell your data to third parties. We do not use your data for advertising targeting beyond what Google AdSense automatically manages through its own systems.`
           },
           {
             label: '3. No-Account Architecture',
@@ -39,11 +39,11 @@ export default function PrivacyPolicy() {
           },
           {
             label: '4. Dynamic QR Code Data',
-            content: `When you create a dynamic QR code, the following information is stored on our servers to enable the redirect service: a randomly generated short ID (e.g., "ab3k9"), your destination URL, the date of creation, an optional project name and category you provide, and an anonymous session token generated in your browser. This data is stored in a PostgreSQL database on our dedicated VPS server. No name, email, or personally identifiable information is associated with this data.`
+            content: `When you create a dynamic QR code, the following information is stored on our servers to enable the redirect service: a randomly generated short ID (e.g., "ab3k9"), your destination URL, the date of creation, an optional project name and category you provide, and an anonymous session token generated in your browser. This data is stored in a PostgreSQL database on our dedicated VPS server. No name or email is associated with this data. If you hire us to manage a code for you, we keep the phone number you give us with that code.`
           },
           {
             label: '5. Scan Analytics and IP Anonymization',
-            content: `When a user scans your dynamic QR code, our redirect server temporarily processes the following data to generate analytics: the IP address of the scanner (used only to determine approximate country and city), the user-agent string (used to determine device type and operating system), and the timestamp of the scan. IP addresses are hashed using SHA-256 with a rotating salt within 60 seconds of processing and are never stored in raw form. We cannot reconstruct original IP addresses from stored data. Country and city data is derived from the IP before anonymization and stored as geographic metadata only.`
+            content: `When a user scans your dynamic QR code, our redirect server temporarily processes the following data to generate analytics: the IP address of the scanner (used only to determine approximate country), the user-agent string (used to determine device type and operating system), and the timestamp of the scan. IP addresses are hashed using SHA-256 with a secret salt when the scan is processed and are never stored in raw form in our analytics database. We do not try to reconstruct original IP addresses from stored data. Our web server also keeps standard access logs, which include raw IP addresses, for about two weeks for security and troubleshooting. Country data is derived from the IP before anonymization and stored as geographic metadata only.`
           },
           {
             label: '6. Google AdSense and Third-Party Cookies',
@@ -55,7 +55,7 @@ export default function PrivacyPolicy() {
           },
           {
             label: '8. Cookies We Set',
-            content: `Truly Free QR sets the following first-party browser storage: localStorage entries for your QR code dashboard, session token, and last-generated code state. These are not cookies transmitted to our servers — they are client-side only. We do not set tracking cookies. Third-party cookies from Google AdSense may be set in accordance with Google's own cookie policy.`
+            content: `Truly Free QR sets the following first-party browser storage: localStorage entries for your QR code dashboard, session token, and last-generated code state. These are not cookies transmitted to our servers — they are client-side only. We also use Google Analytics and Google Tag Manager to understand how visitors use this site. They record pages viewed, approximate location, device and browser type, and the referring site, and they set first-party cookies such as _ga. You can opt out at https://tools.google.com/dlpage/gaoptout. We use Cloudflare Web Analytics to measure page performance; it does not set cookies. None of these services receive your destination URLs or QR content. Third-party cookies from Google AdSense may be set in accordance with Google's own cookie policy.`
           },
           {
             label: '9. Data Retention',
@@ -67,7 +67,7 @@ export default function PrivacyPolicy() {
           },
           {
             label: '11. Security',
-            content: `All data transmission between your browser and our servers is encrypted via HTTPS. Our redirect infrastructure operates on a dedicated VPS with firewall rules restricting unauthorized access. Redis cache entries use time-limited expiration. PostgreSQL access is restricted to application-level credentials with minimum required privileges. IP addresses are hashed immediately upon processing — raw IPs are never written to persistent storage.`
+            content: `All data transmission between your browser and our servers is encrypted via HTTPS. Our redirect infrastructure operates on a dedicated VPS with firewall rules restricting unauthorized access. Redis cache entries use time-limited expiration. PostgreSQL access is restricted to application-level credentials with minimum required privileges. IP addresses are hashed before scan events are stored. Raw IPs appear only in the web server access logs described in section 5.`
           },
           {
             label: '12. Children',
